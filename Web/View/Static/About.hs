@@ -9,7 +9,7 @@ instance View AboutView where
     [hsx|
       <h1>About CO2 Database</h1>
       <p>What are the CO<sub>2</sub> emissions of things.</p> 
-      <p>How can we as a sociaty fight the climate crisis if we hardly know the opponent (CO<sub>2</sub>). 
+      <p>How can we as a society fight the climate crisis if we hardly know the opponent (CO<sub>2</sub>). 
         With the CO<sub>2</sub> database I want to show the different CO<sub>2</sub> emitters and their emissions. 
         Everyone should be able to know and understand what causes how much CO<sub>2</sub>.</p>
 
