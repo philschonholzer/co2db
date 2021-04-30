@@ -15,4 +15,11 @@ CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     title TEXT NOT NULL
 );
+CREATE TABLE users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    email TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    failed_login_attempts INT DEFAULT 0 NOT NULL
+);
 ALTER TABLE co2_emitters ADD CONSTRAINT co2_emitters_ref_category_id FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE NO ACTION;

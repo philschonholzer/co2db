@@ -20,6 +20,7 @@ INSERT INTO public.categories (id, title) VALUES ('64ac4651-062b-47db-ae5f-9929d
 INSERT INTO public.categories (id, title) VALUES ('d20e8aa8-384e-405a-90a2-bf30554bf9bb', 'Transportation');
 INSERT INTO public.categories (id, title) VALUES ('b0871cb0-3e77-4b90-812e-006106af8a84', 'Electricity');
 INSERT INTO public.categories (id, title) VALUES ('092a5cd4-1f4f-4db4-b79c-918dc7fdca2d', 'Buildings');
+INSERT INTO public.categories (id, title) VALUES ('f26219b3-a8b9-4f94-93aa-161248f304d0', 'Industrie');
 
 
 ALTER TABLE public.categories ENABLE TRIGGER ALL;

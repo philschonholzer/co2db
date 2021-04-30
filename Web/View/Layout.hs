@@ -50,6 +50,9 @@ defaultLayout inner =
             <li class="ml-auto nav-item">
               <a class="nav-link" href="/about" tabindex="-1">About</a>
             </li>
+            <li class="ml-auto nav-item">
+              {loginLogoutButton}
+            </li>
           </ul>
         </div>
       </div>
@@ -68,6 +71,22 @@ defaultLayout inner =
   </footer>
 </body>
 |]
+  where
+    loginLogoutButton :: Html
+    loginLogoutButton =
+        case fromFrozenContext @(Maybe User) of
+            Just user -> [hsx|
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {get #email currentUser}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href={EditUserAction (get #id currentUser) }>Edit User</a>
+                  <a class="js-delete js-delete-no-confirm dropdown-item" href={DeleteSessionAction}>Logout</a>
+                </div>
+              </li>
+              |]
+            Nothing -> [hsx|<a class="nav-link" href={NewSessionAction}>Login</a>|]
 
 stylesheets :: Html
 stylesheets =
