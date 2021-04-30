@@ -1,10 +1,12 @@
 module Web.View.Categories.Edit where
+
 import Web.View.Prelude
 
-data EditView = EditView { category :: Category }
+data EditView = EditView {category :: Category}
 
 instance View EditView where
-    html EditView { .. } = [hsx|
+  html EditView {..} =
+    [hsx|
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={CategoriesAction}>Categories</a></li>
@@ -16,7 +18,10 @@ instance View EditView where
     |]
 
 renderForm :: Category -> Html
-renderForm category = formFor category [hsx|
+renderForm category =
+  formFor
+    category
+    [hsx|
     {(textField #title)}
     {submitButton}
 |]

@@ -32,7 +32,7 @@ instance Controller Co2EmittersController where
         Right co2Emitter -> do
           co2Emitter <- co2Emitter |> updateRecord
           setSuccessMessage "Co2Emitter updated"
-          redirectTo EditCo2EmitterAction {..}
+          redirectTo EditCo2EmitterAction {..} 
   action CreateCo2EmitterAction = do
     let co2Emitter = newRecord @Co2Emitter
     co2Emitter

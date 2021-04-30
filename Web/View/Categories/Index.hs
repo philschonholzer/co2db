@@ -1,10 +1,12 @@
 module Web.View.Categories.Index where
+
 import Web.View.Prelude
 
-data IndexView = IndexView { categories :: [Category] }
+data IndexView = IndexView {categories :: [Category]}
 
 instance View IndexView where
-    html IndexView { .. } = [hsx|
+  html IndexView {..} =
+    [hsx|
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active"><a href={CategoriesAction}>Categories</a></li>
@@ -26,8 +28,8 @@ instance View IndexView where
         </div>
     |]
 
-
-renderCategory category = [hsx|
+renderCategory category =
+  [hsx|
     <tr>
         <td>{category}</td>
         <td><a href={ShowCategoryAction (get #id category)}>Show</a></td>

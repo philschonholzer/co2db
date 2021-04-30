@@ -15,7 +15,7 @@ let
             url
         ];
         otherDeps = p: with p; [
-            # Native dependencies, e.g. imagemagick
+            ormolu
         ];
         projectPath = ./.;
     };
