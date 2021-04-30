@@ -11,6 +11,7 @@ instance Controller Co2EmittersController where
     co2Emitters <- query @Co2Emitter |> fetch
     render IndexView {..}
   action NewCo2EmitterAction = do
+    ensureIsUser
     let co2Emitter = newRecord
     categories <- query @Category |> fetch
     render NewView {..}
@@ -18,10 +19,12 @@ instance Controller Co2EmittersController where
     co2Emitter <- fetch co2EmitterId
     render ShowView {..}
   action EditCo2EmitterAction {co2EmitterId} = do
+    ensureIsUser
     co2Emitter <- fetch co2EmitterId
     categories <- query @Category |> fetch
     render EditView {..}
   action UpdateCo2EmitterAction {co2EmitterId} = do
+    ensureIsUser
     co2Emitter <- fetch co2EmitterId
     co2Emitter
       |> buildCo2Emitter
@@ -34,6 +37,7 @@ instance Controller Co2EmittersController where
           setSuccessMessage "Co2Emitter updated"
           redirectTo EditCo2EmitterAction {..} 
   action CreateCo2EmitterAction = do
+    ensureIsUser
     let co2Emitter = newRecord @Co2Emitter
     co2Emitter
       |> buildCo2Emitter
@@ -46,6 +50,7 @@ instance Controller Co2EmittersController where
           setSuccessMessage "Co2Emitter created"
           redirectTo Co2EmittersAction
   action DeleteCo2EmitterAction {co2EmitterId} = do
+    ensureIsUser
     co2Emitter <- fetch co2EmitterId
     deleteRecord co2Emitter
     setSuccessMessage "Co2Emitter deleted"

@@ -12,6 +12,7 @@ instance View (NewView User) where
                     <div style="max-width: 400px" class="mx-auto mb-5">
                         <h5>Please login</h5>
                         {renderForm user}
+                        <p style="margin-top: 2em;" >Not registered? <a href={NewUserAction}>Sign up</a></p> 
                     </div>
                 </div>
             </div>

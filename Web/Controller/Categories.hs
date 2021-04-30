@@ -7,6 +7,8 @@ import Web.View.Categories.Edit
 import Web.View.Categories.Show
 
 instance Controller CategoriesController where
+    beforeAction = ensureIsUser
+    
     action CategoriesAction = do
         categories <- query @Category |> fetch
         render IndexView { .. }

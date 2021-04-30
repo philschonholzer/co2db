@@ -86,7 +86,14 @@ defaultLayout inner =
                 </div>
               </li>
               |]
-            Nothing -> [hsx|<a class="nav-link" href={NewSessionAction}>Login</a>|]
+            Nothing -> [hsx|
+              <li class="ml-auto nav-item">
+                <a class="nav-link" href={NewSessionAction}>Login</a>
+              </li>
+              <li class="ml-auto nav-item">
+                <a class="nav-link" href={NewUserAction}>Sign up</a>
+              </li>
+            |]
 
 stylesheets :: Html
 stylesheets =
