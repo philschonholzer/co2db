@@ -28,7 +28,8 @@ instance Controller UsersController where
         accessDeniedUnless (get #id user == currentUserId)
         user
             |> buildUser
-            |> ifValid \case
+            |> validateIsUnique #email
+            >>= ifValid \case
                 Left user -> render EditView { .. }
                 Right user -> do
                     hashed <- hashPassword (get #passwordHash user)
@@ -42,7 +43,8 @@ instance Controller UsersController where
         let user = newRecord @User
         user
           |> buildUser
-          |> ifValid \case
+          |> validateIsUnique #email
+          >>= ifValid \case
             Left user -> render NewView { .. } 
             Right user -> do
               hashed <- hashPassword (get #passwordHash user)
