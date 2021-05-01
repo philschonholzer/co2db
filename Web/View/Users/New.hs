@@ -27,7 +27,7 @@ renderForm user =
             <input name="email" value={get #email user} type="email" class="form-control" placeholder="E-Mail" required="required" autofocus="autofocus" />
         </div>
         <div class="form-group">
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
+            <input name="passwordHash" type="password" class="form-control" placeholder="Password"/>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Sign up</button>
     </form>
