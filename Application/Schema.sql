@@ -9,7 +9,8 @@ CREATE TABLE co2_emitters (
     per INT NOT NULL,
     unit units NOT NULL,
     source TEXT NOT NULL,
-    image TEXT DEFAULT NULL
+    image TEXT DEFAULT NULL,
+    user_id UUID
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
@@ -23,3 +24,4 @@ CREATE TABLE users (
     failed_login_attempts INT DEFAULT 0 NOT NULL
 );
 ALTER TABLE co2_emitters ADD CONSTRAINT co2_emitters_ref_category_id FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE NO ACTION;
+ALTER TABLE co2_emitters ADD CONSTRAINT co2_emitters_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;

@@ -60,9 +60,9 @@ renderCo2Emitter co2Emitter =
     
     editAndDeleteButtons :: Html
     editAndDeleteButtons =
-        case fromFrozenContext @(Maybe User) of
-            Just user -> [hsx|
+        case fromFrozenContext @(Maybe User) of 
+            Just user | get #id user == get #userId co2Emitter |> fromMaybe "" -> [hsx|
                 <td class="text-right text-muted"><a href={EditCo2EmitterAction (get #id co2Emitter)} class="text-muted">Edit</a>&nbsp;
                 <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete text-muted">Delete</a></td>
               |]
-            Nothing -> [hsx| <td></td> |]
+            _ -> [hsx| <td></td> |]

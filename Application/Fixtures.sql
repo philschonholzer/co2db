@@ -26,12 +26,20 @@ INSERT INTO public.categories (id, title) VALUES ('f26219b3-a8b9-4f94-93aa-16124
 ALTER TABLE public.categories ENABLE TRIGGER ALL;
 
 
+ALTER TABLE public.users DISABLE TRIGGER ALL;
+
+INSERT INTO public.users (id, email, password_hash, locked_at, failed_login_attempts) VALUES ('7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8', 'phi.sch@hotmail.ch', 'sha256|17|Eo4Sh9ZAk9jIW3znFCsMGA==|arfAgk/cnbYl0xn+j3j9E0m/2QxwfRBZGJFo73kQStM=', NULL, 0);
+
+
+ALTER TABLE public.users ENABLE TRIGGER ALL;
+
+
 ALTER TABLE public.co2_emitters DISABLE TRIGGER ALL;
 
-INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image) VALUES ('c8d6f416-ad52-484f-9f7e-b510dac2c158', 'Beef Meat', 'CO2 emissions for the production of beef meat.', 'b0871cb0-3e77-4b90-812e-006106af8a84', 67800, 1, 'kilogram', 'http://www.fao.org/3/i3461e/i3461e03.pdf', '');
-INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image) VALUES ('05e9b91f-fe9e-4679-86c7-fe60fa13fae4', 'Gasoline', NULL, 'd20e8aa8-384e-405a-90a2-bf30554bf9bb', 2312, 1, 'liter', 'https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf', '');
-INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image) VALUES ('67ac058e-4156-404e-8933-fa43e950550c', 'Shower', NULL, '64ac4651-062b-47db-ae5f-9929dc73950d', 12247, 1, 'hour', 'https://theecoguide.org/have-you-tried-five-minute-shower-challenge', '');
-INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image) VALUES ('4067b5fe-582d-4cc1-948b-3c704aebd5fa', 'LED Lightbulb', '7W', 'b0871cb0-3e77-4b90-812e-006106af8a84', 3, 1, 'hour', 'https://www.eia.gov/tools/faqs/faq.php?id=74&t=11#:~:text=In%202019%2C%20total%20U.S.%20electricity,of%20CO2%20emissions%20per%20kWh.', '');
+INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image, user_id) VALUES ('c8d6f416-ad52-484f-9f7e-b510dac2c158', 'Beef Meat', 'CO2 emissions for the production of beef meat.', 'b0871cb0-3e77-4b90-812e-006106af8a84', 67800, 1, 'kilogram', 'http://www.fao.org/3/i3461e/i3461e03.pdf', '', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image, user_id) VALUES ('05e9b91f-fe9e-4679-86c7-fe60fa13fae4', 'Gasoline', NULL, 'd20e8aa8-384e-405a-90a2-bf30554bf9bb', 2312, 1, 'liter', 'https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf', '', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image, user_id) VALUES ('67ac058e-4156-404e-8933-fa43e950550c', 'Shower', NULL, '64ac4651-062b-47db-ae5f-9929dc73950d', 12247, 1, 'hour', 'https://theecoguide.org/have-you-tried-five-minute-shower-challenge', '', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_emitters (id, title, description, category_id, g_co2e, per, unit, source, image, user_id) VALUES ('4067b5fe-582d-4cc1-948b-3c704aebd5fa', 'LED Lightbulb', '7W', 'b0871cb0-3e77-4b90-812e-006106af8a84', 3, 1, 'hour', 'https://www.eia.gov/tools/faqs/faq.php?id=74&t=11#:~:text=In%202019%2C%20total%20U.S.%20electricity,of%20CO2%20emissions%20per%20kWh.', '', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
 
 
 ALTER TABLE public.co2_emitters ENABLE TRIGGER ALL;

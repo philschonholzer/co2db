@@ -1,0 +1,1 @@
+ALTER TABLE co2_emitters ADD COLUMN user_id UUID;
