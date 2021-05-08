@@ -22,10 +22,12 @@ instance Controller Co2EmittersController where
     ensureIsUser
     co2Emitter <- fetch co2EmitterId
     categories <- query @Category |> fetch
+    emitterOfUser co2Emitter |> accessDeniedUnless
     render EditView {..}
   action UpdateCo2EmitterAction {co2EmitterId} = do
     ensureIsUser
     co2Emitter <- fetch co2EmitterId
+    emitterOfUser co2Emitter |> accessDeniedUnless
     co2Emitter
       |> buildCo2Emitter
       |> ifValid \case
@@ -41,6 +43,7 @@ instance Controller Co2EmittersController where
     let co2Emitter = newRecord @Co2Emitter
     co2Emitter
       |> buildCo2Emitter
+      |> set #userId (Just currentUserId)
       |> ifValid \case
         Left co2Emitter -> do
           categories <- query @Category |> fetch
@@ -52,6 +55,7 @@ instance Controller Co2EmittersController where
   action DeleteCo2EmitterAction {co2EmitterId} = do
     ensureIsUser
     co2Emitter <- fetch co2EmitterId
+    emitterOfUser co2Emitter |> accessDeniedUnless
     deleteRecord co2Emitter
     setSuccessMessage "Co2Emitter deleted"
     redirectTo Co2EmittersAction
@@ -65,3 +69,5 @@ buildCo2Emitter co2Emitter =
     |> validateField #per (isInRange (0, 2000000))
     |> validateField #source nonEmpty
     |> emptyValueToNothing #description
+
+emitterOfUser co2Emitter = get #userId co2Emitter |> fromMaybe "empty" == currentUserId

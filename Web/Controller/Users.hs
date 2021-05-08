@@ -4,7 +4,6 @@ import Web.Controller.Prelude
 import Web.View.Users.New
 import Web.View.Users.Edit
 import Web.View.Users.Show
-import Data.Text (empty)
 
 instance Controller UsersController where
     action NewUserAction = do

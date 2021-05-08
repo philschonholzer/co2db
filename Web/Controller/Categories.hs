@@ -7,7 +7,7 @@ import Web.View.Categories.Edit
 import Web.View.Categories.Show
 
 instance Controller CategoriesController where
-    beforeAction = ensureIsUser
+    beforeAction = ensureisAdminUser currentUser WelcomeAction 
     
     action CategoriesAction = do
         categories <- query @Category |> fetch
