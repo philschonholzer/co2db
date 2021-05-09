@@ -20,13 +20,13 @@ defaultLayout inner =
     {stylesheets}
     {scripts}
 
-    <title>CO₂ Database</title>
+    <title>CO2 Database</title>
 </head>
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="/">CO₂ Database</a>
+        <a class="navbar-brand" href="/">CO<sub>2</sub> Database</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,7 +66,7 @@ defaultLayout inner =
   </main>
   <footer>
     <div class="container">
-      <p>2021 CO₂ Database</p>
+      <p>2021 CO<sub>2</sub> Database</p>
     </div>
   </footer>
 </body>
