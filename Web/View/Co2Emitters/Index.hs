@@ -23,7 +23,7 @@ instance View IndexView where
                     <tr>
                         <th>Name</th>
                         <th>Amount</th>
-                        <th class="text-right fit">CO<sub>2</sub> emissions</th>
+                        <th class="text-right fit">CO₂ emissions</th>
                         <th class="fit">Source</th>
                         <th class="text-right text-muted"></th>
                     </tr>
