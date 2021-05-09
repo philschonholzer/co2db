@@ -9,6 +9,6 @@ ensureisAdminUser :: (HasField "email" model Text, ?context :: ControllerContext
 ensureisAdminUser currentUser action = case currentUser of
   user | get #email user == Config.adminEmail -> pure ()
   _ -> do
-    setSuccessMessage "Only admins are allowed to access this page"
+    setErrorMessage "Only admins are allowed to access this page"
     redirectTo action
     error "Unreachable"
