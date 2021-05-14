@@ -74,8 +74,9 @@ defaultLayout inner =
   where
     loginLogoutButton :: Html
     loginLogoutButton =
-        case fromFrozenContext @(Maybe User) of
-            Just user -> [hsx|
+      case fromFrozenContext @(Maybe User) of
+        Just user ->
+          [hsx|
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {get #email currentUser}
@@ -86,7 +87,8 @@ defaultLayout inner =
                 </div>
               </li>
               |]
-            Nothing -> [hsx|
+        Nothing ->
+          [hsx|
               <li class="ml-auto nav-item">
                 <a class="nav-link" href={NewSessionAction}>Login</a>
               </li>

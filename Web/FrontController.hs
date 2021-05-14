@@ -1,16 +1,14 @@
 module Web.FrontController where
 
+import IHP.LoginSupport.Middleware
 import IHP.RouterPrelude
--- Controller Imports
-import Web.Controller.Users
 import Web.Controller.Categories
 import Web.Controller.Co2Emitters
 import Web.Controller.Prelude
-import Web.Controller.Static
-import Web.View.Layout (defaultLayout)
-
-import IHP.LoginSupport.Middleware
 import Web.Controller.Sessions
+import Web.Controller.Static
+import Web.Controller.Users
+import Web.View.Layout (defaultLayout)
 
 instance FrontController WebApplication where
   controllers =

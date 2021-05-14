@@ -33,8 +33,6 @@ instance View IndexView where
         </div>
     |]
 
-
-
 renderCo2Emitter co2Emitter =
   [hsx|
     <tr>
@@ -57,12 +55,14 @@ renderCo2Emitter co2Emitter =
                Nothing -> noSource
            )
     noSource = [hsx|<span class="text-muted">No source</span>|]
-    
+
     editAndDeleteButtons :: Html
     editAndDeleteButtons =
-        case fromFrozenContext @(Maybe User) of 
-            Just user | get #id user == get #userId co2Emitter |> fromMaybe "" -> [hsx|
+      case fromFrozenContext @(Maybe User) of
+        Just user
+          | get #id user == get #userId co2Emitter |> fromMaybe "" ->
+            [hsx|
                 <td class="text-right text-muted"><a href={EditCo2EmitterAction (get #id co2Emitter)} class="text-muted">Edit</a>&nbsp;
                 <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete text-muted">Delete</a></td>
               |]
-            _ -> [hsx| <td></td> |]
+        _ -> [hsx| <td></td> |]
