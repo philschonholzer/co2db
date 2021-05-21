@@ -5,6 +5,9 @@ module Web.View.Co2Emitters.Index where
 import Data.Text (Text, unpack)
 import Network.URL
 import Web.View.Prelude
+import Text.Printf
+import Data.Fixed
+
 
 data IndexView = IndexView {co2Emitters :: [Co2Emitter]}
 
@@ -22,8 +25,9 @@ instance View IndexView where
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Amount</th>
-                        <th class="text-right fit">CO<sub>2</sub> emissions</th>
+                        <th  colspan="3" class="text-center fit amount-of-per">CO<sub>2</sub>e emissions</th>
+                        <th  colspan="3" class="text-center fit amount-of-per">Common CO<sub>2</sub>e consump.</th>
+                        <th  colspan="3" class="text-center fit amount-of-per">ø Yearly CO<sub>2</sub>e consumption</th>
                         <th class="fit">Source</th>
                         <th class="text-right text-muted"></th>
                     </tr>
@@ -37,8 +41,15 @@ renderCo2Emitter co2Emitter =
   [hsx|
     <tr>
         <td class="fit">{get #title co2Emitter}</td>
-        <td class="text-muted fit">{get #per co2Emitter} {get #unit co2Emitter}</td>
-        <td class="text-right fit">{get #gCo2e co2Emitter |> renderWeight}</td>
+        <td class="text-right fit amount-of-per">{get #gCo2e co2Emitter |> renderWeight}</td>
+        <td class="per fit">/</td>
+        <td class="text-muted fit per-of-amount">{get #per co2Emitter |> renderPer} {get #unit co2Emitter}</td>
+        <td class="text-right fit amount-of-per">{calcAmountFromBase co2Emitter commonConsumption}</td>
+        <td class="per fit">/</td>
+        <td class="text-muted fit per-of-amount">{get #commonConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</td>
+        <td class="text-right fit amount-of-per">{calcAmountFromBase co2Emitter averageYearlyConsumption}</td>
+        <td class="per fit">/</td>
+        <td class="text-muted fit per-of-amount">{get #averageYearlyConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</td>
         <td class="fit">{renderSource}</td>
         {editAndDeleteButtons}
     </tr>
@@ -66,3 +77,8 @@ renderCo2Emitter co2Emitter =
                 <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete text-muted">Delete</a></td>
               |]
         _ -> [hsx| <td></td> |]
+
+    renderPer :: Double -> String
+    renderPer amount 
+              | amount `mod'` 1 == 0 = printf "%.f" amount
+              | otherwise =  printf "%.2f" amount

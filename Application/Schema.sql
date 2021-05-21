@@ -5,12 +5,14 @@ CREATE TABLE co2_emitters (
     title TEXT NOT NULL,
     description TEXT DEFAULT NULL,
     category_id UUID NOT NULL,
-    g_co2e INT NOT NULL,
-    per INT NOT NULL,
+    g_co2e DOUBLE PRECISION NOT NULL,
+    per DOUBLE PRECISION NOT NULL,
     unit units NOT NULL,
     source TEXT NOT NULL,
     image TEXT DEFAULT NULL,
-    user_id UUID
+    user_id UUID,
+    common_consumption DOUBLE PRECISION NOT NULL,
+    average_yearly_consumption DOUBLE PRECISION NOT NULL
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,

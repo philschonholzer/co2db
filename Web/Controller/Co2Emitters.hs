@@ -62,11 +62,13 @@ instance Controller Co2EmittersController where
 
 buildCo2Emitter co2Emitter =
   co2Emitter
-    |> fill @["title", "description", "categoryId", "gCo2e", "per", "unit", "source", "image"]
+    |> fill @["title", "description", "categoryId", "gCo2e", "commonConsumption", "averageYearlyConsumption", "per", "unit", "source", "image"]
     |> validateField #title nonEmpty
     |> validateField #categoryId nonEmpty
-    |> validateField #gCo2e (isInRange (0, 2000000))
-    |> validateField #per (isInRange (0, 2000000))
+    |> validateField #gCo2e (isInRange (1, 2000000))
+    |> validateField #per (isInRange (1, 2000000))
+    |> validateField #commonConsumption (isInRange (0.0000001, 2000000))
+    |> validateField #averageYearlyConsumption (isInRange (0.0000001, 2000000))
     |> validateField #source nonEmpty
     |> emptyValueToNothing #description
 

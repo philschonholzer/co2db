@@ -1,4 +1,4 @@
-module Web.View.Layout (defaultLayout, Html, renderWeight) where
+module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase) where
 
 import Generated.Types
 import IHP.Controller.RequestContext
@@ -9,6 +9,7 @@ import qualified Text.Blaze.Html5.Attributes as A
 import Text.Printf
 import Web.Routes
 import Web.Types
+import Data.Fixed
 
 defaultLayout :: Html -> Html
 defaultLayout inner =
@@ -150,8 +151,16 @@ instance CanSelect Unit where
 
   selectLabel = tshow
 
-renderWeight :: Int -> Html
-renderWeight weight = [hsx|{weight `div` 1000}<span class="text-muted"><small class="text-muted">,{mod weight 1000 |> threeDec}</small> kg</span>|]
+renderWeight :: Double-> Html
+renderWeight weight = [hsx|{weight `div'` 1000 |> show}<span class="text-muted"><small class="text-muted">,{mod' weight 1000 |> threeDec}</small> kg</span>|]
 
-threeDec :: Integral a => a -> String
-threeDec dec = (fromIntegral dec :: Int) |> printf "%03d"
+threeDec :: Double -> String
+threeDec dec = dec |> printf "%03.0F"
+
+calcAmountFromBase :: (?context::ControllerContext) => Co2Emitter' categoryId userId -> (Co2Emitter' categoryId userId -> Double) -> H.Html
+calcAmountFromBase co2Emitter consumption = 
+  co2Emitter 
+  |> get #gCo2e 
+  |> (/ per co2Emitter) 
+  |> (* consumption co2Emitter) 
+  |> renderWeight

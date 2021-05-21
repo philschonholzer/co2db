@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Script to start the local dev server
 
+export IHP_BROWSER=echo
+
 set -e
 
 # Unless the RunDevServer binary is available, we rebuild the .envrc cache with nix-shell

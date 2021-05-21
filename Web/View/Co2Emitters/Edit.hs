@@ -28,6 +28,8 @@ renderForm co2Emitter categories =
     {(textField #gCo2e)}
     {(textField #per)}
     {(selectField #unit $ enumFrom Kilometer)}
+    {(textField #commonConsumption)}
+    {(textField #averageYearlyConsumption)}
     {(textField #source)}
     {(textField #image)}
     {submitButton}

@@ -1,5 +1,17 @@
-.table td.fit, 
+.table td.fit,
 .table th.fit {
-    white-space: nowrap;
-    width: 1%;
+  white-space: nowrap;
+  width: 1%;
+}
+.table .amount-of-per {
+  padding-right: 0;
+}
+.table .per-of-amount {
+  padding-left: 0;
+}
+.table td.per {
+  color: #ddd;
+  width: 3px;
+  padding-left: 0.4em;
+  padding-right: 0.3em;
 }
