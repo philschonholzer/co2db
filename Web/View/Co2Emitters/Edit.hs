@@ -22,15 +22,15 @@ renderForm co2Emitter categories =
   formFor
     co2Emitter
     [hsx|
-    {(textField #title)}
-    {(textField #description)}
-    {(selectField #categoryId categories)}
-    {(textField #gCo2e)}
-    {(textField #per)}
-    {(selectField #unit $ enumFrom Kilometer)}
-    {(textField #commonConsumption)}
-    {(textField #averageYearlyConsumption)}
-    {(textField #source)}
-    {(textField #image)}
-    {submitButton}
-|]
+        {(textField #title)}
+        {(textField #description)}
+        {(selectField #categoryId categories)}
+        {(textField #gCo2e)}
+        {(textField #per)}
+        {(selectField #unit $ enumFrom Kilometer)}
+        {(textField #commonConsumption)}
+        {(textField #averageYearlyConsumption)}
+        {(textField #source)}
+        {(textField #image)}
+        {submitButton}
+    |]
