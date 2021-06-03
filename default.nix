@@ -13,6 +13,7 @@ let
             hlint
             p.ihp
             url
+            mmark
         ];
         otherDeps = p: with p; [
             ormolu

@@ -34,20 +34,8 @@ defaultLayout inner =
               <div class="collapse navbar-collapse  justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="/Co2Emitters">Emitters</a>
+                    <a class="nav-link" href="/Co2Emitters">CO<sub>2</sub> Producers</a>
                   </li>
-                  <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Emitter by Sector
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="#">Transportation</a>
-                      <a class="dropdown-item" href="#">Electricity</a>
-                      <a class="dropdown-item" href="#">Buildings</a>
-                      <a class="dropdown-item" href="#">Agricalture</a>
-                      <a class="dropdown-item" href="#">Industrie</a>
-                    </div>
-                  </li> -->
                   <li class="ml-auto nav-item">
                     <a class="nav-link" href="/about" tabindex="-1">About</a>
                   </li>
@@ -152,7 +140,7 @@ instance CanSelect Unit where
   selectLabel = tshow
 
 renderWeight :: Double -> Html
-renderWeight weight = [hsx|{weight `div'` 1000 |> show}<span class="text-muted"><small class="text-muted">,{mod' weight 1000 |> threeDec}</small> kg</span>|]
+renderWeight weight = [hsx|<b>{weight `div'` 1000 |> show}</b><span class="muted"><small>,{mod' weight 1000 |> threeDec}</small> kg</span>|]
 
 threeDec :: Double -> String
 threeDec dec = dec |> printf "%03.0F"

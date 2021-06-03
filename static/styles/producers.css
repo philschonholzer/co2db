@@ -1,0 +1,66 @@
+.producers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 2em 0 4em 0;
+}
+
+.producer {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 1em;
+  background: var(--background-highlight-color);
+}
+
+.producer h2 {
+  font-size: 1.5em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.producer .fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.producer .field {
+  padding: 1em;
+  border-radius: 0.2em;
+  background-color: var(--darken);
+}
+
+.producer .field p {
+  font-size: 0.8em;
+  margin: -0.5em 0 0 0;
+  opacity: 0.6;
+}
+
+.producer .amount-per-unit {
+  display: flex;
+  gap: 0.2em;
+}
+
+.producer .amount-per-unit .amount {
+  flex: 1;
+  text-align: right;
+}
+
+.producer .amount-per-unit .per {
+  opacity: var(--muted);
+}
+
+.producer .amount-per-unit .unit {
+  flex: 1;
+  opacity: var(--muted);
+}
+
+.producer .source {
+  margin: 0;
+}
+
+.producer .edit-delete {
+  margin-top: 1em;
+}

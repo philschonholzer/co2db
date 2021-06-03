@@ -1,0 +1,14 @@
+:root {
+  --blue: #007bff;
+  --gray: #6c757d;
+  --light-gray: #f8f9fa;
+  --darken: #0000000a;
+
+  --accent-color: var(--blue);
+  --background-color: white;
+  --text-color: black;
+  --muted-color: var(--gray);
+  --background-highlight-color: var(--darken);
+
+  --muted: 0.7;
+}

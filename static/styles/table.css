@@ -15,3 +15,12 @@
   padding-left: 0.4em;
   padding-right: 0.3em;
 }
+
+.table .clickable-row {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.table .clickable-row:hover {
+  background-color: var(--background-highlight-color);
+}

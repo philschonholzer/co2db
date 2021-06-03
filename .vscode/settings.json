@@ -1,3 +1,6 @@
 {
-  "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix"
+  "nixEnvSelector.nixFile": "${workspaceRoot}/default.nix",
+  "files.watcherExclude": {
+    "**/build/**": true
+  }
 }

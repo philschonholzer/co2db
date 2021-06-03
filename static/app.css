@@ -1,2 +1,5 @@
-@import '/styles/layout.css';
-@import '/styles/table.css';
+@import './styles/general.css';
+@import './styles/layout.css';
+@import './styles/table.css';
+@import './styles/root.css';
+@import './styles/producers.css';
