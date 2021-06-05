@@ -1,5 +1,17 @@
 body {
   display: grid;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+}
+
+header {
+  background-color: var(--darken);
+}
+
+.container {
+  max-width: 1280px;
+  padding: 0 1em;
+  margin-left: auto;
+  margin-right: auto;
 }

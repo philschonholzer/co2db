@@ -1,5 +1,8 @@
+@import './styles/normalize.css';
 @import './styles/general.css';
+@import './styles/font.css';
 @import './styles/layout.css';
+@import './styles/navigation.css';
 @import './styles/table.css';
 @import './styles/root.css';
 @import './styles/producers.css';

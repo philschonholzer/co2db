@@ -25,27 +25,23 @@ defaultLayout inner =
       </head>
       <body>
         <header>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-              <a class="navbar-brand" href="/">CO<sub>2</sub> Database</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse  justify-content-end" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/Co2Emitters">CO<sub>2</sub> Producers</a>
-                  </li>
-                  <li class="ml-auto nav-item">
-                    <a class="nav-link" href="/about" tabindex="-1">About</a>
-                  </li>
-                  <li class="ml-auto nav-item">
-                    {loginLogoutButton}
-                  </li>
+          <div class="container">
+            <nav>
+                <a class="navbar-brand" href="/">CO<sub>2</sub> Database</a>
+                <a tabindex="0" class="menu-button" role="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  Menu
+                </a>
+                <ul class="collapse-items" id="navbarSupportedContent">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Co2Emitters">CO<sub>2</sub> Producers</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/about" tabindex="-1">About</a>
+                    </li>
+                      {loginLogoutButton}
                 </ul>
-              </div>
-            </div>
-          </nav>
+            </nav>
+          </div>
         </header>
         <main>
           <div class="container mt-4">
@@ -71,17 +67,17 @@ defaultLayout inner =
                   {get #email currentUser}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href={EditUserAction (get #id currentUser) }>Edit User</a>
-                  <a class="js-delete js-delete-no-confirm dropdown-item" href={DeleteSessionAction}>Logout</a>
+                  <a class="dropdown-item nav-link" href={EditUserAction (get #id currentUser) }>Edit User</a>
+                  <a class="js-delete js-delete-no-confirm dropdown-item nav-link" href={DeleteSessionAction}>Logout</a>
                 </div>
               </li>
               |]
         Nothing ->
           [hsx|
-              <li class="ml-auto nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href={NewSessionAction}>Login</a>
               </li>
-              <li class="ml-auto nav-item">
+              <li class="nav-item">
                 <a class="nav-link" href={NewUserAction}>Sign up</a>
               </li>
             |]
@@ -89,7 +85,6 @@ defaultLayout inner =
 stylesheets :: Html
 stylesheets =
   [hsx|
-        <link rel="stylesheet" href="/vendor/bootstrap.min.css"/>
         <link rel="stylesheet" href="/vendor/flatpickr.min.css"/>
         <link rel="stylesheet" href="/app.css"/>
     |]
@@ -101,7 +96,6 @@ scripts =
         <script src="/vendor/jquery-3.2.1.slim.min.js"></script>
         <script src="/vendor/timeago.js"></script>
         <script src="/vendor/popper.min.js"></script>
-        <script src="/vendor/bootstrap.min.js"></script>
         <script src="/vendor/flatpickr.js"></script>
         <script src="/vendor/morphdom-umd.min.js"></script>
         <script src="/vendor/turbolinks.js"></script>
