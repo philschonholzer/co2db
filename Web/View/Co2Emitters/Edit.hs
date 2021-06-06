@@ -7,12 +7,6 @@ data EditView = EditView {co2Emitter :: Co2Emitter, categories :: [Category]}
 instance View EditView where
   html EditView {..} =
     [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={Co2EmittersAction}>Co2Emitters</a></li>
-                <li class="breadcrumb-item active">Edit Co2Emitter</li>
-            </ol>
-        </nav>
         <h1>Edit Co2Emitter</h1>
         {renderForm co2Emitter categories}
     |]

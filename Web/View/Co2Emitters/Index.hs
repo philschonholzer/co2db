@@ -14,11 +14,6 @@ data IndexView = IndexView {co2Emitters :: [Co2Emitter]}
 instance View IndexView where
   html IndexView {..} =
     [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href={Co2EmittersAction}> Producers</a></li>
-            </ol>
-        </nav>
         <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2EmitterAction} class="btn btn-primary ml-4">+ New</a></h1>
         <div class="producers">
             {forEach co2Emitters renderCo2Emitter}
