@@ -5,7 +5,23 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.7em 0;
+  padding: 0.5em 0;
+}
+
+nav a {
+  color: var(--text-color);
+  opacity: var(--muted);
+}
+
+nav a:hover {
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+nav .navbar-brand {
+  font-size: 1.2em;
+  font-weight: 600;
+  opacity: 1;
 }
 
 nav .collapse-items {
@@ -49,6 +65,16 @@ nav .menu-button {
     padding: 1em 2em 1em 1em;
     background-color: var(--accent-color);
     transition: all 200ms ease;
+  }
+
+  nav .collapse-items a {
+    color: var(--background-color);
+    opacity: 1;
+  }
+
+  nav .collapse-items a:hover {
+    color: var(--background-color);
+    opacity: 1;
   }
 
   nav .menu-button:active ~ .collapse-items,

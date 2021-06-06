@@ -1,3 +1,26 @@
+:root {
+  box-sizing: border-box;
+}
+
+*:not(img):not(video):not(svg),
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+html {
+  line-height: 1.4;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .muted {
   opacity: var(--muted);
 }
