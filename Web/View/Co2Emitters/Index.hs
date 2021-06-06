@@ -55,22 +55,10 @@ renderCo2Emitter co2Emitter =
             </div>
           </div>
           <div style="flex: 1 0 1em;"></div>
-          <p class="source">{renderSource}</p>
           {editAndDeleteButtons}
       </div>
 |]
   where
-    renderSource =
-      get #source co2Emitter
-        |> unpack
-        |> importURL
-        |> ( \case
-               Just url -> case url_type url of
-                 Absolute url -> [hsx|<a href={get #source co2Emitter} target="_blank">{host url}</a>|]
-                 _ -> noSource
-               Nothing -> noSource
-           )
-    noSource = [hsx|<span class="muted">No source</span>|]
 
     editAndDeleteButtons :: Html
     editAndDeleteButtons =
@@ -83,7 +71,3 @@ renderCo2Emitter co2Emitter =
               |]
         _ -> [hsx|  |]
 
-    renderPer :: Double -> String
-    renderPer amount 
-              | amount `mod'` 1 == 0 = printf "%.f" amount
-              | otherwise =  printf "%.2f" amount

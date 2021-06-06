@@ -1,4 +1,4 @@
-module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase) where
+module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase, renderPer) where
 
 import Data.Fixed
 import Generated.Types
@@ -146,3 +146,9 @@ calcAmountFromBase co2Emitter consumption =
     |> (/ per co2Emitter)
     |> (* consumption co2Emitter)
     |> renderWeight
+
+renderPer :: Double -> String
+renderPer amount 
+          | amount `mod'` 1 == 0 = printf "%.f" amount
+          | otherwise =  printf "%.2f" amount
+

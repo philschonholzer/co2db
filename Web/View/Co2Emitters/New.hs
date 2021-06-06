@@ -24,7 +24,7 @@ renderForm co2Emitter categories =
     {(selectField #unit $ enumFrom Kilometer ) { required = True }}
     {(textField #commonConsumption) { required = True }}
     {(textField #averageYearlyConsumption) { required = True }}
-    {(textField #source) { required = True }}
+    {(textareaField #source) { required = True }}
     {(textField #image)}
     {submitButton}
 |]
