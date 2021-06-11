@@ -24,3 +24,8 @@ a:hover {
 .muted {
   opacity: var(--muted);
 }
+
+.label {
+  font-size: 0.8em;
+  opacity: 0.6;
+}

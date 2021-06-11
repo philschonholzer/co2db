@@ -8,9 +8,6 @@
 .producer {
   display: flex;
   flex-direction: column;
-  padding: 1em;
-  border-radius: 1em;
-  background: var(--background-highlight-color);
 }
 
 .producer h2 {
@@ -23,19 +20,16 @@
 .producer .fields {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 2em;
 }
 
-.producer .field {
-  padding: 1em;
-  border-radius: 0.2em;
-  background-color: var(--darken);
+.producer.show .fields {
+  font-size: 1.2em;
+  margin: 2em 0;
 }
 
 .producer .field p {
-  font-size: 0.8em;
   margin: -0.5em 0 0 0;
-  opacity: 0.6;
 }
 
 .producer .amount-per-unit {
@@ -43,8 +37,13 @@
   gap: 0.2em;
 }
 
-.producer .amount-per-unit .amount {
+.producer.index .amount-per-unit .amount {
   flex: 1;
+  text-align: right;
+}
+
+.producer.show .amount-per-unit .amount {
+  flex: 0 0 14ch;
   text-align: right;
 }
 
@@ -58,7 +57,7 @@
 }
 
 .producer .source {
-  margin: 0;
+  word-break: break-word;
 }
 
 .producer .edit-delete {

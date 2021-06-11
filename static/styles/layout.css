@@ -15,3 +15,10 @@ header {
   margin-left: auto;
   margin-right: auto;
 }
+
+.card {
+  padding: 1em;
+  border-radius: 0.2em;
+  background: var(--background-highlight-color);
+  background-color: var(--darken);
+}

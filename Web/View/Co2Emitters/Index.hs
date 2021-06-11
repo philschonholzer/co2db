@@ -22,15 +22,15 @@ instance View IndexView where
  --
 renderCo2Emitter co2Emitter =
   [hsx|
-      <div class="producer">
+      <div class="producer index card">
           <a href={ShowCo2EmitterAction (get #id co2Emitter)}>
             <h2>
               {get #title co2Emitter}
             </h2>
           </a>
-          <div class="fields">
+          <div class="fields card">
             <div class="field">
-              <p>CO<sub>2</sub>e emissions</p>
+              <p class="label">CO<sub>2</sub>e emissions</p>
               <div class="amount-per-unit">
                 <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
                 <span class="per fit">/</span>
@@ -38,7 +38,7 @@ renderCo2Emitter co2Emitter =
               </div>
             </div>
             <div class="field">
-              <p>Common CO<sub>2</sub>e consumption</p>
+              <p class="label">Common CO<sub>2</sub>e consumption</p>
               <div class="amount-per-unit">
                 <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
                 <span class="per fit">/</span>
@@ -46,7 +46,7 @@ renderCo2Emitter co2Emitter =
               </div>
             </div>
             <div class="field">
-              <p>ø Yearly CO<sub>2</sub>e consumption</p>
+              <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
               <div class="amount-per-unit">
                 <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
                 <span class="per fit">/</span>
