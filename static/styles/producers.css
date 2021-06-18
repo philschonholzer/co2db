@@ -24,12 +24,15 @@
 }
 
 .producer.show .fields {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem 6rem;
   font-size: 1.2em;
   margin: 2em 0;
 }
 
 .producer .field p {
-  margin: -0.5em 0 0 0;
+  margin: 0;
 }
 
 .producer .amount-per-unit {
@@ -43,7 +46,7 @@
 }
 
 .producer.show .amount-per-unit .amount {
-  flex: 0 0 14ch;
+  min-width: 12ch;
   text-align: right;
 }
 
@@ -52,6 +55,7 @@
 }
 
 .producer .amount-per-unit .unit {
+  white-space: nowrap;
   flex: 1;
   opacity: var(--muted);
 }
