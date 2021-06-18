@@ -8,7 +8,7 @@ instance View NewView where
   html NewView {..} =
     [hsx|
         <h1>New Co2Emitter</h1>
-        {renderForm co2Emitter categories}
+        <section>{renderForm co2Emitter categories}</section>
     |]
 
 renderForm :: Co2Emitter -> [Category] -> Html

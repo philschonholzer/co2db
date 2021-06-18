@@ -67,3 +67,7 @@
 .producer .edit-delete {
   margin-top: 1em;
 }
+
+#form-group-co2Emitter_source textarea {
+  height: 10rem;
+}

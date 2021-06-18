@@ -1,0 +1,49 @@
+.form-group {
+  max-width: 30rem;
+  margin-bottom: 1.5em;
+  line-height: 1.4;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4em;
+}
+
+input,
+select,
+textarea {
+  display: block;
+  line-height: 1.4;
+  width: 100%;
+  padding: 0.5em 0.8em;
+  border: 1px solid var(--line-color);
+  border-radius: var(--border-radius);
+}
+
+select {
+  background-color: var(--background-color);
+}
+
+button {
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 0.5em 1.5em;
+  color: var(--accent-color);
+  background-color: transparent;
+  border: 3px solid var(--accent-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+button:hover {
+  color: var(--background-color);
+  background-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+button:active {
+  color: var(--background-color);
+  background-color: var(--accent-color);
+  transform: translateY(3px);
+}

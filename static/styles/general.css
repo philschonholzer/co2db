@@ -21,6 +21,10 @@ a:hover {
   text-decoration: underline;
 }
 
+section {
+  padding-bottom: 4rem;
+}
+
 .muted {
   opacity: var(--muted);
 }

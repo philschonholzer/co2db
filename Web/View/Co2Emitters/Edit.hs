@@ -8,7 +8,7 @@ instance View EditView where
   html EditView {..} =
     [hsx|
         <h1>Edit Producer</h1>
-        {renderForm co2Emitter categories}
+        <section>{renderForm co2Emitter categories}</section>
     |]
 
 renderForm :: Co2Emitter -> [Category] -> Html
