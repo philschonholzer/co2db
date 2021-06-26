@@ -9,6 +9,11 @@
   margin-bottom: 0.4em;
 }
 
+.search-group {
+  display: flex;
+  gap: 1em;
+}
+
 input,
 select,
 textarea {

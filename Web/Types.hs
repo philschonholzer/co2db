@@ -14,7 +14,8 @@ data StaticController
 
 data Co2EmittersController
   = Co2EmittersAction
-  | NewCo2EmitterAction
+  | -- | SearchCo2EmittersAction
+    NewCo2EmitterAction
   | ShowCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}
   | CreateCo2EmitterAction
   | EditCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}

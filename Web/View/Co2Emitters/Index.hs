@@ -9,17 +9,24 @@ import Text.Printf
 import Data.Fixed
 
 
-data IndexView = IndexView {co2Emitters :: [Co2Emitter]}
+data IndexView = IndexView {co2Emitters :: [Co2Emitter], searchTerm :: Maybe Text}
 
 instance View IndexView where
   html IndexView {..} =
     [hsx|
         <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2EmitterAction} class="btn btn-primary ml-4">+ New</a></h1>
+        <form method="get">
+          <div class="search-group">
+            <input type="text" name="search" value={fromMaybe "" searchTerm} />
+            <button type="submit">Search</button>
+          </div>
+        </form>
         <div class="producers">
             {forEach co2Emitters renderCo2Emitter}
         </div>
     |]
- --
+
+
 renderCo2Emitter co2Emitter =
   [hsx|
       <div class="producer index card">

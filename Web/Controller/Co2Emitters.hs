@@ -8,8 +8,16 @@ import Web.View.Co2Emitters.Show
 
 instance Controller Co2EmittersController where
   action Co2EmittersAction = do
-    co2Emitters <- query @Co2Emitter |> fetch
-    render IndexView {..}
+    let searchTerm = paramOrNothing @Text "search"
+    case searchTerm of
+      Nothing -> do
+        co2Emitters <- query @Co2Emitter |> fetch
+        render IndexView {..}
+      Just search -> do
+        co2Emitters <- query @Co2Emitter
+          |> filterWhereILike (#title, "%" <> search <> "%")
+          |> fetch
+        render IndexView {..}
   action NewCo2EmitterAction = do
     ensureIsUser
     let co2Emitter = newRecord
