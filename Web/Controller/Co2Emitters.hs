@@ -80,7 +80,7 @@ matchTerm = filterWhitespace . T.map replaceSeparators
   where
     replaceSeparators :: Char -> Char
     replaceSeparators char | char `elem` [';', ','] = '|'
-                          | otherwise  = char
+                           | otherwise  = char
 
     filterWhitespace :: Text -> Text 
     filterWhitespace = T.filter (not . isSpace)
