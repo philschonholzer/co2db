@@ -134,7 +134,7 @@ instance CanSelect Unit where
   selectLabel = tshow
 
 renderWeight :: Double -> Html
-renderWeight weight = [hsx|<b>{weight `div'` 1000 |> show}</b><span class="muted"><small>,{mod' weight 1000 |> threeDec}</small> kg</span>|]
+renderWeight weight = [hsx|<b>{weight `div'` 1000 |> show}</b><span>,{mod' weight 1000 |> threeDec} kg</span>|]
 
 threeDec :: Double -> String
 threeDec dec = dec |> printf "%03.0F"

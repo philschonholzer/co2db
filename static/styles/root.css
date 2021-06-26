@@ -4,13 +4,22 @@
   --light-gray: #f8f9fa;
   --medium-gray: #ddd;
   --darken: #0000000a;
+  --accent-hue: 211;
 
-  --accent-color: var(--blue);
+  --accent-color: hsl(var(--accent-hue), 100%, 40%);
 
   --background-color: white;
   --background-highlight-color: var(--darken);
 
-  --text-color: black;
+  --background-1: hsl(var(--accent-hue), 100%, 99.5%);
+  --background-2: hsl(var(--accent-hue), 100%, 98%);
+  --background-3: hsl(var(--accent-hue), 100%, 96.5%);
+  --background-4: hsl(var(--accent-hue), 100%, 95%);
+  --background-5: hsl(var(--accent-hue), 100%, 60%);
+
+  --boarder-color: var(--accent-color);
+
+  --text-color: #222;
   --muted-color: var(--gray);
 
   --line-color: var(--medium-gray);

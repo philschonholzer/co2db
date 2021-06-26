@@ -17,7 +17,7 @@ instance View IndexView where
         <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2EmitterAction} class="btn btn-primary ml-4">+ New</a></h1>
         <form method="get">
           <div class="search-group">
-            <input type="text" name="search" value={fromMaybe "" searchTerm} />
+            <input type="search" name="search" value={fromMaybe "" searchTerm} />
             <button type="submit">Search</button>
           </div>
         </form>
@@ -29,40 +29,41 @@ instance View IndexView where
 
 renderCo2Emitter co2Emitter =
   [hsx|
-      <div class="producer index card">
+      <div class="producer index">
+        <div class="title">
           <a href={ShowCo2EmitterAction (get #id co2Emitter)}>
             <h2>
               {get #title co2Emitter}
             </h2>
           </a>
-          <div class="fields card">
-            <div class="field">
-              <p class="label">CO<sub>2</sub>e emissions</p>
-              <div class="amount-per-unit">
-                <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #per co2Emitter |> renderPer} {get #unit co2Emitter}</span>
-              </div>
-            </div>
-            <div class="field">
-              <p class="label">Common CO<sub>2</sub>e consumption</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #commonConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</span>
-              </div>
-            </div>
-            <div class="field">
-              <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #averageYearlyConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</span>
-              </div>
+        </div>
+        <div class="fields">
+          <div class="field">
+            <p class="label">CO<sub>2</sub>e emissions</p>
+            <div class="amount-per-unit">
+              <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
+              <span class="per fit">per <b>{get #per co2Emitter |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Emitter}</span>
             </div>
           </div>
-          <div style="flex: 1 0 1em;"></div>
-          {editAndDeleteButtons}
+          <div class="field">
+            <p class="label">Common CO<sub>2</sub>e consumption</p>
+            <div class="amount-per-unit">
+              <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
+              <span class="per fit">per <b>{get #commonConsumption co2Emitter |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Emitter}</span>
+            </div>
+          </div>
+          <div class="field">
+            <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+            <div class="amount-per-unit">
+              <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
+              <span class="per fit">per <b>{get #averageYearlyConsumption co2Emitter |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Emitter}</span>
+            </div>
+          </div>
+          <div class="field">{editAndDeleteButtons}</div>
+        </div>
       </div>
 |]
   where
