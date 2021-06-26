@@ -5,6 +5,8 @@ import Web.View.Co2Emitters.Edit
 import Web.View.Co2Emitters.Index
 import Web.View.Co2Emitters.New
 import Web.View.Co2Emitters.Show
+import qualified Data.Text as T
+import Data.Char (isSpace)
 
 instance Controller Co2EmittersController where
   action Co2EmittersAction = do
@@ -13,9 +15,12 @@ instance Controller Co2EmittersController where
       Nothing -> do
         co2Emitters <- query @Co2Emitter |> fetch
         render IndexView {..}
-      Just search -> do
+      Just "" -> do
+        co2Emitters <- query @Co2Emitter |> fetch
+        render IndexView {..}
+      Just justSearchTerm -> do
         co2Emitters <- query @Co2Emitter
-          |> filterWhereILike (#title, "%" <> search <> "%")
+          |> filterWhereIMatches (#title, ".*(" <> matchTerm justSearchTerm <> ").*")
           |> fetch
         render IndexView {..}
   action NewCo2EmitterAction = do
@@ -67,6 +72,18 @@ instance Controller Co2EmittersController where
     deleteRecord co2Emitter
     setSuccessMessage "Co2Emitter deleted"
     redirectTo Co2EmittersAction
+
+
+
+matchTerm :: Text -> Text
+matchTerm = filterWhitespace . T.map replaceSeparators
+  where
+    replaceSeparators :: Char -> Char
+    replaceSeparators char | char `elem` [';', ','] = '|'
+                          | otherwise  = char
+
+    filterWhitespace :: Text -> Text 
+    filterWhitespace = T.filter (not . isSpace)
 
 buildCo2Emitter co2Emitter =
   co2Emitter

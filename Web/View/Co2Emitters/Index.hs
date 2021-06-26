@@ -17,7 +17,7 @@ instance View IndexView where
         <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2EmitterAction} class="btn btn-primary ml-4">+ New</a></h1>
         <form method="get">
           <div class="search-group">
-            <input type="search" name="search" value={fromMaybe "" searchTerm} />
+            <input type="search" name="search" value={fromMaybe "" searchTerm} placeholder="Comma separate search terms to compare (e.g. 'beef, shower') " />
             <button type="submit">Search</button>
           </div>
         </form>
