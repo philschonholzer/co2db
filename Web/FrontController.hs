@@ -12,7 +12,7 @@ import Web.View.Layout (defaultLayout)
 
 instance FrontController WebApplication where
   controllers =
-    [ startPage WelcomeAction,
+    [ startPage Co2EmittersAction ,
       parseRoute @StaticController,
       parseRoute @SessionsController,
       -- Generator Marker

@@ -9,7 +9,7 @@ data WebApplication = WebApplication deriving (Eq, Show)
 
 data StaticController
   = AboutAction
-  | WelcomeAction
+  | HowToContributeAction
   deriving (Eq, Show, Data)
 
 data Co2EmittersController
