@@ -64,7 +64,7 @@ renderCo2Emitter co2Emitter =
               <span class="unit">{get #unit co2Emitter}</span>
             </div>
           </div>
-          <div class="field">{editAndDeleteButtons}</div>
+          {editAndDeleteButtons} 
         </div>
       </div>
 |]
@@ -76,8 +76,12 @@ renderCo2Emitter co2Emitter =
         Just user
           | get #id user == get #userId co2Emitter |> fromMaybe "" ->
             [hsx|
-                <div class="edit-delete"><a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;
-                <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete">Delete</a></div>
+                <div class="field">
+                  <div class="edit-delete">
+                    <a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;
+                    <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete">Delete</a>
+                  </div>
+                </div>
               |]
         _ -> [hsx|  |]
 
