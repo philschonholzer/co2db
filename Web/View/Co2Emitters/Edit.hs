@@ -8,6 +8,14 @@ instance View EditView where
   html EditView {..} =
     [hsx|
         <header>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={ShowCo2EmitterAction (get #id co2Emitter)}>{get #title co2Emitter}</a> </li>
+              <li class="breadcrumb-item active">Edit {get #title co2Emitter}</li>
+            </ol>
+          </nav>
+
           <h1>Edit Producer</h1>
         </header>
         <section>{renderForm co2Emitter categories}</section>

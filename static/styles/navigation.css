@@ -91,11 +91,6 @@ nav .menu-button {
 
 /* SUB NAVIGATION */
 
-/* main header nav {
-  background: var(--darken);
-  border-radius: 0.2rem;
-} */
-
 main header nav ol {
   display: flex;
   flex-wrap: wrap;

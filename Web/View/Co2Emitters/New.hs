@@ -8,6 +8,13 @@ instance View NewView where
   html NewView {..} =
     [hsx|
         <header>
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
+              <li class="breadcrumb-item active">New {get #title co2Emitter}</li>
+            </ol>
+          </nav>
+
           <h1>New Co2Emitter</h1>
         </header>
         <section>{renderForm co2Emitter categories}</section>
