@@ -21,7 +21,7 @@ renderForm co2Emitter categories =
         {(textField #title)}
         {(textField #description)}
         {(selectField #categoryId categories)}
-        {(textField #gCo2e)}
+        {(textField #gCo2e) { fieldLabel = "Grams (g) CO₂e"}}
         {(textField #per)}
         {(selectField #unit $ enumFrom Kilometer)}
         {(textField #commonConsumption)}
