@@ -14,7 +14,7 @@ instance CanRoute StaticController where
       <|> (string "/about" <* endOfInput >> pure AboutAction)
 
 -- Generator Marker
-instance AutoRoute Co2EmittersController
+instance AutoRoute Co2ProducersController
 
 instance AutoRoute CategoriesController
 

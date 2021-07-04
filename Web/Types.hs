@@ -12,15 +12,15 @@ data StaticController
   | HowToContributeAction
   deriving (Eq, Show, Data)
 
-data Co2EmittersController
-  = Co2EmittersAction
-  | -- | SearchCo2EmittersAction
-    NewCo2EmitterAction
-  | ShowCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}
-  | CreateCo2EmitterAction
-  | EditCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}
-  | UpdateCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}
-  | DeleteCo2EmitterAction {co2EmitterId :: !(Id Co2Emitter)}
+data Co2ProducersController
+  = Co2ProducersAction
+  | -- | SearchCo2ProducersAction
+    NewCo2ProducerAction
+  | ShowCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
+  | CreateCo2ProducerAction
+  | EditCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
+  | UpdateCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
+  | DeleteCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
   deriving (Eq, Show, Data)
 
 data CategoriesController

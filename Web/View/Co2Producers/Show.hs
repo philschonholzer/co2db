@@ -1,11 +1,11 @@
-module Web.View.Co2Emitters.Show where
+module Web.View.Co2Producers.Show where
 
 import qualified Text.MMark as MMark
 import qualified Text.Megaparsec   as M
 import Web.View.Prelude
 import Text.Printf
 
-data ShowView = ShowView {co2Emitter :: Co2Emitter}
+data ShowView = ShowView {co2Emitter :: Co2Producer}
 
 instance View ShowView where
   html ShowView {..} =
@@ -14,7 +14,7 @@ instance View ShowView where
           <header>
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
+                <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
                 <li class="breadcrumb-item active">{get #title co2Emitter}</li>
               </ol>
             </nav>
@@ -72,8 +72,8 @@ instance View ShowView where
           Just user
             | get #id user == get #userId co2Emitter |> fromMaybe "" ->
               [hsx|
-                  <div class="edit-delete"><a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;&nbsp;
-                  <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete">Delete</a></div>
+                  <div class="edit-delete"><a href={EditCo2ProducerAction (get #id co2Emitter)}>Edit</a>&nbsp;&nbsp;
+                  <a href={DeleteCo2ProducerAction (get #id co2Emitter)} class="js-delete">Delete</a></div>
                 |]
           _ -> [hsx|  |]
 

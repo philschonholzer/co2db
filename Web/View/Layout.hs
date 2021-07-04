@@ -33,7 +33,7 @@ defaultLayout inner =
                 </a>
                 <ul class="collapse-items" id="navbarSupportedContent">
                     <li class="nav-item">
-                      <a class="nav-link" href="/Co2Emitters">CO<sub>2</sub> Producers</a>
+                      <a class="nav-link" href="/Co2Producers">CO<sub>2</sub> Producers</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/about" tabindex="-1">About</a>
@@ -139,7 +139,7 @@ renderWeight weight = [hsx|<b>{weight `div'` 1000 |> show}</b><span>,{mod' weigh
 threeDec :: Double -> String
 threeDec dec = dec |> printf "%03.0F"
 
-calcAmountFromBase :: (?context :: ControllerContext) => Co2Emitter' categoryId userId -> (Co2Emitter' categoryId userId -> Double) -> H.Html
+calcAmountFromBase :: (?context :: ControllerContext) => Co2Producer' categoryId userId -> (Co2Producer' categoryId userId -> Double) -> H.Html
 calcAmountFromBase co2Emitter consumption =
   co2Emitter
     |> get #gCo2e

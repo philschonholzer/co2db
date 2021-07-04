@@ -1,8 +1,8 @@
-module Web.View.Co2Emitters.New where
+module Web.View.Co2Producers.New where
 
 import Web.View.Prelude
 
-data NewView = NewView {co2Emitter :: Co2Emitter, categories :: [Category]}
+data NewView = NewView {co2Emitter :: Co2Producer, categories :: [Category]}
 
 instance View NewView where
   html NewView {..} =
@@ -10,17 +10,17 @@ instance View NewView where
         <header>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
               <li class="breadcrumb-item active">New {get #title co2Emitter}</li>
             </ol>
           </nav>
 
-          <h1>New Co2Emitter</h1>
+          <h1>New Co2Producer</h1>
         </header>
         <section>{renderForm co2Emitter categories}</section>
     |]
 
-renderForm :: Co2Emitter -> [Category] -> Html
+renderForm :: Co2Producer -> [Category] -> Html
 renderForm co2Emitter categories =
   formFor
     co2Emitter

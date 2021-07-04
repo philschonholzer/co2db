@@ -1,8 +1,8 @@
-module Web.View.Co2Emitters.Edit where
+module Web.View.Co2Producers.Edit where
 
 import Web.View.Prelude
 
-data EditView = EditView {co2Emitter :: Co2Emitter, categories :: [Category]}
+data EditView = EditView {co2Emitter :: Co2Producer, categories :: [Category]}
 
 instance View EditView where
   html EditView {..} =
@@ -10,8 +10,8 @@ instance View EditView where
         <header>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
-              <li class="breadcrumb-item"><a href={ShowCo2EmitterAction (get #id co2Emitter)}>{get #title co2Emitter}</a> </li>
+              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={ShowCo2ProducerAction (get #id co2Emitter)}>{get #title co2Emitter}</a> </li>
               <li class="breadcrumb-item active">Edit {get #title co2Emitter}</li>
             </ol>
           </nav>
@@ -21,7 +21,7 @@ instance View EditView where
         <section>{renderForm co2Emitter categories}</section>
     |]
 
-renderForm :: Co2Emitter -> [Category] -> Html
+renderForm :: Co2Producer -> [Category] -> Html
 renderForm co2Emitter categories =
   formFor
     co2Emitter

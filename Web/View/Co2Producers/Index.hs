@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Web.View.Co2Emitters.Index where
+module Web.View.Co2Producers.Index where
 
 import Data.Text (Text, unpack, pack)
 import Network.URL
@@ -9,13 +9,13 @@ import Text.Printf
 import Data.Fixed
 
 
-data IndexView = IndexView {co2Emitters :: [Co2Emitter], searchTerm :: Maybe Text}
+data IndexView = IndexView {co2Emitters :: [Co2Producer], searchTerm :: Maybe Text}
 
 instance View IndexView where
   html IndexView {..} =
     [hsx|
         <header>
-          <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2EmitterAction} class="btn btn-primary ml-4">+ New</a></h1>
+          <h1>CO<sub>2</sub> Producers <a href={pathTo NewCo2ProducerAction} class="btn btn-primary ml-4">+ New</a></h1>
         </header>
         <form method="get">
           <div class="search-group">
@@ -24,16 +24,16 @@ instance View IndexView where
           </div>
         </form>
         <div class="producers">
-            {forEach co2Emitters renderCo2Emitter}
+            {forEach co2Emitters renderCo2Producer}
         </div>
     |]
 
 
-renderCo2Emitter co2Emitter =
+renderCo2Producer co2Emitter =
   [hsx|
       <div class="producer index">
         <div class="title">
-          <a href={ShowCo2EmitterAction (get #id co2Emitter)}>
+          <a href={ShowCo2ProducerAction (get #id co2Emitter)}>
             <h2>
               {get #title co2Emitter}
             </h2>
@@ -78,8 +78,8 @@ renderCo2Emitter co2Emitter =
             [hsx|
                 <div class="field">
                   <div class="edit-delete">
-                    <a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;
-                    <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete">Delete</a>
+                    <a href={EditCo2ProducerAction (get #id co2Emitter)}>Edit</a>&nbsp;
+                    <a href={DeleteCo2ProducerAction (get #id co2Emitter)} class="js-delete">Delete</a>
                   </div>
                 </div>
               |]

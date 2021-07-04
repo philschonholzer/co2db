@@ -49,13 +49,13 @@ instance Controller UsersController where
               |> set #passwordHash hashed
               |> createRecord
           setSuccessMessage "You have registered successfully"
-          redirectTo Co2EmittersAction 
+          redirectTo Co2ProducersAction 
   action DeleteUserAction {userId} = do
     user <- fetch userId
     accessDeniedUnless (get #id user == currentUserId)
     deleteRecord user
     setSuccessMessage "User deleted"
-    redirectTo Co2EmittersAction
+    redirectTo Co2ProducersAction
 
 buildUser user =
   user
