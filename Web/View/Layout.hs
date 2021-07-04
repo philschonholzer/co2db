@@ -24,7 +24,7 @@ defaultLayout inner =
           <title>CO2 Database</title>
       </head>
       <body>
-        <header>
+        <header class="page-header">
           <div class="container">
             <nav>
                 <a class="navbar-brand" href="/">CO<sub>2</sub> Database</a>
@@ -49,7 +49,7 @@ defaultLayout inner =
                 {inner}
           </div>
         </main>
-        <footer>
+        <footer class="page-footer">
           <div class="container">
             <p>2021 CO<sub>2</sub> Database</p>
           </div>

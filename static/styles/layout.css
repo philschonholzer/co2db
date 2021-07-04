@@ -5,13 +5,27 @@ body {
   min-height: 100vh;
 }
 
-header {
+main {
+  margin-bottom: 4rem;
+}
+
+header.page-header {
+  background-color: var(--darken);
+}
+
+main header {
+  margin-top: clamp(1rem, 4vw, 3rem);
+  margin-bottom: 2rem;
+}
+
+footer.page-footer {
   background-color: var(--darken);
 }
 
 .container {
   max-width: 1280px;
-  padding: 0 1em;
+  padding-left: clamp(1rem, 6vw, 5rem);
+  padding-right: clamp(1rem, 6vw, 5rem);
   margin-left: auto;
   margin-right: auto;
 }

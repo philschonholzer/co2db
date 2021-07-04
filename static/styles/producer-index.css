@@ -1,0 +1,17 @@
+.producer.index {
+  display: flex;
+  flex-direction: column;
+  max-width: 24rem;
+  border: 4px solid var(--boarder-color);
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+
+.producer.index .title {
+  padding: 1em;
+  background-color: var(--accent-color);
+}
+
+.producer.index .title a {
+  color: white;
+}

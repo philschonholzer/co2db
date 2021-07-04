@@ -6,16 +6,12 @@ import Web.View.Prelude
 instance View (NewView User) where
   html NewView {..} =
     [hsx|
-        <div class="h-100" id="sessions-new">
-            <div class="d-flex align-items-center">
-                <div class="w-100">
-                    <div style="max-width: 400px" class="mx-auto mb-5">
-                        <h5>Please login</h5>
-                        {renderForm user}
-                        <p style="margin-top: 2em;" >Not registered? <a href={NewUserAction}>Sign up</a></p> 
-                    </div>
-                </div>
-            </div>
+        <div id="sessions-new">
+          <header>
+            <h1>Login</h1>
+          </header>
+          {renderForm user}
+          <p style="margin-top: 2em;" >Not registered? <a href={NewUserAction}>Sign up</a></p> 
         </div>
     |]
 

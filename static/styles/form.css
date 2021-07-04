@@ -50,5 +50,5 @@ button:hover {
 button:active {
   color: var(--background-color);
   background-color: var(--accent-color);
-  transform: translateY(3px);
+  transform: translateY(2px);
 }

@@ -7,7 +7,9 @@ data EditView = EditView {user :: User}
 instance View EditView where
   html EditView {..} =
     [hsx|
-        <h1>Edit User</h1>
+        <header>
+          <h1>Edit User</h1>
+        </header>
         {renderForm user}
     |]
 

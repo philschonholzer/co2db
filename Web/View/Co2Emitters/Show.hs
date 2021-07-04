@@ -10,43 +10,48 @@ data ShowView = ShowView {co2Emitter :: Co2Emitter}
 instance View ShowView where
   html ShowView {..} =
     [hsx|
-        <div class="producer show">
-          <h1>CO<sub>2</sub> Footprint of {get #title co2Emitter}</h1>
-          {renderDescription}
-          <div class="fields">
-            <div class="field">
-              <p class="label">CO<sub>2</sub>e emissions</p>
-              <div class="amount-per-unit">
-                <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #per co2Emitter |> renderPer} {get #unit co2Emitter}</span>
+        <article class="producer show">
+          <header>
+            <h1>CO<sub>2</sub> Footprint of {get #title co2Emitter}</h1>
+            {editAndDeleteButtons}
+          </header>
+          <div class="section-layout">
+            <section class="fields data">
+              <div class="field">
+                <p class="label">CO<sub>2</sub>e emissions</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
+                  <span class="per fit">per <b>{get #per co2Emitter |> renderPer}</b></span>
+                  <span class="unit">{get #unit co2Emitter}</span>
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <p class="label">Common CO<sub>2</sub>e consumption</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #commonConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</span>
+              <div class="field">
+                <p class="label">Common CO<sub>2</sub>e consumption</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
+                  <span class="per fit">per <b>{get #commonConsumption co2Emitter |> renderPer}</b></span>
+                  <span class="unit">{get #unit co2Emitter}</span>
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
-                <span class="per fit">/</span>
-                <span class="unit">{get #averageYearlyConsumption co2Emitter |> renderPer} {get #unit co2Emitter}</span>
+              <div class="field">
+                <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
+                  <span class="per fit">per <b>{get #averageYearlyConsumption co2Emitter |> renderPer}</b> </span>
+                  <span class="unit">{get #unit co2Emitter}</span>
+                </div>
               </div>
-            </div>
+            </section>
+            <section class="description"><h2>Description</h2>{renderDescription}</section>
+            <section class="source"><h2>Source</h2>{get #source co2Emitter |> renderMarkdown}</section>
           </div>
-          <div class="source">{get #source co2Emitter |> renderMarkdown}</div>
-          {editAndDeleteButtons}
-        </div>
+          
+        </article>
     |]
     where
       renderDescription = case get #description co2Emitter of
         Just a -> [hsx|<p>{a}</p>|]
-        Nothing -> [hsx||]
+        Nothing -> [hsx|<p class="muted">No description</p>|]
 
       renderMarkdown text =
         case text |> MMark.parse "" of

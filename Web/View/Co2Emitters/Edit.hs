@@ -7,7 +7,9 @@ data EditView = EditView {co2Emitter :: Co2Emitter, categories :: [Category]}
 instance View EditView where
   html EditView {..} =
     [hsx|
-        <h1>Edit Producer</h1>
+        <header>
+          <h1>Edit Producer</h1>
+        </header>
         <section>{renderForm co2Emitter categories}</section>
     |]
 
