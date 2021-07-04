@@ -12,8 +12,16 @@ instance View ShowView where
     [hsx|
         <article class="producer show">
           <header>
-            <h1>CO<sub>2</sub> Footprint of {get #title co2Emitter}</h1>
-            {editAndDeleteButtons}
+            <nav>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href={Co2EmittersAction}>Producers</a></li>
+                <li class="breadcrumb-item active">{get #title co2Emitter}</li>
+              </ol>
+            </nav>
+            <div class="title">
+              <h1>CO<sub>2</sub> Footprint of {get #title co2Emitter}</h1>
+              {editAndDeleteButtons}
+            </div>
           </header>
           <div class="section-layout">
             <section class="fields data">
@@ -64,7 +72,7 @@ instance View ShowView where
           Just user
             | get #id user == get #userId co2Emitter |> fromMaybe "" ->
               [hsx|
-                  <div class="edit-delete"><a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;
+                  <div class="edit-delete"><a href={EditCo2EmitterAction (get #id co2Emitter)}>Edit</a>&nbsp;&nbsp;
                   <a href={DeleteCo2EmitterAction (get #id co2Emitter)} class="js-delete">Delete</a></div>
                 |]
           _ -> [hsx|  |]

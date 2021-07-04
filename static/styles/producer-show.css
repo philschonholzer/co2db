@@ -1,4 +1,4 @@
-.producer.show header {
+.producer.show header .title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;

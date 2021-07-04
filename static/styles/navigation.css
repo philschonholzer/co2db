@@ -1,19 +1,19 @@
 :root {
   --down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke-width='3' stroke='currentColor' d='M 4,10 L 10,16 L 16,10' /%3E%3C/svg%3E");
 }
-nav {
+.page-header nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.5em 0;
 }
 
-nav a {
+.page-header nav a {
   color: var(--text-color);
   opacity: var(--muted);
 }
 
-nav a:hover {
+.page-header nav a:hover {
   text-decoration: none;
   opacity: 0.5;
 }
@@ -87,6 +87,32 @@ nav .menu-button {
     margin-left: 1em;
     background-color: var(--darken);
   }
+}
+
+/* SUB NAVIGATION */
+
+/* main header nav {
+  background: var(--darken);
+  border-radius: 0.2rem;
+} */
+
+main header nav ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.2em 0;
+  gap: 0.2em 0.6em;
+}
+
+main header nav ol li + li {
+  margin-left: 0.5em;
+  padding-left: 0.5em;
+  list-style: '>';
+}
+
+main header nav a {
+  color: var(--accent-color);
 }
 
 @media (min-width: 760px) {
