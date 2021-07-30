@@ -14,13 +14,6 @@
 }
 
 .producer.show .section-layout {
-  display: grid;
-  grid:
-    'data       '
-    'description'
-    'source     ';
-
-  gap: 2rem 4rem;
 }
 
 .producer.show section {
@@ -45,10 +38,5 @@
 
 @media (min-width: 768px) {
   .producer.show .section-layout {
-    display: grid;
-    grid:
-      'data description' auto
-      'data source     ' 1fr
-      / auto 1fr;
   }
 }

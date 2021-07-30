@@ -2,10 +2,12 @@ module Web.View.Co2Producers.Show where
 
 import qualified Text.MMark as MMark
 import qualified Text.Megaparsec   as M
+import qualified Text.Blaze.Html5 as H
+
 import Web.View.Prelude
 import Text.Printf
 
-data ShowView = ShowView {co2Emitter :: Co2Producer}
+data ShowView = ShowView {co2Producer :: Include "co2ProducerDetails" Co2Producer}
 
 instance View ShowView where
   html ShowView {..} =
@@ -15,49 +17,24 @@ instance View ShowView where
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
-                <li class="breadcrumb-item active">{get #title co2Emitter}</li>
+                <li class="breadcrumb-item active">{get #title co2Producer}</li>
               </ol>
             </nav>
             <div class="title">
-              <h1>CO<sub>2</sub> Footprint of {get #title co2Emitter}</h1>
+              <h1>CO<sub>2</sub> Footprint of {get #title co2Producer}</h1>
               {editAndDeleteButtons}
             </div>
           </header>
           <div class="section-layout">
-            <section class="fields data">
-              <div class="field">
-                <p class="label">CO<sub>2</sub>e emissions</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
-                  <span class="per fit">per <b>{get #per co2Emitter |> renderPer}</b></span>
-                  <span class="unit">{get #unit co2Emitter}</span>
-                </div>
-              </div>
-              <div class="field">
-                <p class="label">Common CO<sub>2</sub>e consumption</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
-                  <span class="per fit">per <b>{get #commonConsumption co2Emitter |> renderPer}</b></span>
-                  <span class="unit">{get #unit co2Emitter}</span>
-                </div>
-              </div>
-              <div class="field">
-                <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
-                  <span class="per fit">per <b>{get #averageYearlyConsumption co2Emitter |> renderPer}</b> </span>
-                  <span class="unit">{get #unit co2Emitter}</span>
-                </div>
-              </div>
-            </section>
             <section class="description"><h2>Description</h2>{renderDescription}</section>
-            <section class="source"><h2>Source</h2>{get #source co2Emitter |> renderMarkdown}</section>
+            <a href={NewCo2ProducerDetailAction (get #id co2Producer)}>Add Source</a>
+            {forEach (get #co2ProducerDetails co2Producer) renderDetails}
           </div>
           
         </article>
     |]
     where
-      renderDescription = case get #description co2Emitter of
+      renderDescription = case get #description co2Producer of
         Just a -> [hsx|<p>{a}</p>|]
         Nothing -> [hsx|<p class="muted">No description</p>|]
 
@@ -70,12 +47,51 @@ instance View ShowView where
       editAndDeleteButtons =
         case fromFrozenContext @(Maybe User) of
           Just user
-            | get #id user == get #userId co2Emitter |> fromMaybe "" ->
+            | get #id user == get #userId co2Producer |> fromMaybe "" ->
               [hsx|
-                  <div class="edit-delete"><a href={EditCo2ProducerAction (get #id co2Emitter)}>Edit</a>&nbsp;&nbsp;
-                  <a href={DeleteCo2ProducerAction (get #id co2Emitter)} class="js-delete">Delete</a></div>
+                  <div class="edit-delete"><a href={EditCo2ProducerAction (get #id co2Producer)}>Edit</a>&nbsp;&nbsp;
+                  <a href={DeleteCo2ProducerAction (get #id co2Producer)} class="js-delete">Delete</a></div>
                 |]
           _ -> [hsx|  |]
 
       showFromString :: String -> Text 
       showFromString = tshow
+
+      renderDetails co2ProducerDetail = [hsx|
+            <section class="fields data">
+              <div class="field">
+                <p class="label">CO<sub>2</sub>e emissions</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
+                  <span class="per fit">per <b>{get #per co2ProducerDetail |> renderPer}</b></span>
+                  <span class="unit">{get #unit co2ProducerDetail}</span>
+                </div>
+              </div>
+              <div class="field">
+                <p class="label">Common CO<sub>2</sub>e consumption</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail commonConsumption}</span>
+                  <span class="per fit">per <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b></span>
+                  <span class="unit">{get #unit co2ProducerDetail}</span>
+                </div>
+              </div>
+              <div class="field">
+                <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+                <div class="amount-per-unit">
+                  <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail averageYearlyConsumption}</span>
+                  <span class="per fit">per <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> </span>
+                  <span class="unit">{get #unit co2ProducerDetail}</span>
+                </div>
+              </div>
+            </section>
+
+        |]
+
+    
+      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId  -> Double) -> H.Html
+      calcAmountFromBaseDetail co2Producer consumption =
+        co2Producer
+          |> get #gCo2e
+          |> (/ get #per co2Producer)
+          |> (* consumption co2Producer)
+          |> renderWeight

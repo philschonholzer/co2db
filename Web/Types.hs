@@ -16,11 +16,21 @@ data Co2ProducersController
   = Co2ProducersAction
   | -- | SearchCo2ProducersAction
     NewCo2ProducerAction
-  | ShowCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
+  | ShowCo2ProducerAction {co2ProducerId :: !(Id Co2Producer)}
   | CreateCo2ProducerAction
-  | EditCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
-  | UpdateCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
-  | DeleteCo2ProducerAction {co2EmitterId :: !(Id Co2Producer)}
+  | EditCo2ProducerAction {co2ProducerId :: !(Id Co2Producer)}
+  | UpdateCo2ProducerAction {co2ProducerId :: !(Id Co2Producer)}
+  | DeleteCo2ProducerAction {co2ProducerId :: !(Id Co2Producer)}
+  deriving (Eq, Show, Data)
+
+data Co2ProducerDetailsController
+  = Co2ProducerDetailsAction
+  | NewCo2ProducerDetailAction {co2ProducerId :: !(Id Co2Producer)}
+  | ShowCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
+  | CreateCo2ProducerDetailAction
+  | EditCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
+  | UpdateCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
+  | DeleteCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
   deriving (Eq, Show, Data)
 
 data CategoriesController

@@ -9,7 +9,7 @@ import Text.Printf
 import Data.Fixed
 
 
-data IndexView = IndexView {co2Emitters :: [Co2Producer], searchTerm :: Maybe Text}
+data IndexView = IndexView {co2Producers :: [Co2Producer], searchTerm :: Maybe Text}
 
 instance View IndexView where
   html IndexView {..} =
@@ -24,18 +24,18 @@ instance View IndexView where
           </div>
         </form>
         <div class="producers">
-            {forEach co2Emitters renderCo2Producer}
+            {forEach co2Producers renderCo2Producer}
         </div>
     |]
 
 
-renderCo2Producer co2Emitter =
+renderCo2Producer co2Producer =
   [hsx|
       <div class="producer index">
         <div class="title">
-          <a href={ShowCo2ProducerAction (get #id co2Emitter)}>
+          <a href={ShowCo2ProducerAction (get #id co2Producer)}>
             <h2>
-              {get #title co2Emitter}
+              {get #title co2Producer}
             </h2>
           </a>
         </div>
@@ -43,25 +43,25 @@ renderCo2Producer co2Emitter =
           <div class="field">
             <p class="label">CO<sub>2</sub>e emissions</p>
             <div class="amount-per-unit">
-              <span class="amount">{get #gCo2e co2Emitter |> renderWeight}</span>
-              <span class="per fit">per <b>{get #per co2Emitter |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Emitter}</span>
+              <span class="amount">{get #gCo2e co2Producer |> renderWeight}</span>
+              <span class="per fit">per <b>{get #per co2Producer |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Producer}</span>
             </div>
           </div>
           <div class="field">
             <p class="label">Common CO<sub>2</sub>e consumption</p>
             <div class="amount-per-unit">
-              <span class="amount">{calcAmountFromBase co2Emitter commonConsumption}</span>
-              <span class="per fit">per <b>{get #commonConsumption co2Emitter |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Emitter}</span>
+              <span class="amount">{calcAmountFromBase co2Producer commonConsumption}</span>
+              <span class="per fit">per <b>{get #commonConsumption co2Producer |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Producer}</span>
             </div>
           </div>
           <div class="field">
             <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
             <div class="amount-per-unit">
-              <span class="amount">{calcAmountFromBase co2Emitter averageYearlyConsumption}</span>
-              <span class="per fit">per <b>{get #averageYearlyConsumption co2Emitter |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Emitter}</span>
+              <span class="amount">{calcAmountFromBase co2Producer averageYearlyConsumption}</span>
+              <span class="per fit">per <b>{get #averageYearlyConsumption co2Producer |> renderPer}</b></span>
+              <span class="unit">{get #unit co2Producer}</span>
             </div>
           </div>
           {editAndDeleteButtons} 
@@ -74,12 +74,12 @@ renderCo2Producer co2Emitter =
     editAndDeleteButtons =
       case fromFrozenContext @(Maybe User) of
         Just user
-          | get #id user == get #userId co2Emitter |> fromMaybe "" ->
+          | get #id user == get #userId co2Producer |> fromMaybe "" ->
             [hsx|
                 <div class="field">
                   <div class="edit-delete">
-                    <a href={EditCo2ProducerAction (get #id co2Emitter)}>Edit</a>&nbsp;
-                    <a href={DeleteCo2ProducerAction (get #id co2Emitter)} class="js-delete">Delete</a>
+                    <a href={EditCo2ProducerAction (get #id co2Producer)}>Edit</a>&nbsp;
+                    <a href={DeleteCo2ProducerAction (get #id co2Producer)} class="js-delete">Delete</a>
                   </div>
                 </div>
               |]

@@ -47,3 +47,15 @@ INSERT INTO public.co2_producers (id, title, description, category_id, g_co2e, p
 ALTER TABLE public.co2_producers ENABLE TRIGGER ALL;
 
 
+ALTER TABLE public.co2_producer_details DISABLE TRIGGER ALL;
+
+INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, common_consumption, average_yearly_consumption, per, unit, source, user_id) VALUES ('1eb19744-e370-4cde-a4ba-a864b407f819', '4067b5fe-582d-4cc1-948b-3c704aebd5fa', NULL, NULL, 3, 8, 1780, 1, 'hour', '<https://www.eia.gov/tools/faqs/faq.php?id=74&t=11#:~:text=This%20equaled%20about%200.92%20pounds%20of%20CO2%20emissions%20per%20kWh>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, common_consumption, average_yearly_consumption, per, unit, source, user_id) VALUES ('2eb19744-e370-4cde-a4ba-a864b407f818', 'c8d6f416-ad52-484f-9f7e-b510dac2c158', NULL, NULL, 67800, 0.15, 26.3537197, 1, 'kilogram', '<http://www.fao.org/3/i3461e/i3461e03.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, common_consumption, average_yearly_consumption, per, unit, source, user_id) VALUES ('3eb19744-e370-4cde-a4ba-a864b407f817', '71eb436f-ee25-4fb3-8c87-535bee7906e6', NULL, NULL, 685, 24, 8760, 1, 'hour', '<https://ourworldindata.org/grapher/consumption-co2-per-capita?year=latest>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, common_consumption, average_yearly_consumption, per, unit, source, user_id) VALUES ('4eb19744-e370-4cde-a4ba-a864b407f816', '67ac058e-4156-404e-8933-fa43e950550c', NULL, NULL, 2000, 13, 4745, 10, 'minutes', '<https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, common_consumption, average_yearly_consumption, per, unit, source, user_id) VALUES ('7eb19744-e370-4cde-a4ba-a864b407f815', '05e9b91f-fe9e-4679-86c7-fe60fa13fae4', NULL, NULL, 2312, 40, 2483, 1, 'liter', '<https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+
+
+ALTER TABLE public.co2_producer_details ENABLE TRIGGER ALL;
+
+

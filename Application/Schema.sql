@@ -25,5 +25,22 @@ CREATE TABLE users (
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     failed_login_attempts INT DEFAULT 0 NOT NULL
 );
+CREATE TABLE co2_producer_details (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    co2_producer_id UUID NOT NULL,
+    region TEXT DEFAULT NULL,
+    "year" INT DEFAULT NULL,
+    g_co2e DOUBLE PRECISION NOT NULL,
+    common_consumption DOUBLE PRECISION NOT NULL,
+    average_yearly_consumption DOUBLE PRECISION NOT NULL,
+    per DOUBLE PRECISION NOT NULL,
+    unit units NOT NULL,
+    source TEXT NOT NULL,
+    user_id UUID DEFAULT NULL
+);
+CREATE INDEX co2_producer_details_co2_producer_id_index ON co2_producer_details (co2_producer_id);
+CREATE INDEX co2_producer_details_user_id_index ON co2_producer_details (user_id);
+ALTER TABLE co2_producer_details ADD CONSTRAINT co2_producer_details_ref_co2_producer_id FOREIGN KEY (co2_producer_id) REFERENCES co2_producers (id) ON DELETE NO ACTION;
+ALTER TABLE co2_producer_details ADD CONSTRAINT co2_producer_details_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
 ALTER TABLE co2_producers ADD CONSTRAINT co2_producers_ref_category_id FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE NO ACTION;
 ALTER TABLE co2_producers ADD CONSTRAINT co2_producers_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
