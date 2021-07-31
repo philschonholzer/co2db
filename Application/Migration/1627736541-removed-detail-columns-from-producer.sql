@@ -1,5 +1,5 @@
 -- Write your SQL migration code in here
-ALTER TABLE co2_emitters 
+ALTER TABLE co2_producers 
     ADD COLUMN main_co2_producer_detail_id UUID DEFAULT NULL,
     DROP COLUMN g_co2e,
     DROP COLUMN common_consumption,
