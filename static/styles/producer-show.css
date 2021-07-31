@@ -13,19 +13,32 @@
   margin-left: auto;
 }
 
-.producer.show .section-layout {
+.producer.show .details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 2em 0 4em 0;
+}
+
+.producer.show .detail {
+  display: flex;
+  flex-direction: column;
+  max-width: 24rem;
+  border: 4px solid var(--boarder-color);
+  border-radius: 0.4em;
+  overflow: hidden;
 }
 
 .producer.show section {
   padding: 0;
 }
 
-.producer.show .data {
-  grid-area: data;
-  max-width: 24rem;
-  border: 4px solid var(--accent-color);
-  border-radius: 0.2em;
-  overflow: hidden;
+.producer.show .detail .information {
+  height: 100%;
+  padding: 1em;
+  color: var(--background-color);
+  background-color: var(--accent-color);
+  text-align: right;
 }
 
 .producer.show .description {

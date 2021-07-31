@@ -40,30 +40,6 @@ renderCo2Producer co2Producer =
           </a>
         </div>
         <div class="fields">
-          <div class="field">
-            <p class="label">CO<sub>2</sub>e emissions</p>
-            <div class="amount-per-unit">
-              <span class="amount">{get #gCo2e co2Producer |> renderWeight}</span>
-              <span class="per fit">per <b>{get #per co2Producer |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Producer}</span>
-            </div>
-          </div>
-          <div class="field">
-            <p class="label">Common CO<sub>2</sub>e consumption</p>
-            <div class="amount-per-unit">
-              <span class="amount">{calcAmountFromBase co2Producer commonConsumption}</span>
-              <span class="per fit">per <b>{get #commonConsumption co2Producer |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Producer}</span>
-            </div>
-          </div>
-          <div class="field">
-            <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
-            <div class="amount-per-unit">
-              <span class="amount">{calcAmountFromBase co2Producer averageYearlyConsumption}</span>
-              <span class="per fit">per <b>{get #averageYearlyConsumption co2Producer |> renderPer}</b></span>
-              <span class="unit">{get #unit co2Producer}</span>
-            </div>
-          </div>
           {editAndDeleteButtons} 
         </div>
       </div>
@@ -85,3 +61,29 @@ renderCo2Producer co2Producer =
               |]
         _ -> [hsx|  |]
 
+
+
+--         <div class="field">
+--           <p class="label">CO<sub>2</sub>e emissions</p>
+--           <div class="amount-per-unit">
+--             <span class="amount">{get #gCo2e co2Producer |> renderWeight}</span>
+--             <span class="per fit">per <b>{get #per co2Producer |> renderPer}</b></span>
+--             <span class="unit">{get #unit co2Producer}</span>
+--           </div>
+--         </div>
+--         <div class="field">
+--           <p class="label">Common CO<sub>2</sub>e consumption</p>
+--           <div class="amount-per-unit">
+--             <span class="amount">{calcAmountFromBase co2Producer commonConsumption}</span>
+--             <span class="per fit">per <b>{get #commonConsumption co2Producer |> renderPer}</b></span>
+--             <span class="unit">{get #unit co2Producer}</span>
+--           </div>
+--         </div>
+--         <div class="field">
+--           <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+--           <div class="amount-per-unit">
+--             <span class="amount">{calcAmountFromBase co2Producer averageYearlyConsumption}</span>
+--             <span class="per fit">per <b>{get #averageYearlyConsumption co2Producer |> renderPer}</b></span>
+--             <span class="unit">{get #unit co2Producer}</span>
+--           </div>
+--         </div>

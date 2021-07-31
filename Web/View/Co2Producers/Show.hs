@@ -25,10 +25,10 @@ instance View ShowView where
               {editAndDeleteButtons}
             </div>
           </header>
-          <div class="section-layout">
-            <section class="description"><h2>Description</h2>{renderDescription}</section>
-            <a href={NewCo2ProducerDetailAction (get #id co2Producer)}>Add Source</a>
-            {forEach (get #co2ProducerDetails co2Producer) renderDetails}
+          <section class="description"><h2>Description</h2>{renderDescription}</section>
+          <a href={NewCo2ProducerDetailAction (get #id co2Producer)}>Add Source</a>
+          <div class="details">
+            {forEach (get #co2ProducerDetails co2Producer) renderDetail}
           </div>
           
         </article>
@@ -57,38 +57,42 @@ instance View ShowView where
       showFromString :: String -> Text 
       showFromString = tshow
 
-      renderDetails co2ProducerDetail = [hsx|
-            <section class="fields data">
-              <div class="field">
-                <p class="label">CO<sub>2</sub>e emissions</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
-                  <span class="per fit">per <b>{get #per co2ProducerDetail |> renderPer}</b></span>
-                  <span class="unit">{get #unit co2ProducerDetail}</span>
-                </div>
+      renderDetail co2ProducerDetail = [hsx|
+        <div class="detail">
+          <div class="fields data">
+            <div class="field">
+              <p class="label">CO<sub>2</sub>e emissions</p>
+              <div class="amount-per-unit">
+                <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
+                <span class="per fit">per <b>{get #per co2ProducerDetail |> renderPer}</b></span>
+                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
-              <div class="field">
-                <p class="label">Common CO<sub>2</sub>e consumption</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail commonConsumption}</span>
-                  <span class="per fit">per <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b></span>
-                  <span class="unit">{get #unit co2ProducerDetail}</span>
-                </div>
+            </div>
+            <div class="field">
+              <p class="label">Common CO<sub>2</sub>e consumption</p>
+              <div class="amount-per-unit">
+                <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail commonConsumption}</span>
+                <span class="per fit">per <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b></span>
+                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
-              <div class="field">
-                <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
-                <div class="amount-per-unit">
-                  <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail averageYearlyConsumption}</span>
-                  <span class="per fit">per <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> </span>
-                  <span class="unit">{get #unit co2ProducerDetail}</span>
-                </div>
+            </div>
+            <div class="field">
+              <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+              <div class="amount-per-unit">
+                <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail averageYearlyConsumption}</span>
+                <span class="per fit">per <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> </span>
+                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
-            </section>
-
+            </div>
+          </div>
+          <div class="information">
+            {get #year co2ProducerDetail}
+            {get #region co2ProducerDetail}
+          </div>
+        </div>
         |]
-
-    
-      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId  -> Double) -> H.Html
+  
+      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId co2Producers -> (Co2ProducerDetail' co2ProducerId userId co2Producers  -> Double) -> H.Html
       calcAmountFromBaseDetail co2Producer consumption =
         co2Producer
           |> get #gCo2e

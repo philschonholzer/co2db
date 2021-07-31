@@ -94,14 +94,9 @@ matchTerm = filterWhitespace . T.map replaceSeparators
 
 buildCo2Producer co2Producer =
   co2Producer
-    |> fill @["title", "description", "categoryId", "gCo2e", "commonConsumption", "averageYearlyConsumption", "per", "unit", "source", "image"]
+    |> fill @["title", "description", "categoryId", "image"]
     |> validateField #title nonEmpty
     |> validateField #categoryId nonEmpty
-    |> validateField #gCo2e (isInRange (1, 2000000))
-    |> validateField #per (isInRange (1, 2000000))
-    |> validateField #commonConsumption (isInRange (0.0000001, 2000000))
-    |> validateField #averageYearlyConsumption (isInRange (0.0000001, 2000000))
-    |> validateField #source nonEmpty
     |> emptyValueToNothing #description
 
 producerOfUser co2Producer = get #userId co2Producer |> fromMaybe "empty" == currentUserId
