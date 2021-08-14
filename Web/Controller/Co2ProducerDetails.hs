@@ -39,7 +39,7 @@ instance Controller Co2ProducerDetailsController where
                 Right co2ProducerDetail -> do
                     co2ProducerDetail <- co2ProducerDetail |> updateRecord
                     setSuccessMessage "Co2ProducerDetail updated"
-                    redirectTo EditCo2ProducerDetailAction { .. }
+                    redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId co2ProducerDetail }
 
     action CreateCo2ProducerDetailAction = do
         ensureIsUser
@@ -62,7 +62,7 @@ instance Controller Co2ProducerDetailsController where
         producerDetailOfUser co2ProducerDetail |> accessDeniedUnless
         deleteRecord co2ProducerDetail
         setSuccessMessage "Co2ProducerDetail deleted"
-        redirectTo Co2ProducerDetailsAction
+        redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId co2ProducerDetail }
 
 buildCo2ProducerDetail co2ProducerDetail = 
   co2ProducerDetail
@@ -73,6 +73,5 @@ buildCo2ProducerDetail co2ProducerDetail =
     |> validateField #commonConsumption (isInRange (0.0000001, 2000000))
     |> validateField #averageYearlyConsumption (isInRange (0.0000001, 2000000))
     |> validateField #source nonEmpty
-
 
 producerDetailOfUser co2ProducerDetail = get #userId co2ProducerDetail |> fromMaybe "empty" == currentUserId

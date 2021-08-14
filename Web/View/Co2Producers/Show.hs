@@ -59,6 +59,9 @@ instance View ShowView where
 
       renderDetail co2ProducerDetail = [hsx|
         <div class="detail">
+          <div class="information">
+            {renderInformation co2ProducerDetail}
+          </div>
           <div class="fields data">
             <div class="field">
               <p class="label">CO<sub>2</sub>e emissions</p>
@@ -84,13 +87,23 @@ instance View ShowView where
                 <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
             </div>
-          </div>
-          <div class="information">
-            {get #year co2ProducerDetail}
-            {get #region co2ProducerDetail}
+            <div class="field">
+              <p class="label">Source</p>
+              <div class="source">
+                <p class="">{renderMarkdown $ get #source co2ProducerDetail}</p>
+              </div>
+            </div>
+            {editAndDeleteDetailButtons co2ProducerDetail}
           </div>
         </div>
         |]
+
+      renderInformation co2ProducerDetail = if (isJust $ get #year co2ProducerDetail) || (isJust $ get #region co2ProducerDetail)
+                                            then [hsx|{fromMaybe "" $ get #region co2ProducerDetail}{renderYear $ get #year co2ProducerDetail}|]
+                                            else [hsx|<span class="muted">Not specified</span>|]
+        where
+          renderYear (Just year) = ", " <> show year
+          renderYear Nothing = "" 
   
       calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId co2Producers -> (Co2ProducerDetail' co2ProducerId userId co2Producers  -> Double) -> H.Html
       calcAmountFromBaseDetail co2Producer consumption =
@@ -99,3 +112,17 @@ instance View ShowView where
           |> (/ get #per co2Producer)
           |> (* consumption co2Producer)
           |> renderWeight
+
+      editAndDeleteDetailButtons :: Co2ProducerDetail -> Html
+      editAndDeleteDetailButtons co2ProducerDetail =
+        case fromFrozenContext @(Maybe User) of
+          Just user
+            | get #id user == get #userId co2ProducerDetail |> fromMaybe "" ->
+              [hsx|
+                  <div class="field">
+                    <div class="edit-delete"><a href={EditCo2ProducerDetailAction (get #id co2ProducerDetail)}>Edit</a>&nbsp;&nbsp;
+                    <a href={DeleteCo2ProducerDetailAction (get #id co2ProducerDetail)} class="js-delete">Delete</a></div>
+                  </div>
+                |]
+          _ -> [hsx|  |]
+

@@ -33,8 +33,11 @@
   padding: 0;
 }
 
+.producer.show .fields a {
+  line-break: anywhere;
+}
+
 .producer.show .detail .information {
-  height: 100%;
   padding: 1em;
   color: var(--background-color);
   background-color: var(--accent-color);
@@ -46,7 +49,7 @@
 }
 
 .producer.show .source {
-  grid-area: source;
+  font-size: 0.8em;
 }
 
 @media (min-width: 768px) {
