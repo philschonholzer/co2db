@@ -2,19 +2,22 @@ module Web.View.Co2ProducerDetails.Edit where
 
 import Web.View.Prelude
 
-data EditView = EditView {co2ProducerDetail :: Co2ProducerDetail}
+data EditView = EditView {co2ProducerDetail :: Co2ProducerDetail, co2Producer :: Co2Producer}
 
 instance View EditView where
   html EditView {..} =
     [hsx|
-        <nav>
+        <header>
+          <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={Co2ProducerDetailsAction}>Co2ProducerDetails</a></li>
-                <li class="breadcrumb-item active">Edit Co2ProducerDetail</li>
+              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={ShowCo2ProducerAction $ get #id co2Producer}>CO<sub>2</sub>{get #title co2Producer}</a> </li>
+              <li class="breadcrumb-item active">Edit Source</li>
             </ol>
-        </nav>
-        <h1>Edit Co2ProducerDetail</h1>
-        {renderForm co2ProducerDetail}
+          </nav>
+          <h1>Edit Source {fromMaybe "" $ get #region co2ProducerDetail} {get #year co2ProducerDetail}</h1>
+        </header>
+        <section>{renderForm co2ProducerDetail}</section>
     |]
 
 renderForm :: Co2ProducerDetail -> Html
@@ -22,7 +25,7 @@ renderForm co2ProducerDetail =
   formFor
     co2ProducerDetail
     [hsx|
-    {(textField #co2ProducerId)}
+    {(hiddenField #co2ProducerId)}
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e)}
@@ -40,6 +43,6 @@ renderForm co2ProducerDetail =
       description:</p>
     <p>Original source: 0.92 pounds of CO2 emissions per kWh</p>
     <p>Conversion: 0.92 pounds / kWh × 454 = 417.305 gramm / kWh<br /> 417.305 gramms / kWh × 0.007 = 2.921135 gramms / 7 Wh</p>
-    {(textField #userId)}
-    {submitButton}
+    {(hiddenField #userId)}
+    {submitButton { label = "Save changes" } }
 |]

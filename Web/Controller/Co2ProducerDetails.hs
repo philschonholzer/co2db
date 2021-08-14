@@ -26,6 +26,7 @@ instance Controller Co2ProducerDetailsController where
         ensureIsUser
         co2ProducerDetail <- fetch co2ProducerDetailId
         producerDetailOfUser co2ProducerDetail |> accessDeniedUnless
+        co2Producer <- fetch $ get #co2ProducerId co2ProducerDetail
         render EditView { .. }
 
     action UpdateCo2ProducerDetailAction { co2ProducerDetailId } = do
@@ -35,7 +36,9 @@ instance Controller Co2ProducerDetailsController where
         co2ProducerDetail
             |> buildCo2ProducerDetail
             |> ifValid \case
-                Left co2ProducerDetail -> render EditView { .. }
+                Left co2ProducerDetail -> do 
+                  co2Producer <- fetch $ get #co2ProducerId co2ProducerDetail
+                  render EditView { .. }
                 Right co2ProducerDetail -> do
                     co2ProducerDetail <- co2ProducerDetail |> updateRecord
                     setSuccessMessage "Co2ProducerDetail updated"
@@ -49,7 +52,7 @@ instance Controller Co2ProducerDetailsController where
             |> set #userId (Just currentUserId)
             |> ifValid \case
                 Left co2ProducerDetail -> do
-                  co2Producer <- fetch (get #co2ProducerId co2ProducerDetail)
+                  co2Producer <- fetch $ get #co2ProducerId co2ProducerDetail
                   render NewView { .. } 
                 Right co2ProducerDetail -> do
                     co2ProducerDetail <- co2ProducerDetail |> createRecord

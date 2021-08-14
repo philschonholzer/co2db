@@ -30,5 +30,5 @@ renderForm co2Producer categories =
         {(textField #description)}
         {(selectField #categoryId categories)}
         {(textField #image)}
-        {submitButton}
+        {submitButton { label = "Save changes" } }
     |]

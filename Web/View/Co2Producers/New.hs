@@ -15,7 +15,7 @@ instance View NewView where
             </ol>
           </nav>
 
-          <h1>New Co2Producer</h1>
+          <h1>New CO<sub>2</sub> Producer</h1>
         </header>
         <section>{renderForm co2Producer categories}</section>
     |]
@@ -29,5 +29,5 @@ renderForm co2Producer categories =
     {(textField #description)}
     {(selectField #categoryId categories) { required = True }}
     {(textField #image)}
-    {submitButton}
+    {submitButton { label = "Add CO2 Producer" } }
 |]

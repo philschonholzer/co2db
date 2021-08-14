@@ -16,7 +16,7 @@ instance View NewView where
             </ol>
         </nav>
 
-        <h1>New Co2ProducerDetail for <q>{get #title co2Producer }</q></h1>
+        <h1>New Source for <q>{get #title co2Producer }</q></h1>
       </header>
 
       <section>{renderForm co2ProducerDetail}</section>
@@ -45,5 +45,5 @@ renderForm co2ProducerDetail =
       description:</p>
     <p>Original source: 0.92 pounds of CO2 emissions per kWh</p>
     <p>Conversion: 0.92 pounds / kWh × 454 = 417.305 gramm / kWh<br /> 417.305 gramms / kWh × 0.007 = 2.921135 gramms / 7 Wh</p>
-    {submitButton}
+    {submitButton { label = "Add new Source" } }
 |]
