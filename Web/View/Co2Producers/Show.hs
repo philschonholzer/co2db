@@ -64,27 +64,21 @@ instance View ShowView where
           </div>
           <div class="fields data">
             <div class="field">
-              <p class="label">CO<sub>2</sub>e emissions</p>
+              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
               <div class="amount-per-unit">
                 <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
-                <span class="per fit">per <b>{get #per co2ProducerDetail |> renderPer}</b></span>
-                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
             </div>
             <div class="field">
-              <p class="label">Common CO<sub>2</sub>e consumption</p>
+              <p class="label">CO<sub>2</sub>e for a common unit of <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
               <div class="amount-per-unit">
                 <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail commonConsumption}</span>
-                <span class="per fit">per <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b></span>
-                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
             </div>
             <div class="field">
-              <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
+              <p class="label">CO<sub>2</sub>e for ø yearly consumption of <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
               <div class="amount-per-unit">
                 <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail averageYearlyConsumption}</span>
-                <span class="per fit">per <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> </span>
-                <span class="unit">{get #unit co2ProducerDetail}</span>
               </div>
             </div>
             <div class="field">
