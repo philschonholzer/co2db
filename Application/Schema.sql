@@ -5,15 +5,15 @@ CREATE TABLE co2_producers (
     title TEXT NOT NULL,
     description TEXT DEFAULT NULL,
     category_id UUID NOT NULL,
-    unit units DEFAULT 'hour' NOT NULL,
-    common_single_consumption_from DOUBLE PRECISION DEFAULT 1.0 NOT NULL,
-    common_single_consumption_to DOUBLE PRECISION DEFAULT 8.0 NOT NULL,
-    common_single_consumption_average DOUBLE PRECISION DEFAULT 3.0 NOT NULL,
-    common_yearly_consumption_from DOUBLE PRECISION DEFAULT 1.0 NOT NULL,
-    common_yearly_consumption_to DOUBLE PRECISION DEFAULT 8.0 NOT NULL,
-    common_yearly_consumption_average DOUBLE PRECISION DEFAULT 3.0 NOT NULL,
+    unit units NOT NULL,
+    common_single_consumption_from DOUBLE PRECISION NOT NULL,
+    common_single_consumption_to DOUBLE PRECISION NOT NULL,
+    common_single_consumption_average DOUBLE PRECISION NOT NULL,
+    common_yearly_consumption_from DOUBLE PRECISION NOT NULL,
+    common_yearly_consumption_to DOUBLE PRECISION NOT NULL,
+    common_yearly_consumption_average DOUBLE PRECISION NOT NULL,
     image TEXT DEFAULT NULL,
-    user_id UUID
+    user_id UUID NOT NULL
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE co2_producer_details (
     g_co2e DOUBLE PRECISION NOT NULL,
     per DOUBLE PRECISION NOT NULL,
     source TEXT NOT NULL,
-    user_id UUID DEFAULT NULL
+    user_id UUID NOT NULL
 );
 CREATE INDEX co2_producer_details_co2_producer_id_index ON co2_producer_details (co2_producer_id);
 CREATE INDEX co2_producer_details_user_id_index ON co2_producer_details (user_id);

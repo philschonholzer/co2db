@@ -39,13 +39,13 @@ instance Controller Co2ProducersController where
     ensureIsUser
     co2Producer <- fetch co2ProducerId
     categories <- query @Category |> fetch
-    producerOfUser co2Producer |> accessDeniedUnless
+    accessDeniedUnless $ get #userId co2Producer == currentUserId
     render EditView {..}
 
   action UpdateCo2ProducerAction {co2ProducerId} = do
     ensureIsUser
     co2Producer <- fetch co2ProducerId
-    producerOfUser co2Producer |> accessDeniedUnless
+    accessDeniedUnless $ get #userId co2Producer == currentUserId
     co2Producer
       |> buildCo2Producer
       |> ifValid \case
@@ -62,7 +62,7 @@ instance Controller Co2ProducersController where
     let co2Producer = newRecord @Co2Producer
     co2Producer
       |> buildCo2Producer
-      |> set #userId (Just currentUserId)
+      |> set #userId currentUserId
       |> ifValid \case
         Left co2Producer -> do
           categories <- query @Category |> fetch
@@ -75,7 +75,7 @@ instance Controller Co2ProducersController where
   action DeleteCo2ProducerAction {co2ProducerId} = do
     ensureIsUser
     co2Producer <- fetch co2ProducerId
-    producerOfUser co2Producer |> accessDeniedUnless
+    accessDeniedUnless $ get #userId co2Producer == currentUserId
     deleteRecord co2Producer
     setSuccessMessage "Co2Producer deleted"
     redirectTo Co2ProducersAction
@@ -98,5 +98,3 @@ buildCo2Producer co2Producer =
     |> validateField #title nonEmpty
     |> validateField #categoryId nonEmpty
     |> emptyValueToNothing #description
-
-producerOfUser co2Producer = get #userId co2Producer |> fromMaybe "empty" == currentUserId

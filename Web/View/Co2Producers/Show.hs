@@ -47,7 +47,7 @@ instance View ShowView where
       editAndDeleteButtons =
         case fromFrozenContext @(Maybe User) of
           Just user
-            | get #id user == get #userId co2Producer |> fromMaybe "" ->
+            | get #id user == get #userId co2Producer ->
               [hsx|
                   <div class="edit-delete"><a href={EditCo2ProducerAction (get #id co2Producer)}>Edit</a>&nbsp;&nbsp;
                   <a href={DeleteCo2ProducerAction (get #id co2Producer)} class="js-delete">Delete</a></div>
@@ -99,7 +99,7 @@ instance View ShowView where
       editAndDeleteDetailButtons co2ProducerDetail =
         case fromFrozenContext @(Maybe User) of
           Just user
-            | get #id user == get #userId co2ProducerDetail |> fromMaybe "" ->
+            | get #id user == get #userId co2ProducerDetail ->
               [hsx|
                   <div class="field">
                     <div class="edit-delete"><a href={EditCo2ProducerDetailAction (get #id co2ProducerDetail)}>Edit</a>&nbsp;&nbsp;

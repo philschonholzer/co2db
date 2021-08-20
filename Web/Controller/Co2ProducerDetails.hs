@@ -25,14 +25,14 @@ instance Controller Co2ProducerDetailsController where
     action EditCo2ProducerDetailAction { co2ProducerDetailId } = do
         ensureIsUser
         co2ProducerDetail <- fetch co2ProducerDetailId
-        producerDetailOfUser co2ProducerDetail |> accessDeniedUnless
+        accessDeniedUnless $ get #userId co2ProducerDetail == currentUserId
         co2Producer <- fetch $ get #co2ProducerId co2ProducerDetail
         render EditView { .. }
 
     action UpdateCo2ProducerDetailAction { co2ProducerDetailId } = do
         ensureIsUser
         co2ProducerDetail <- fetch co2ProducerDetailId
-        producerDetailOfUser co2ProducerDetail |> accessDeniedUnless
+        accessDeniedUnless $ get #userId co2ProducerDetail == currentUserId
         co2ProducerDetail
             |> buildCo2ProducerDetail
             |> ifValid \case
@@ -49,7 +49,7 @@ instance Controller Co2ProducerDetailsController where
         let co2ProducerDetail = newRecord @Co2ProducerDetail
         co2ProducerDetail
             |> buildCo2ProducerDetail
-            |> set #userId (Just currentUserId)
+            |> set #userId currentUserId
             |> ifValid \case
                 Left co2ProducerDetail -> do
                   co2Producer <- fetch $ get #co2ProducerId co2ProducerDetail
@@ -62,7 +62,7 @@ instance Controller Co2ProducerDetailsController where
     action DeleteCo2ProducerDetailAction { co2ProducerDetailId } = do
         ensureIsUser
         co2ProducerDetail <- fetch co2ProducerDetailId
-        producerDetailOfUser co2ProducerDetail |> accessDeniedUnless
+        accessDeniedUnless $ get #userId co2ProducerDetail == currentUserId
         deleteRecord co2ProducerDetail
         setSuccessMessage "Co2ProducerDetail deleted"
         redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId co2ProducerDetail }
@@ -74,5 +74,3 @@ buildCo2ProducerDetail co2ProducerDetail =
     |> validateField #gCo2e (isInRange (1, 2000000))
     |> validateField #per (isInRange (1, 2000000))
     |> validateField #source nonEmpty
-
-producerDetailOfUser co2ProducerDetail = get #userId co2ProducerDetail |> fromMaybe "empty" == currentUserId

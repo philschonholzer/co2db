@@ -50,7 +50,7 @@ renderCo2Producer co2Producer =
     editAndDeleteButtons =
       case fromFrozenContext @(Maybe User) of
         Just user
-          | get #id user == get #userId co2Producer |> fromMaybe "" ->
+          | get #id user == get #userId co2Producer ->
             [hsx|
                 <div class="field">
                   <div class="edit-delete">
