@@ -69,12 +69,10 @@ instance Controller Co2ProducerDetailsController where
 
 buildCo2ProducerDetail co2ProducerDetail = 
   co2ProducerDetail
-    |> fill @["co2ProducerId","region","year","gCo2e","commonConsumption","averageYearlyConsumption","per","unit","source","userId"]
+    |> fill @["co2ProducerId","region","year","gCo2e","per","source","userId"]
     |> emptyValueToNothing #region
     |> validateField #gCo2e (isInRange (1, 2000000))
     |> validateField #per (isInRange (1, 2000000))
-    |> validateField #commonConsumption (isInRange (0.0000001, 2000000))
-    |> validateField #averageYearlyConsumption (isInRange (0.0000001, 2000000))
     |> validateField #source nonEmpty
 
 producerDetailOfUser co2ProducerDetail = get #userId co2ProducerDetail |> fromMaybe "empty" == currentUserId

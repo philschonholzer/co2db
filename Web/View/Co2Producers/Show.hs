@@ -64,21 +64,9 @@ instance View ShowView where
           </div>
           <div class="fields data">
             <div class="field">
-              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
+              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b></p>
               <div class="amount-per-unit">
                 <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
-              </div>
-            </div>
-            <div class="field">
-              <p class="label">CO<sub>2</sub>e for a common unit of <b>{get #commonConsumption co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail commonConsumption}</span>
-              </div>
-            </div>
-            <div class="field">
-              <p class="label">CO<sub>2</sub>e for ø yearly consumption of <b>{get #averageYearlyConsumption co2ProducerDetail |> renderPer}</b> {get #unit co2ProducerDetail}</p>
-              <div class="amount-per-unit">
-                <span class="amount">{calcAmountFromBaseDetail co2ProducerDetail averageYearlyConsumption}</span>
               </div>
             </div>
             <div class="field">
@@ -99,7 +87,7 @@ instance View ShowView where
           renderYear (Just year) = ", " <> show year
           renderYear Nothing = "" 
   
-      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId co2Producers -> (Co2ProducerDetail' co2ProducerId userId co2Producers  -> Double) -> H.Html
+      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId  -> Double) -> H.Html
       calcAmountFromBaseDetail co2Producer consumption =
         co2Producer
           |> get #gCo2e

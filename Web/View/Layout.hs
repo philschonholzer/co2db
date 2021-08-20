@@ -139,7 +139,7 @@ renderWeight weight = [hsx|<b>{weight `div'` 1000 |> show}</b><span>,{mod' weigh
 threeDec :: Double -> String
 threeDec dec = dec |> printf "%03.0F"
 
-calcAmountFromBase :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId co2Producers -> (Co2ProducerDetail' co2ProducerId userId co2Producers -> Double) -> H.Html
+calcAmountFromBase :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId -> Double) -> H.Html
 calcAmountFromBase co2ProducerDetail consumption =
   co2ProducerDetail
     |> get #gCo2e

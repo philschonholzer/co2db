@@ -31,10 +31,7 @@ renderForm co2ProducerDetail =
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e"}}
-    {(textField #commonConsumption) { required = True }}
-    {(textField #averageYearlyConsumption) { required = True }}
     {(textField #per) { required = True }}
-    {(selectField #unit $ enumFrom Kilometer ) { required = True }}
     {(textareaField #source) { required = True }}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 

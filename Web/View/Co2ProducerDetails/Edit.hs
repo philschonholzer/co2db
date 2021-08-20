@@ -29,10 +29,7 @@ renderForm co2ProducerDetail =
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e)}
-    {(textField #commonConsumption)}
-    {(textField #averageYearlyConsumption)}
     {(textField #per)}
-    {(textField #unit)}
     {(textField #source)}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 
