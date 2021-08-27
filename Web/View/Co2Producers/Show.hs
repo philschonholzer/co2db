@@ -6,6 +6,8 @@ import qualified Text.Blaze.Html5 as H
 
 import Web.View.Prelude
 import Text.Printf
+import Data.Foldable
+import Application.Helper.Average
 
 data ShowView = ShowView {co2Producer :: Include "co2ProducerDetails" Co2Producer}
 
@@ -25,6 +27,7 @@ instance View ShowView where
               {editAndDeleteButtons}
             </div>
           </header>
+          <section class="co2-value">{renderCo2Value co2Producer $ get #co2ProducerDetails co2Producer}</section>
           <section class="description"><h2>Description</h2>{renderDescription}</section>
           <a href={NewCo2ProducerDetailAction (get #id co2Producer)}>Add Source</a>
           <div class="details">
@@ -34,6 +37,15 @@ instance View ShowView where
         </article>
     |]
     where
+      renderCo2Value co2Producer co2ProducerDetail = case getAverageFromDetails #gCo2e co2ProducerDetail of
+        Just a -> [hsx|
+            <p style="font-size: 3em;">1 {get #unit co2Producer} -&gt; {a |> renderWeight} CO<sub>2</sub>e</p>
+            <p><small>(Need value above for amount of unit from co2Producer)</small></p>
+          |]
+        Nothing -> [hsx|<p>-</p>|]
+
+      getAverageFromDetails field co2ProducerDetails = getAverage $ foldMap (averageDatum . get field) co2ProducerDetails
+
       renderDescription = case get #description co2Producer of
         Just a -> [hsx|<p>{a}</p>|]
         Nothing -> [hsx|<p class="muted">No description</p>|]
@@ -54,7 +66,7 @@ instance View ShowView where
                 |]
           _ -> [hsx|  |]
 
-      showFromString :: String -> Text 
+      showFromString :: String -> Text
       showFromString = tshow
 
       renderDetail co2ProducerDetail = [hsx|
@@ -64,7 +76,7 @@ instance View ShowView where
           </div>
           <div class="fields data">
             <div class="field">
-              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b></p>
+              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b> {get #unit co2Producer}</p>
               <div class="amount-per-unit">
                 <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
               </div>
@@ -80,13 +92,13 @@ instance View ShowView where
         </div>
         |]
 
-      renderInformation co2ProducerDetail = if (isJust $ get #year co2ProducerDetail) || (isJust $ get #region co2ProducerDetail)
+      renderInformation co2ProducerDetail = if isJust (get #year co2ProducerDetail) || isJust (get #region co2ProducerDetail)
                                             then [hsx|{fromMaybe "" $ get #region co2ProducerDetail}{renderYear $ get #year co2ProducerDetail}|]
                                             else [hsx|<span class="muted">Not specified</span>|]
         where
           renderYear (Just year) = ", " <> show year
-          renderYear Nothing = "" 
-  
+          renderYear Nothing = ""
+
       calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId  -> Double) -> H.Html
       calcAmountFromBaseDetail co2Producer consumption =
         co2Producer
