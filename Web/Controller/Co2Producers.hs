@@ -94,7 +94,18 @@ matchTerm = filterWhitespace . T.map replaceSeparators
 
 buildCo2Producer co2Producer =
   co2Producer
-    |> fill @["title", "description", "categoryId", "image"]
+    |> fill @["title", "description", "categoryId", "image", "unit", "commonSingleConsumptionFrom", "commonSingleConsumptionTo", "commonSingleConsumptionAverage", "commonYearlyConsumptionFrom", "commonYearlyConsumptionTo", "commonYearlyConsumptionAverage"]
     |> validateField #title nonEmpty
     |> validateField #categoryId nonEmpty
     |> emptyValueToNothing #description
+    |> validateField #commonSingleConsumptionFrom (isGreaterEqualThan 0)
+    |> validateWithOtherField #commonSingleConsumptionTo isGreaterThan #commonSingleConsumptionFrom 
+    |> validateWithOtherFields #commonSingleConsumptionAverage isInRange #commonSingleConsumptionFrom #commonSingleConsumptionTo 
+    |> validateField #commonYearlyConsumptionFrom (isGreaterEqualThan 0)
+    |> validateWithOtherField #commonYearlyConsumptionTo isGreaterThan #commonYearlyConsumptionFrom
+    |> validateWithOtherFields #commonYearlyConsumptionAverage isInRange #commonYearlyConsumptionFrom #commonYearlyConsumptionAverage
+    
+
+isGreaterEqualThan :: (Show value, Ord value) => value -> value -> ValidatorResult
+isGreaterEqualThan min value | value >= min = Success
+isGreaterEqualThan min value = Failure ("has to be greater or equal than " <> tshow min)

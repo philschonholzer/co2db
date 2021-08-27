@@ -52,3 +52,24 @@ button:active {
   background-color: var(--accent-color);
   transform: translateY(2px);
 }
+
+fieldset {
+  border: 1px solid var(--medium-gray);
+  border-radius: 0.3em;
+  margin: 3em 0;
+  padding: 1em;
+}
+
+fieldset .form-group {
+  margin-bottom: 0;
+}
+
+legend {
+  padding: 0 0.3em;
+  margin: 0 -0.3em;
+}
+
+.invalid-feedback {
+  font-style: italic;
+  color: var(--error-color);
+}

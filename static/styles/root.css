@@ -4,6 +4,7 @@
   --light-gray: #f8f9fa;
   --medium-gray: #ddd;
   --darken: #0000000a;
+  --red: #aa0000;
   --accent-hue: 211;
 
   --accent-color: hsl(var(--accent-hue), 100%, 40%);
@@ -23,6 +24,8 @@
   --muted-color: var(--gray);
 
   --line-color: var(--medium-gray);
+
+  --error-color: var(--red);
 
   --muted: 0.7;
 
