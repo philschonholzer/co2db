@@ -6,7 +6,6 @@ import qualified Text.Blaze.Html5 as H
 
 import Web.View.Prelude
 import Text.Printf
-import Data.Foldable
 import Application.Helper.Average
 
 data ShowView = ShowView {co2Producer :: Include "co2ProducerDetails" Co2Producer}
@@ -37,14 +36,13 @@ instance View ShowView where
         </article>
     |]
     where
-      renderCo2Value co2Producer co2ProducerDetail = case getAverageFromDetails #gCo2e co2ProducerDetail of
+      renderCo2Value co2Producer co2ProducerDetails = case average $ calcCo2PerUnit <$> co2ProducerDetails of
         Just a -> [hsx|
             <p style="font-size: 3em;">1 {get #unit co2Producer} -&gt; {a |> renderWeight} CO<sub>2</sub>e</p>
-            <p><small>(Need value above for amount of unit from co2Producer)</small></p>
           |]
         Nothing -> [hsx|<p>-</p>|]
-
-      getAverageFromDetails field co2ProducerDetails = getAverage $ foldMap (averageDatum . get field) co2ProducerDetails
+        where
+          calcCo2PerUnit detail = get #gCo2e detail / get #per detail
 
       renderDescription = case get #description co2Producer of
         Just a -> [hsx|<p>{a}</p>|]

@@ -1,5 +1,6 @@
-module Application.Helper.Average where
+module Application.Helper.Average (average) where
 
+import Data.Foldable
 import Data.Semigroup
 import IHP.Prelude
 
@@ -20,3 +21,6 @@ instance Num n => Semigroup (Average n) where
 instance Num n => Monoid (Average n) where
   mappend = (<>)
   mempty = Average 0 0
+
+average :: (Fractional n, Foldable t) => t n -> Maybe n
+average xs = getAverage $ foldMap averageDatum xs
