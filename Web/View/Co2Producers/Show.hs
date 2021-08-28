@@ -38,11 +38,22 @@ instance View ShowView where
     where
       renderCo2Value co2Producer co2ProducerDetails = case average $ calcCo2PerUnit <$> co2ProducerDetails of
         Just a -> [hsx|
-            <p style="font-size: 3em;">1 {get #unit co2Producer} -&gt; {a |> renderWeight} CO<sub>2</sub>e</p>
+            <p style="font-size: 2em;">
+              <span class="producer-amount">1</span>
+              <span class="producer-unit">{get #unit co2Producer}</span>
+              {svg}
+              <span class="co2-amount">{a |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
+            </p>
           |]
         Nothing -> [hsx|<p>-</p>|]
         where
           calcCo2PerUnit detail = get #gCo2e detail / get #per detail
+          svg = 
+            [hsx|
+              <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
+                <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
+              </svg>
+            |]
 
       renderDescription = case get #description co2Producer of
         Just a -> [hsx|<p>{a}</p>|]
@@ -79,7 +90,7 @@ instance View ShowView where
                 <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
               </div>
             </div>
-            <div class="field">
+            <div class="field stretch">
               <p class="label">Source</p>
               <div class="source">
                 <p class="">{renderMarkdown $ get #source co2ProducerDetail}</p>

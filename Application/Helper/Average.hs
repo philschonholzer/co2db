@@ -23,4 +23,4 @@ instance Num n => Monoid (Average n) where
   mempty = Average 0 0
 
 average :: (Fractional n, Foldable t) => t n -> Maybe n
-average xs = getAverage $ foldMap averageDatum xs
+average = getAverage . foldMap averageDatum

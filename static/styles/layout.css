@@ -36,3 +36,7 @@ footer.page-footer {
   background: var(--background-highlight-color);
   background-color: var(--darken);
 }
+
+.stretch {
+  flex: 1;
+}
