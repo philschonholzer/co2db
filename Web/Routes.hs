@@ -16,7 +16,7 @@ instance CanRoute StaticController where
 -- Generator Marker
 instance AutoRoute Co2ProducersController
 
-instance AutoRoute Co2ProducerDetailsController
+instance AutoRoute SourcesController
 
 instance AutoRoute CategoriesController
 

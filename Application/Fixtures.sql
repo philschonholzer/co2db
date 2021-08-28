@@ -47,16 +47,17 @@ INSERT INTO public.co2_producers (id, title, description, category_id, image, us
 ALTER TABLE public.co2_producers ENABLE TRIGGER ALL;
 
 
-ALTER TABLE public.co2_producer_details DISABLE TRIGGER ALL;
 
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('1eb19744-e370-4cde-a4ba-a864b407f819', '4067b5fe-582d-4cc1-948b-3c704aebd5fa', NULL, NULL, 3, 1, '<https://www.eia.gov/tools/faqs/faq.php?id=74&t=11#:~:text=This%20equaled%20about%200.92%20pounds%20of%20CO2%20emissions%20per%20kWh>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('2eb19744-e370-4cde-a4ba-a864b407f818', 'c8d6f416-ad52-484f-9f7e-b510dac2c158', NULL, NULL, 67800, 1, '<http://www.fao.org/3/i3461e/i3461e03.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('3eb19744-e370-4cde-a4ba-a864b407f817', '71eb436f-ee25-4fb3-8c87-535bee7906e6', NULL, NULL, 685, 1, '<https://ourworldindata.org/grapher/consumption-co2-per-capita?year=latest>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('4eb19744-e370-4cde-a4ba-a864b407f816', '67ac058e-4156-404e-8933-fa43e950550c', NULL, NULL, 2000, 10, '<https://theecoguide.org/have-you-tried-five-minute-shower-challenge>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('7eb19744-e370-4cde-a4ba-a864b407f815', '05e9b91f-fe9e-4679-86c7-fe60fa13fae4', NULL, NULL, 2312, 1, '<https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
-INSERT INTO public.co2_producer_details (id, co2_producer_id, region, year, g_co2e, per, source, user_id) VALUES ('f2b42e2b-875c-4dd1-8c4b-603a0be34de8', '4067b5fe-582d-4cc1-948b-3c704aebd5fa', 'Switzerland', 2018, 1, 1, '<https://www.bafu.admin.ch/bafu/de/home/themen/klima/fragen-antworten.html#:~:text=Die%20Kennzahlen%20f%C3%BCr%20die%20verschiedenen,Strommix%3A%2015.7%20g%20CO2eq%2FkWh>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+ALTER TABLE public.sources DISABLE TRIGGER ALL;
+
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('1eb19744-e370-4cde-a4ba-a864b407f819', '4067b5fe-582d-4cc1-948b-3c704aebd5fa', NULL, NULL, 3, 1, '<https://www.eia.gov/tools/faqs/faq.php?id=74&t=11#:~:text=This%20equaled%20about%200.92%20pounds%20of%20CO2%20emissions%20per%20kWh>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('2eb19744-e370-4cde-a4ba-a864b407f818', 'c8d6f416-ad52-484f-9f7e-b510dac2c158', NULL, NULL, 67800, 1, '<http://www.fao.org/3/i3461e/i3461e03.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('3eb19744-e370-4cde-a4ba-a864b407f817', '71eb436f-ee25-4fb3-8c87-535bee7906e6', NULL, NULL, 685, 1, '<https://ourworldindata.org/grapher/consumption-co2-per-capita?year=latest>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('4eb19744-e370-4cde-a4ba-a864b407f816', '67ac058e-4156-404e-8933-fa43e950550c', NULL, NULL, 2000, 10, '<https://theecoguide.org/have-you-tried-five-minute-shower-challenge>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('7eb19744-e370-4cde-a4ba-a864b407f815', '05e9b91f-fe9e-4679-86c7-fe60fa13fae4', NULL, NULL, 2312, 1, '<https://www.nrcan.gc.ca/sites/www.nrcan.gc.ca/files/oee/pdf/transportation/fuel-efficient-technologies/autosmart_factsheet_6_e.pdf>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
+INSERT INTO public.sources (id, co2_producer_id, region, year, g_co2e, per, description, user_id) VALUES ('f2b42e2b-875c-4dd1-8c4b-603a0be34de8', '4067b5fe-582d-4cc1-948b-3c704aebd5fa', 'Switzerland', 2018, 1, 1, '<https://www.bafu.admin.ch/bafu/de/home/themen/klima/fragen-antworten.html#:~:text=Die%20Kennzahlen%20f%C3%BCr%20die%20verschiedenen,Strommix%3A%2015.7%20g%20CO2eq%2FkWh>', '7f12d3d6-8aca-4bd6-822c-c21e94cd2fc8');
 
 
-ALTER TABLE public.co2_producer_details ENABLE TRIGGER ALL;
+ALTER TABLE public.sources ENABLE TRIGGER ALL;
 
 

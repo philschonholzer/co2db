@@ -4,7 +4,7 @@ import IHP.LoginSupport.Middleware
 import IHP.RouterPrelude
 import Web.Controller.Categories
 import Web.Controller.Co2Producers
-import Web.Controller.Co2ProducerDetails
+import Web.Controller.Sources
 import Web.Controller.Prelude
 import Web.Controller.Sessions
 import Web.Controller.Static
@@ -20,7 +20,7 @@ instance FrontController WebApplication where
       parseRoute @UsersController,
       parseRoute @CategoriesController,
       parseRoute @Co2ProducersController,
-      parseRoute @Co2ProducerDetailsController
+      parseRoute @SourcesController
     ]
 
 instance InitControllerContext WebApplication where

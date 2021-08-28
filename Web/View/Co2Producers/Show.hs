@@ -8,7 +8,7 @@ import Web.View.Prelude
 import Text.Printf
 import Application.Helper.Average
 
-data ShowView = ShowView {co2Producer :: Include "co2ProducerDetails" Co2Producer}
+data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 
 instance View ShowView where
   html ShowView {..} =
@@ -26,17 +26,17 @@ instance View ShowView where
               {editAndDeleteButtons}
             </div>
           </header>
-          <section class="co2-value">{renderCo2Value co2Producer $ get #co2ProducerDetails co2Producer}</section>
+          <section class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</section>
           <section class="description"><h2>Description</h2>{renderDescription}</section>
-          <a href={NewCo2ProducerDetailAction (get #id co2Producer)}>Add Source</a>
+          <a href={NewSourceAction (get #id co2Producer)}>Add Source</a>
           <div class="details">
-            {forEach (get #co2ProducerDetails co2Producer) renderDetail}
+            {forEach (get #sources co2Producer) renderDetail}
           </div>
           
         </article>
     |]
     where
-      renderCo2Value co2Producer co2ProducerDetails = case average $ calcCo2PerUnit <$> co2ProducerDetails of
+      renderCo2Value co2Producer sources = case average $ calcCo2PerUnit <$> sources of
         Just a -> [hsx|
             <p style="font-size: 2em;">
               <span class="producer-amount">1</span>
@@ -78,37 +78,37 @@ instance View ShowView where
       showFromString :: String -> Text
       showFromString = tshow
 
-      renderDetail co2ProducerDetail = [hsx|
+      renderDetail source = [hsx|
         <div class="detail">
           <div class="information">
-            {renderInformation co2ProducerDetail}
+            {renderInformation source}
           </div>
           <div class="fields data">
             <div class="field">
-              <p class="label">CO<sub>2</sub>e for <b>{get #per co2ProducerDetail |> renderPer}</b> {get #unit co2Producer}</p>
+              <p class="label">CO<sub>2</sub>e for <b>{get #per source |> renderPer}</b> {get #unit co2Producer}</p>
               <div class="amount-per-unit">
-                <span class="amount">{get #gCo2e co2ProducerDetail |> renderWeight}</span>
+                <span class="amount">{get #gCo2e source |> renderWeight}</span>
               </div>
             </div>
             <div class="field stretch">
               <p class="label">Source</p>
               <div class="source">
-                <p class="">{renderMarkdown $ get #source co2ProducerDetail}</p>
+                <p class="">{renderMarkdown $ get #description source}</p>
               </div>
             </div>
-            {editAndDeleteDetailButtons co2ProducerDetail}
+            {editAndDeleteDetailButtons source}
           </div>
         </div>
         |]
 
-      renderInformation co2ProducerDetail = if isJust (get #year co2ProducerDetail) || isJust (get #region co2ProducerDetail)
-                                            then [hsx|{fromMaybe "" $ get #region co2ProducerDetail}{renderYear $ get #year co2ProducerDetail}|]
+      renderInformation source = if isJust (get #year source) || isJust (get #region source)
+                                            then [hsx|{fromMaybe "" $ get #region source}{renderYear $ get #year source}|]
                                             else [hsx|<span class="muted">Not specified</span>|]
         where
           renderYear (Just year) = ", " <> show year
           renderYear Nothing = ""
 
-      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Co2ProducerDetail' co2ProducerId userId -> (Co2ProducerDetail' co2ProducerId userId  -> Double) -> H.Html
+      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Source' co2ProducerId userId -> (Source' co2ProducerId userId  -> Double) -> H.Html
       calcAmountFromBaseDetail co2Producer consumption =
         co2Producer
           |> get #gCo2e
@@ -116,15 +116,15 @@ instance View ShowView where
           |> (* consumption co2Producer)
           |> renderWeight
 
-      editAndDeleteDetailButtons :: Co2ProducerDetail -> Html
-      editAndDeleteDetailButtons co2ProducerDetail =
+      editAndDeleteDetailButtons :: Source -> Html
+      editAndDeleteDetailButtons source =
         case fromFrozenContext @(Maybe User) of
           Just user
-            | get #id user == get #userId co2ProducerDetail ->
+            | get #id user == get #userId source ->
               [hsx|
                   <div class="field">
-                    <div class="edit-delete"><a href={EditCo2ProducerDetailAction (get #id co2ProducerDetail)}>Edit</a>&nbsp;&nbsp;
-                    <a href={DeleteCo2ProducerDetailAction (get #id co2ProducerDetail)} class="js-delete">Delete</a></div>
+                    <div class="edit-delete"><a href={EditSourceAction (get #id source)}>Edit</a>&nbsp;&nbsp;
+                    <a href={DeleteSourceAction (get #id source)} class="js-delete">Delete</a></div>
                   </div>
                 |]
           _ -> [hsx|  |]

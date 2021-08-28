@@ -32,7 +32,7 @@ instance Controller Co2ProducersController where
 
   action ShowCo2ProducerAction {co2ProducerId} = do
     co2Producer <- fetch co2ProducerId
-      >>= fetchRelated #co2ProducerDetails
+      >>= fetchRelated #sources
     render ShowView {..}
 
   action EditCo2ProducerAction {co2ProducerId} = do

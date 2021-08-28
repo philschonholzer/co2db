@@ -1,8 +1,8 @@
-module Web.View.Co2ProducerDetails.New where
+module Web.View.Sources.New where
 
 import Web.View.Prelude
 
-data NewView = NewView {co2ProducerDetail :: Co2ProducerDetail, co2Producer :: Co2Producer}
+data NewView = NewView {source :: Source, co2Producer :: Co2Producer}
 
 instance View NewView where
   html NewView {..} =
@@ -19,20 +19,20 @@ instance View NewView where
         <h1>New Source for <q>{get #title co2Producer }</q></h1>
       </header>
 
-      <section>{renderForm co2ProducerDetail}</section>
+      <section>{renderForm source}</section>
     |]
 
-renderForm :: Co2ProducerDetail -> Html
-renderForm co2ProducerDetail =
+renderForm :: Source -> Html
+renderForm source =
   formFor
-    co2ProducerDetail
+    source
     [hsx|
     {(hiddenField #co2ProducerId)}
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e"}}
     {(textField #per) { required = True }}
-    {(textareaField #source) { required = True }}
+    {(textareaField #description) { required = True }}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 
       https://sourcedomain.org/somelink<b>#:~:text=This%20is%20the%20text%20I%20want%20to%20quote.</b></p>

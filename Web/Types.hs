@@ -23,14 +23,14 @@ data Co2ProducersController
   | DeleteCo2ProducerAction {co2ProducerId :: !(Id Co2Producer)}
   deriving (Eq, Show, Data)
 
-data Co2ProducerDetailsController
-  = Co2ProducerDetailsAction
-  | NewCo2ProducerDetailAction {co2ProducerId :: !(Id Co2Producer)}
-  | ShowCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
-  | CreateCo2ProducerDetailAction
-  | EditCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
-  | UpdateCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
-  | DeleteCo2ProducerDetailAction {co2ProducerDetailId :: !(Id Co2ProducerDetail)}
+data SourcesController
+  = SourcesAction
+  | NewSourceAction {co2ProducerId :: !(Id Co2Producer)}
+  | ShowSourceAction {sourceId :: !(Id Source)}
+  | CreateSourceAction
+  | EditSourceAction {sourceId :: !(Id Source)}
+  | UpdateSourceAction {sourceId :: !(Id Source)}
+  | DeleteSourceAction {sourceId :: !(Id Source)}
   deriving (Eq, Show, Data)
 
 data CategoriesController
