@@ -19,11 +19,11 @@ instance View NewView where
         <h1>New Source for <q>{get #title co2Producer }</q></h1>
       </header>
 
-      <section>{renderForm source}</section>
+      <section>{renderForm source co2Producer}</section>
     |]
 
-renderForm :: Source -> Html
-renderForm source =
+renderForm :: Source -> Co2Producer -> Html
+renderForm source co2Producer =
   formFor
     source
     [hsx|
@@ -31,7 +31,7 @@ renderForm source =
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e"}}
-    {(textField #per) { required = True }}
+    {(textField #per) { required = True, helpText = perHelpText }}
     {(textareaField #description) { required = True }}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 
@@ -44,3 +44,5 @@ renderForm source =
     <p>Conversion: 0.92 pounds / kWh × 454 = 417.305 gramm / kWh<br /> 417.305 gramms / kWh × 0.007 = 2.921135 gramms / 7 Wh</p>
     {submitButton { label = "Add new Source" } }
 |]
+  where
+    perHelpText = get #unit co2Producer |> tshow <> "(s)"

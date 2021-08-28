@@ -17,20 +17,20 @@ instance View EditView where
           </nav>
           <h1>Edit Source {fromMaybe "" $ get #region source} {get #year source}</h1>
         </header>
-        <section>{renderForm source}</section>
+        <section>{renderForm source co2Producer}</section>
     |]
 
-renderForm :: Source -> Html
-renderForm source =
+renderForm :: Source -> Co2Producer -> Html
+renderForm source co2Producer =
   formFor
     source
     [hsx|
     {(hiddenField #co2ProducerId)}
     {(textField #region)}
     {(textField #year)}
-    {(textField #gCo2e)}
-    {(textField #per)}
-    {(textField #description)}
+    {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e" }}
+    {(textField #per) { required = True, helpText = perHelpText }}
+    {(textareaField #description) { required = True }}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 
       https://sourcedomain.org/somelink<b>#:~:text=This%20is%20the%20text%20I%20want%20to%20quote.</b></p>
@@ -43,3 +43,5 @@ renderForm source =
     {(hiddenField #userId)}
     {submitButton { label = "Save changes" } }
 |]
+  where
+    perHelpText = get #unit co2Producer |> tshow <> "(s)"
