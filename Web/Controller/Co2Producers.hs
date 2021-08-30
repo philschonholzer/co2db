@@ -5,6 +5,7 @@ import Web.View.Co2Producers.Edit
 import Web.View.Co2Producers.Index
 import Web.View.Co2Producers.New
 import Web.View.Co2Producers.Show
+import qualified Control.Category as C
 import qualified Data.Text as T
 import Data.Char (isSpace)
 
@@ -89,7 +90,7 @@ matchTerm = filterWhitespace . T.map replaceSeparators
     replaceSeparators char | char `elem` [';', ','] = '|'
                            | otherwise  = char
 
-    filterWhitespace :: Text -> Text 
+    filterWhitespace :: Text -> Text
     filterWhitespace = T.filter (not . isSpace)
 
 buildCo2Producer co2Producer =
@@ -99,12 +100,13 @@ buildCo2Producer co2Producer =
     |> validateField #categoryId nonEmpty
     |> emptyValueToNothing #description
     |> validateField #commonSingleConsumptionFrom (isGreaterEqualThan 0)
-    |> validateWithOtherField #commonSingleConsumptionTo isGreaterThan #commonSingleConsumptionFrom 
-    |> validateWithOtherFields #commonSingleConsumptionAverage isInRange #commonSingleConsumptionFrom #commonSingleConsumptionTo 
+    |> (validateField #commonSingleConsumptionTo <$> (isGreaterThan . get #commonSingleConsumptionFrom) <*> C.id)
+    |> (validateField #commonSingleConsumptionAverage <$> (isInRange . ofFields #commonSingleConsumptionFrom #commonSingleConsumptionTo) <*> C.id)
     |> validateField #commonYearlyConsumptionFrom (isGreaterEqualThan 0)
-    |> validateWithOtherField #commonYearlyConsumptionTo isGreaterThan #commonYearlyConsumptionFrom
-    |> validateWithOtherFields #commonYearlyConsumptionAverage isInRange #commonYearlyConsumptionFrom #commonYearlyConsumptionAverage
-    
+    |> (validateField #commonYearlyConsumptionTo <$> (isGreaterThan . get #commonYearlyConsumptionFrom) <*> C.id)
+    |> (validateField #commonYearlyConsumptionAverage <$> (isInRange . ofFields #commonYearlyConsumptionFrom #commonYearlyConsumptionTo) <*> C.id)
+  where
+    ofFields fieldFrom fieldTo = (,) <$> get fieldFrom <*> get fieldTo
 
 isGreaterEqualThan :: (Show value, Ord value) => value -> value -> ValidatorResult
 isGreaterEqualThan min value | value >= min = Success

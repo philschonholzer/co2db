@@ -8,6 +8,8 @@ import Web.View.Prelude
 import Text.Printf
 import Application.Helper.Average
 
+import Control.Applicative
+
 data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 
 instance View ShowView where
@@ -47,7 +49,7 @@ instance View ShowView where
           |]
         Nothing -> [hsx|<p>-</p>|]
         where
-          calcCo2PerUnit detail = get #gCo2e detail / get #per detail
+          calcCo2PerUnit = (/) <$> get #gCo2e <*> get #per
           svg = 
             [hsx|
               <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
@@ -107,14 +109,6 @@ instance View ShowView where
         where
           renderYear (Just year) = ", " <> show year
           renderYear Nothing = ""
-
-      calcAmountFromBaseDetail :: (?context :: ControllerContext) => Source' co2ProducerId userId -> (Source' co2ProducerId userId  -> Double) -> H.Html
-      calcAmountFromBaseDetail co2Producer consumption =
-        co2Producer
-          |> get #gCo2e
-          |> (/ get #per co2Producer)
-          |> (* consumption co2Producer)
-          |> renderWeight
 
       editAndDeleteDetailButtons :: Source -> Html
       editAndDeleteDetailButtons source =
