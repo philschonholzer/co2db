@@ -1,5 +1,5 @@
 -- Your database schema. Use the Schema Designer at http://localhost:8001/ to add some tables.
-CREATE TYPE units AS ENUM ('kilometer', 'hour', 'gram', 'meter', 'kilogram', 'liter', 'minutes');
+CREATE TYPE units AS ENUM ('kilometer', 'hour', 'gram', 'meter', 'kilogram', 'liter', 'minute');
 CREATE TABLE co2_producers (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     title TEXT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE sources (
 );
 CREATE INDEX sources_co2_producer_id_index ON sources (co2_producer_id);
 CREATE INDEX sources_user_id_index ON sources (user_id);
-ALTER TABLE sources ADD CONSTRAINT sources_ref_co2_producer_id FOREIGN KEY (co2_producer_id) REFERENCES co2_producers (id) ON DELETE NO ACTION;
-ALTER TABLE sources ADD CONSTRAINT sources_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
 ALTER TABLE co2_producers ADD CONSTRAINT co2_producers_ref_category_id FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE NO ACTION;
 ALTER TABLE co2_producers ADD CONSTRAINT co2_producers_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
+ALTER TABLE sources ADD CONSTRAINT sources_ref_co2_producer_id FOREIGN KEY (co2_producer_id) REFERENCES co2_producers (id) ON DELETE NO ACTION;
+ALTER TABLE sources ADD CONSTRAINT sources_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;

@@ -1,0 +1,1 @@
+ALTER TYPE units RENAME VALUE 'minutes' TO 'minute';
