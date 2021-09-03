@@ -7,9 +7,11 @@ import Network.URL
 import Web.View.Prelude
 import Text.Printf
 import Data.Fixed
+import Application.Helper.Average
 
 
-data IndexView = IndexView {co2Producers :: [Co2Producer], searchTerm :: Maybe Text}
+
+data IndexView = IndexView {co2Producers :: [Include "sources" Co2Producer], searchTerm :: Maybe Text}
 
 instance View IndexView where
   html IndexView {..} =
@@ -40,11 +42,26 @@ renderCo2Producer co2Producer =
           </a>
         </div>
         <div class="fields">
+          <div class="field co2-value">
+            {renderCo2Value co2Producer $ get #sources co2Producer}
+          </div>
           {editAndDeleteButtons} 
         </div>
       </div>
 |]
   where
+    renderCo2Value co2Producer sources = case average $ calcCo2PerUnit <$> sources of
+        Just a -> [hsx|
+            <p class="label">1{get #unit co2Producer}</p>
+            <div class="amount-per-unit">
+              <p style="font-size: 1.5em;">
+                <span class="co2-amount">{a |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
+              </p>
+            </div>
+          |]
+        Nothing -> [hsx|<p>-</p>|]
+        where
+          calcCo2PerUnit = (/) <$> get #gCo2e <*> get #per
 
     editAndDeleteButtons :: Html
     editAndDeleteButtons =

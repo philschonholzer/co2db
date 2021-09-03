@@ -14,15 +14,15 @@ instance Controller Co2ProducersController where
     let searchTerm = paramOrNothing @Text "search"
     case searchTerm of
       Nothing -> do
-        co2Producers <- query @Co2Producer |> fetch
+        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #sources
         render IndexView {..}
       Just "" -> do
-        co2Producers <- query @Co2Producer |> fetch
+        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #sources
         render IndexView {..}
       Just justSearchTerm -> do
         co2Producers <- query @Co2Producer
           |> filterWhereIMatches (#title, ".*(" <> matchTerm justSearchTerm <> ").*")
-          |> fetch
+          |> fetch >>= collectionFetchRelated #sources
         render IndexView {..}
 
   action NewCo2ProducerAction = do
