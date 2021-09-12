@@ -1,5 +1,4 @@
-module Application.Helper.View where
+module Application.Helper.View (averageCo2Value, calcCo2Factor) where
 
+import Application.Helper.Co2Calculation
 import IHP.ViewPrelude
-
--- Here you can add functions which are available in all your views

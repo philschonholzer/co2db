@@ -1,0 +1,20 @@
+.producer.show .common-consumption {
+  font-size: 0.5em;
+  flex: 1;
+  max-width: 60em;
+  padding: 2em;
+  border-radius: 1em;
+  background: var(--background-highlight-color);
+}
+
+.producer.show .common-consumption h2 {
+  font-size: 2em;
+}
+
+.producer.show .common-consumption h3 {
+  font-size: 1.6em;
+}
+
+.producer.show .common-consumption .co2-value + .co2-value {
+  margin-top: 6em;
+}

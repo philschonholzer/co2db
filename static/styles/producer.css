@@ -1,5 +1,6 @@
 @import './producer-index.css';
 @import './producer-show.css';
+@import './producer-common-consumption.css';
 
 .producers {
   display: grid;

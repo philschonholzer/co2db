@@ -1,4 +1,4 @@
-module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase, renderPer) where
+module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase, renderPer, twoDec) where
 
 import Data.Fixed
 import Generated.Types
@@ -101,6 +101,7 @@ scripts =
         <script src="/vendor/turbolinks.js"></script>
         <script src="/vendor/turbolinksInstantClick.js"></script>
         <script src="/vendor/turbolinksMorphdom.js"></script>
+        <script src="/vendor/ihp-ssc.js"></script>
         <script src="/helpers.js"></script>
         <script src="/ihp-auto-refresh.js"></script>
     |]
@@ -138,6 +139,9 @@ renderWeight weight = [hsx|<span class="weight-integer-part">{weight `div'` 1000
 
 threeDec :: Double -> String
 threeDec dec = dec |> printf "%03.0F"
+
+twoDec :: Double -> String
+twoDec dec = dec |> printf "%02.1F"
 
 calcAmountFromBase :: (?context :: ControllerContext) => Source' co2ProducerId userId -> (Source' co2ProducerId userId -> Double) -> H.Html
 calcAmountFromBase source consumption =

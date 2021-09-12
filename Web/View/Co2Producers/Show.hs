@@ -1,5 +1,6 @@
 module Web.View.Co2Producers.Show where
 
+import Numeric
 import qualified Text.MMark as MMark
 import qualified Text.Megaparsec   as M
 import qualified Text.Blaze.Html5 as H
@@ -7,8 +8,9 @@ import qualified Text.Blaze.Html5 as H
 import Web.View.Prelude
 import Text.Printf
 import Application.Helper.Average
-
 import Control.Applicative
+import IHP.ServerSideComponent.ViewFunctions
+import Web.Component.CommonConsumption
 
 data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 
@@ -28,17 +30,29 @@ instance View ShowView where
               {editAndDeleteButtons}
             </div>
           </header>
-          <section class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</section>
+          <section class="co2-values">
+            <div class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</div>
+            <div class="common-consumption">
+              <h2>Common consumptions</h2>
+              <div class="co2-value">
+                <h3>Single consumption</h3>
+                {renderSingleConsumtion co2Producer}
+              </div>
+              <div class="co2-value">
+                <h3>Yearly consumption</h3>
+                {renderYearlyConsumtion co2Producer}
+              </div>
+            </div>
+          </section>
           <section class="description"><h2>Description</h2>{renderDescription}</section>
           <a href={NewSourceAction (get #id co2Producer)}>Add Source</a>
           <div class="details">
             {forEach (get #sources co2Producer) renderDetail}
           </div>
-          
         </article>
     |]
     where
-      renderCo2Value co2Producer sources = case average $ calcCo2PerUnit <$> sources of
+      renderCo2Value co2Producer sources = case averageCo2Value sources of
         Just a -> [hsx|
             <p style="font-size: 2em;">
               <span class="producer-amount">1</span>
@@ -49,7 +63,6 @@ instance View ShowView where
           |]
         Nothing -> [hsx|<p>-</p>|]
         where
-          calcCo2PerUnit = (/) <$> get #gCo2e <*> get #per
           svg = 
             [hsx|
               <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
@@ -122,4 +135,34 @@ instance View ShowView where
                   </div>
                 |]
           _ -> [hsx|  |]
+
+      renderSingleConsumtion co2Producer = case averageCo2Value $ get #sources co2Producer of
+        Just agCo2 -> [hsx|
+            {commonConsumption co2Producer agCo2}
+          |]
+        Nothing -> [hsx|<p>-</p>|]
+        where
+          commonConsumption co2Producer agCo2 = componentFromState 
+            CommonConsumption { 
+              value     = get #commonSingleConsumptionAverage co2Producer, 
+              minValue  = get #commonSingleConsumptionFrom co2Producer, 
+              maxValue  = get #commonSingleConsumptionTo co2Producer,
+              gCo2      = agCo2,
+              unit      = get #unit co2Producer
+            }
+
+      renderYearlyConsumtion co2Producer = case averageCo2Value $ get #sources co2Producer of
+        Just agCo2 -> [hsx|
+            {commonConsumption co2Producer agCo2}
+          |]
+        Nothing -> [hsx|<p>-</p>|]
+        where
+          commonConsumption co2Producer agCo2 = componentFromState 
+            CommonConsumption { 
+              value     = get #commonYearlyConsumptionAverage co2Producer, 
+              minValue  = get #commonYearlyConsumptionFrom co2Producer, 
+              maxValue  = get #commonYearlyConsumptionTo co2Producer,
+              gCo2      = agCo2,
+              unit      = get #unit co2Producer
+            }
 

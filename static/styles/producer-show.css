@@ -13,6 +13,13 @@
   margin-left: auto;
 }
 
+.producer.show .co2-values {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2em 4em;
+}
+
 .producer.show .details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));

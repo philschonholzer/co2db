@@ -2,6 +2,8 @@ module Web.FrontController where
 
 import IHP.LoginSupport.Middleware
 import IHP.RouterPrelude
+import IHP.ServerSideComponent.RouterFunctions
+import Web.Component.CommonConsumption
 import Web.Controller.Categories
 import Web.Controller.Co2Producers
 import Web.Controller.Sources
@@ -20,7 +22,8 @@ instance FrontController WebApplication where
       parseRoute @UsersController,
       parseRoute @CategoriesController,
       parseRoute @Co2ProducersController,
-      parseRoute @SourcesController
+      parseRoute @SourcesController,
+      routeComponent @CommonConsumption
     ]
 
 instance InitControllerContext WebApplication where
