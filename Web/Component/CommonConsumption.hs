@@ -12,33 +12,33 @@ import Web.Controller.Prelude hiding (getState, render, setState)
 import Web.View.Prelude hiding (fetch, query)
 
 -- The state object
-data CommonConsumption = CommonConsumption {value :: !Double, minValue :: !Double, maxValue :: Double, gCo2 :: Double, unit :: Unit}
+data CommonConsumption = CommonConsumption {amount :: !Double, minAmount :: !Double, maxAmount :: Double, gCo2 :: Double, unit :: Unit}
 
 -- The set of actions
 data CommonConsumptionController
   = IncrementCommonConsumptionAction
-  | SetCommonConsumptionValue {newValue :: !Double, newGCo2 :: Double}
+  | SetCommonConsumptionValue {newAmount :: !Double, newGCo2 :: Double}
   deriving (Eq, Show, Data)
 
 $(deriveSSC ''CommonConsumptionController)
 
 instance Component CommonConsumption CommonConsumptionController where
-  initialState = CommonConsumption {value = 0, minValue = 0, maxValue = 0, gCo2 = 0, unit = Gram}
+  initialState = CommonConsumption {amount = 0, minAmount = 0, maxAmount = 0, gCo2 = 0, unit = Gram}
 
   -- The render function
-  render CommonConsumption {value, minValue, maxValue, gCo2, unit} =
+  render CommonConsumption {amount, minAmount, maxAmount, gCo2, unit} =
     [hsx|
         <p style="font-size: 2em;">
-          <span class="producer-amount">{value |> twoDec}</span>
+          <span class="producer-amount">{amount |> twoDec}</span>
           <span class="producer-unit">{unit}</span>
           {svg}
-          <span class="co2-amount">{calcCo2Factor gCo2 1.0 value |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
+          <span class="co2-amount">{calcCo2Factor gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
         </p>
-        <input data-test={tshow gCo2} class="range" type="range" min={tshow minValue} max={tshow maxValue} step={steps} value={inputValue value} oninput="callServerAction('SetCommonConsumptionValue', { newValue: parseFloat(this.value), newGCo2: parseFloat(this.dataset.test) })" />
+        <input data-gco2={tshow gCo2} class="range" type="range" min={tshow minAmount} max={tshow maxAmount} step={steps} value={inputValue amount} oninput="callServerAction('SetCommonConsumptionValue', { newAmount: parseFloat(this.value), newGCo2: parseFloat(this.dataset.gco2) })" />
     |]
     where
       steps :: String
-      steps = showFFloat (Just 2) ((maxValue - minValue) / 50.0) ""
+      steps = showFFloat (Just 2) ((maxAmount - minAmount) / 50.0) ""
 
       svg =
         [hsx|
@@ -50,14 +50,14 @@ instance Component CommonConsumption CommonConsumptionController where
   -- The action handlers
   action state IncrementCommonConsumptionAction = do
     state
-      |> incrementField #value
+      |> incrementField #amount
       |> pure
-  action state SetCommonConsumptionValue {newValue, newGCo2} = do
+  action state SetCommonConsumptionValue {newAmount, newGCo2} = do
     state
-      |> set #value newValue
+      |> set #amount newAmount
       |> set #gCo2 newGCo2
       |> pure
 
-instance SetField "value" CommonConsumption Double where setField value' commonConsumption = commonConsumption {value = value'}
+instance SetField "amount" CommonConsumption Double where setField amount' commonConsumption = commonConsumption {amount = amount'}
 
 instance SetField "gCo2" CommonConsumption Double where setField gCo2' commonConsumption = commonConsumption {gCo2 = gCo2'}
