@@ -22,7 +22,7 @@ defaultLayout inner =
           {scripts}
           {favicon}
 
-          <title>CO2 Database</title>
+          <title>{headTitle}</title>
       </head>
       <body>
         <header class="page-header">
@@ -58,6 +58,11 @@ defaultLayout inner =
       </body>
     |]
   where
+    headTitle :: Text
+    headTitle = case pageTitleOrNothing of
+      Nothing -> "CO2 Data"
+      Just title -> title <> " | CO2 Data"
+
     loginLogoutButton :: Html
     loginLogoutButton =
       case fromFrozenContext @(Maybe User) of

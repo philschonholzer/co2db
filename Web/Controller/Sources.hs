@@ -16,6 +16,7 @@ instance Controller SourcesController where
         ensureIsUser
         let source = newRecord |> set #co2ProducerId co2ProducerId
         co2Producer <- fetch co2ProducerId
+        setTitle $ "New Source for " <> get #title co2Producer
         render NewView { .. }
 
     action ShowSourceAction { sourceId } = do
@@ -27,6 +28,7 @@ instance Controller SourcesController where
         source <- fetch sourceId
         accessDeniedUnless $ get #userId source == currentUserId
         co2Producer <- fetch $ get #co2ProducerId source
+        setTitle $ "Edit a Source for " <> get #title co2Producer
         render EditView { .. }
 
     action UpdateSourceAction { sourceId } = do
