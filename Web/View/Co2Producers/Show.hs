@@ -15,6 +15,15 @@ import Web.Component.CommonConsumption
 data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 
 instance View ShowView where
+  beforeRender ShowView { co2Producer } = do
+    setOGTitle (get #title co2Producer)
+    setOGUrl (urlTo (ShowCo2ProducerAction (get #id co2Producer)) )
+    case get #description co2Producer of 
+      Just desc -> setOGDescription desc
+      Nothing -> pure ()
+    case get #image co2Producer of
+      Just url -> setOGImage url
+      Nothing -> pure ()
   html ShowView {..} =
     [hsx|
         <article class="producer show">
