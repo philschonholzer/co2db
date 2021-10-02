@@ -34,9 +34,25 @@ instance Component CommonConsumption CommonConsumptionController where
           {svg}
           <span class="co2-amount">{calcCo2Factor gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
         </p>
-        <input data-gco2={tshow gCo2} class="range" type="range" min={tshow minAmount} max={tshow maxAmount} step={steps} value={inputValue amount} oninput="callServerAction('SetCommonConsumptionValue', { newAmount: parseFloat(this.value), newGCo2: parseFloat(this.dataset.gco2) })" />
+        {renderInput}
     |]
     where
+      renderInput = case (amount, minAmount, maxAmount) of
+        (a, min, max) | a == min && a == max -> [hsx||]
+        _ ->
+          [hsx|
+                <input 
+                  data-gco2={tshow gCo2} 
+                  class="range" 
+                  type="range" 
+                  min={tshow minAmount} 
+                  max={tshow maxAmount} 
+                  step={steps} 
+                  value={inputValue amount} 
+                  oninput="callServerAction('SetCommonConsumptionValue', { newAmount: parseFloat(this.value), newGCo2: parseFloat(this.dataset.gco2) })" 
+                />
+              |]
+
       steps :: String
       steps = showFFloat (Just 2) ((maxAmount - minAmount) / 50.0) ""
 
