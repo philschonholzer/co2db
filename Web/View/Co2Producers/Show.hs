@@ -19,7 +19,9 @@ instance View ShowView where
     setOGTitle (get #title co2Producer)
     setOGUrl (urlTo (ShowCo2ProducerAction (get #id co2Producer)) )
     case get #description co2Producer of 
-      Just desc -> setOGDescription desc
+      Just desc -> do 
+        setOGDescription desc
+        setDescription desc
       Nothing -> pure ()
     case get #image co2Producer of
       Just url -> setOGImage url

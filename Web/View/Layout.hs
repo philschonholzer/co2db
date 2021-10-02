@@ -16,13 +16,11 @@ defaultLayout inner =
   H.docTypeHtml ! A.lang "en" $
     [hsx|
       <head>
-          {metaTags}
-
-          {stylesheets}
-          {scripts}
-          {favicon}
-
-          <title>{headTitle}</title>
+        <title>{headTitle}</title>
+        {metaTags}
+        {stylesheets}
+        {scripts}
+        {favicon}
       </head>
       <body>
         <header class="page-header">
@@ -117,11 +115,12 @@ metaTags =
   [hsx|
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {descriptionOrDefault "What are the CO₂ emissions of things."}
     {ogTitleOrDefault "CO2 Data"}
-    {ogTypeOrDefault "website"}
     {ogDescriptionOrDefault "What are the CO₂ emissions of things."}
-    {ogImage "Text"}
-    {ogUrl "Text"}
+    {ogTypeOrDefault "website"}
+    {ogImage}
+    {ogUrl}
 
     {autoRefreshMeta}
 |]
