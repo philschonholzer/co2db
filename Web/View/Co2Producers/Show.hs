@@ -11,6 +11,7 @@ import Application.Helper.Average
 import Control.Applicative
 import IHP.ServerSideComponent.ViewFunctions
 import Web.Component.CommonConsumption
+import Web.Controller.Prelude (setOGImage)
 
 data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 
@@ -25,7 +26,7 @@ instance View ShowView where
       Nothing -> pure ()
     case get #image co2Producer of
       Just url -> setOGImage url
-      Nothing -> pure ()
+      Nothing -> setOGImage "/logo.png"
   html ShowView {..} =
     [hsx|
         <article class="producer show">
