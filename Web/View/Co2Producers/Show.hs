@@ -26,7 +26,7 @@ instance View ShowView where
       Nothing -> pure ()
     case get #image co2Producer of
       Just url -> setOGImage url
-      Nothing ->  setOGImage $ baseUrl getConfig <> "/logo.png"
+      Nothing ->  setOGImage $ baseUrl getConfig <> "/meta-image.png"
   html ShowView {..} =
     [hsx|
         <article class="producer show">
