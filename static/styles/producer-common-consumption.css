@@ -8,7 +8,8 @@
 }
 
 .producer.show .common-consumption h2 {
-  font-size: 2em;
+  font-size: 3em;
+  margin: 0.1em 0 1em;
 }
 
 .producer.show .common-consumption h3 {

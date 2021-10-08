@@ -36,10 +36,6 @@
   overflow: hidden;
 }
 
-.producer.show section {
-  padding: 0;
-}
-
 .producer.show .fields a {
   line-break: anywhere;
 }

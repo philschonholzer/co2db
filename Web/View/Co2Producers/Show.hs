@@ -61,7 +61,7 @@ instance View ShowView where
     where
       renderCo2Value co2Producer sources = case averageCo2Value sources of
         Just a -> [hsx|
-            <p style="font-size: 2em;">
+            <p style="font-size: 2em; margin: 0;">
               <span class="producer-amount">1</span>
               <span class="producer-unit">{get #unit co2Producer}</span>
               {svg}

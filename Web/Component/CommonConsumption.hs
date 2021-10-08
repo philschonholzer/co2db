@@ -55,10 +55,11 @@ instance Component CommonConsumption CommonConsumptionController where
         </p>
         
         <p style="font-size: 2em;">
-          ×&nbsp;<span class="producer-amount">{timesPerYear |> twoDec}</span>
+          <span style="font-size: 1.5em">×&ensp;</span>
+          <span class="producer-amount">{timesPerYear |> twoDec}</span> / year
         </p>
         <p style="font-size: 2em;">
-          =
+          <span style="font-size: 1.5em">=&ensp;</span>
           <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
         {renderInput amount minAmount maxAmount "SetCommonConsumptionValue" "newAmount" "Single consumption"}
