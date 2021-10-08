@@ -35,17 +35,17 @@ renderForm co2Producer categories =
         <legend>Single common consumption</legend>
         <div style="display: flex; gap: 1em;">
           {(textField #singleConsumptionFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
-          {(textField #singleConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
           {(textField #singleConsumptionAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
+          {(textField #singleConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
         </div>
         <p><small>What is a common single unit that is consumed of this producer.</small></p>
       </fieldset>
       <fieldset>
         <legend>Times per year consumed</legend>
         <div style="display: flex; gap: 1em;">
-          {(textField #timesPerYearFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
-          {(textField #timesPerYearTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
-          {(textField #timesPerYearAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
+          {(textField #timesPerYearFrom) { required = True, fieldLabel = "From" }}
+          {(textField #timesPerYearAverage) { required = True, fieldLabel = "Average" }}
+          {(textField #timesPerYearTo) { required = True, fieldLabel = "To" }}
         </div>
         <p><small>How many times is a single unit consumed per year.</small></p>
       </fieldset>
