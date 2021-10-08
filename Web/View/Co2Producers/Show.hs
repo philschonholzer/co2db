@@ -151,12 +151,12 @@ instance View ShowView where
         where
           commonConsumption co2Producer agCo2 = componentFromState 
             CommonConsumption { 
-              amount    = get #commonSingleConsumptionAverage co2Producer, 
-              minAmount = get #commonSingleConsumptionFrom co2Producer, 
-              maxAmount = get #commonSingleConsumptionTo co2Producer,
-              timesPerYear = get #commonYearlyConsumptionAverage co2Producer,
-              minTimesPerYear = get #commonYearlyConsumptionFrom co2Producer,
-              maxTimesPerYear = get #commonYearlyConsumptionTo co2Producer,
+              amount    = get #singleConsumptionAverage co2Producer, 
+              minAmount = get #singleConsumptionFrom co2Producer, 
+              maxAmount = get #singleConsumptionTo co2Producer,
+              timesPerYear = get #timesPerYearAverage co2Producer,
+              minTimesPerYear = get #timesPerYearFrom co2Producer,
+              maxTimesPerYear = get #timesPerYearTo co2Producer,
               gCo2      = agCo2,
               unit      = get #unit co2Producer
             }

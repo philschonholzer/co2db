@@ -33,18 +33,18 @@ renderForm co2Producer categories =
       <fieldset>
         <legend>Single common consumption</legend>
         <div style="display: flex; gap: 1em;">
-          {(textField #commonSingleConsumptionFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
-          {(textField #commonSingleConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
-          {(textField #commonSingleConsumptionAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
+          {(textField #singleConsumptionFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
+          {(textField #singleConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
+          {(textField #singleConsumptionAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
         </div>
         <p><small>What is a common <b>single</b> unit to consume of this producer?</small></p>
       </fieldset>
       <fieldset>
         <legend>Yearly common consumption</legend>
         <div style="display: flex; gap: 1em;">
-          {(textField #commonYearlyConsumptionFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
-          {(textField #commonYearlyConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
-          {(textField #commonYearlyConsumptionAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
+          {(textField #timesPerYearFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
+          {(textField #timesPerYearTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
+          {(textField #timesPerYearAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
         </div>
         <p><small>What is a common <b>yearly</b> unit to consume of this producer?</small></p>
       </fieldset>

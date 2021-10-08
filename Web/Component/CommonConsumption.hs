@@ -61,18 +61,17 @@ instance Component CommonConsumption CommonConsumptionController where
           =
           <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
-        <label for="SetCommonConsumptionValue">Single consumption</label>
-        {renderInput amount minAmount maxAmount "SetCommonConsumptionValue" "newAmount"}
+        {renderInput amount minAmount maxAmount "SetCommonConsumptionValue" "newAmount" "Single consumption"}
 
-        <label for="SetTimesPerYear">Times per year</label>
-        {renderInput timesPerYear minTimesPerYear maxTimesPerYear "SetTimesPerYear" "newTimesPerYear"}
+        {renderInput timesPerYear minTimesPerYear maxTimesPerYear "SetTimesPerYear" "newTimesPerYear" "Times per year"}
     |]
     where
-      renderInput :: Double -> Double -> Double -> String -> String -> Html
-      renderInput value minValue maxValue action newField = case (minValue, maxValue) of
+      renderInput :: Double -> Double -> Double -> String -> String -> String -> Html
+      renderInput value minValue maxValue action newField labelTitle = case (minValue, maxValue) of
         (min, max) | min == max -> [hsx||]
         _ ->
           [hsx|
+            <label for={action}>{labelTitle}</label>
             <input 
               id={action}
               data-gco2={tshow gCo2} 

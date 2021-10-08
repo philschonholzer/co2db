@@ -98,16 +98,16 @@ matchTerm = filterWhitespace . T.map replaceSeparators
 
 buildCo2Producer co2Producer =
   co2Producer
-    |> fill @["title", "description", "categoryId", "image", "unit", "commonSingleConsumptionFrom", "commonSingleConsumptionTo", "commonSingleConsumptionAverage", "commonYearlyConsumptionFrom", "commonYearlyConsumptionTo", "commonYearlyConsumptionAverage"]
+    |> fill @["title", "description", "categoryId", "image", "unit", "singleConsumptionFrom", "singleConsumptionTo", "singleConsumptionAverage", "timesPerYearFrom", "timesPerYearTo", "timesPerYearAverage"]
     |> validateField #title nonEmpty
     |> validateField #categoryId nonEmpty
     |> emptyValueToNothing #description
-    |> validateField #commonSingleConsumptionFrom (isGreaterEqualThan 0)
-    |> (validateField #commonSingleConsumptionTo <$> (isGreaterThan . get #commonSingleConsumptionFrom) <*> C.id)
-    |> (validateField #commonSingleConsumptionAverage <$> (isInRange . ofFields #commonSingleConsumptionFrom #commonSingleConsumptionTo) <*> C.id)
-    |> validateField #commonYearlyConsumptionFrom (isGreaterEqualThan 0)
-    |> (validateField #commonYearlyConsumptionTo <$> (isGreaterThan . get #commonYearlyConsumptionFrom) <*> C.id)
-    |> (validateField #commonYearlyConsumptionAverage <$> (isInRange . ofFields #commonYearlyConsumptionFrom #commonYearlyConsumptionTo) <*> C.id)
+    |> validateField #singleConsumptionFrom (isGreaterEqualThan 0)
+    |> (validateField #singleConsumptionTo <$> (isGreaterEqualThan . get #singleConsumptionFrom) <*> C.id)
+    |> (validateField #singleConsumptionAverage <$> (isInRange . ofFields #singleConsumptionFrom #singleConsumptionTo) <*> C.id)
+    |> validateField #timesPerYearFrom (isGreaterEqualThan 0)
+    |> (validateField #timesPerYearTo <$> (isGreaterEqualThan . get #timesPerYearFrom) <*> C.id)
+    |> (validateField #timesPerYearAverage <$> (isInRange . ofFields #timesPerYearFrom #timesPerYearTo) <*> C.id)
   where
     ofFields fieldFrom fieldTo = (,) <$> get fieldFrom <*> get fieldTo
 
