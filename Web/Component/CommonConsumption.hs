@@ -24,9 +24,7 @@ data CommonConsumption = CommonConsumption
   }
 
 -- The set of actions
-data CommonConsumptionController
-  = SetCommonConsumptionValue {newAmount :: !Double, newGCo2 :: !Double, newOther :: !Double}
-  | SetTimesPerYear {newTimesPerYear :: !Double, newGCo2 :: !Double, newOther :: !Double}
+data CommonConsumptionController = SetValues {newAmount :: !Double, newTimesPerYear :: !Double, newGCo2 :: !Double}
   deriving (Eq, Show, Data)
 
 $(deriveSSC ''CommonConsumptionController)
@@ -62,21 +60,20 @@ instance Component CommonConsumption CommonConsumptionController where
           <span style="font-size: 1.5em">=&ensp;</span>
           <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
-        {renderInput amount minAmount maxAmount timesPerYear "SetCommonConsumptionValue" "newAmount" "Single consumption"}
+        {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
 
-        {renderInput timesPerYear minTimesPerYear maxTimesPerYear amount "SetTimesPerYear" "newTimesPerYear" "Times per year"}
+        {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput" "Times per year"}
     |]
     where
-      renderInput :: Double -> Double -> Double -> Double -> String -> String -> String -> Html
-      renderInput value minValue maxValue otherValue action newField labelTitle = case (minValue, maxValue) of
+      renderInput :: Double -> Double -> Double -> String -> String -> Html
+      renderInput value minValue maxValue inputId labelTitle = case (minValue, maxValue) of
         (min, max) | min == max -> [hsx||]
         _ ->
           [hsx|
-            <label for={action}>{labelTitle}</label>
+            <label for={inputId}>{labelTitle}</label>
             <input 
-              id={action}
+              id={inputId}
               data-gco2={tshow gCo2} 
-              data-other={tshow otherValue} 
               class="range" 
               type="range" 
               min={tshow minValue} 
@@ -91,7 +88,14 @@ instance Component CommonConsumption CommonConsumptionController where
             steps = showFFloat (Just 2) ((maxValue - minValue) / 50.0) ""
 
             onInput :: String
-            onInput = "callServerAction('" <> action <> "', { " <> newField <> ": parseFloat(this.value), newGCo2: parseFloat(this.dataset.gco2), newOther: parseFloat(this.dataset.other) })"
+            onInput =
+              "callServerAction('SetValues', \
+              \ { \
+              \   newAmount: parseFloat(amountInput.value), \
+              \   newTimesPerYear: parseFloat(timesPerYearInput.value), \
+              \   newGCo2: parseFloat(this.dataset.gco2) \
+              \ }\
+              \)"
 
       svg =
         [hsx|
@@ -101,17 +105,11 @@ instance Component CommonConsumption CommonConsumptionController where
         |]
 
   -- The action handlers
-  action state SetCommonConsumptionValue {newAmount, newGCo2, newOther} = do
+  action state SetValues {newAmount, newTimesPerYear, newGCo2} = do
     state
       |> set #amount newAmount
-      |> set #gCo2 newGCo2
-      |> set #timesPerYear newOther
-      |> pure
-  action state SetTimesPerYear {newTimesPerYear, newGCo2, newOther} = do
-    state
       |> set #timesPerYear newTimesPerYear
       |> set #gCo2 newGCo2
-      |> set #amount newOther
       |> pure
 
 instance SetField "amount" CommonConsumption Double where setField amount' commonConsumption = commonConsumption {amount = amount'}
