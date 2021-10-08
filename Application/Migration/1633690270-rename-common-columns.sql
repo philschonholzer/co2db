@@ -1,0 +1,6 @@
+ALTER TABLE co2_producers RENAME COLUMN common_single_consumption_from TO single_consumption_from;
+ALTER TABLE co2_producers RENAME COLUMN common_single_consumption_to TO single_consumption_to;
+ALTER TABLE co2_producers RENAME COLUMN common_single_consumption_average TO single_consumption_average;
+ALTER TABLE co2_producers RENAME COLUMN common_yearly_consumption_from TO times_per_year_from;
+ALTER TABLE co2_producers RENAME COLUMN common_yearly_consumption_to TO times_per_year_to;
+ALTER TABLE co2_producers RENAME COLUMN common_yearly_consumption_average TO times_per_year_average;

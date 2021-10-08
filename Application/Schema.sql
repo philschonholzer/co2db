@@ -8,12 +8,12 @@ CREATE TABLE co2_producers (
     image TEXT DEFAULT NULL,
     user_id UUID NOT NULL,
     unit units NOT NULL,
-    common_single_consumption_from DOUBLE PRECISION NOT NULL,
-    common_single_consumption_to DOUBLE PRECISION NOT NULL,
-    common_single_consumption_average DOUBLE PRECISION NOT NULL,
-    common_yearly_consumption_from DOUBLE PRECISION NOT NULL,
-    common_yearly_consumption_to DOUBLE PRECISION NOT NULL,
-    common_yearly_consumption_average DOUBLE PRECISION NOT NULL
+    single_consumption_from DOUBLE PRECISION NOT NULL,
+    single_consumption_to DOUBLE PRECISION NOT NULL,
+    single_consumption_average DOUBLE PRECISION NOT NULL,
+    times_per_year_from DOUBLE PRECISION NOT NULL,
+    times_per_year_to DOUBLE PRECISION NOT NULL,
+    times_per_year_average DOUBLE PRECISION NOT NULL
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
