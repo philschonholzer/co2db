@@ -47,12 +47,7 @@ instance View ShowView where
             <div class="common-consumption">
               <h2>Common consumptions</h2>
               <div class="co2-value">
-                <h3>Single consumption</h3>
                 {renderSingleConsumtion co2Producer}
-              </div>
-              <div class="co2-value">
-                <h3>Yearly consumption</h3>
-                {renderYearlyConsumtion co2Producer}
               </div>
             </div>
           </section>
@@ -159,22 +154,11 @@ instance View ShowView where
               amount    = get #commonSingleConsumptionAverage co2Producer, 
               minAmount = get #commonSingleConsumptionFrom co2Producer, 
               maxAmount = get #commonSingleConsumptionTo co2Producer,
+              timesPerYear = get #commonYearlyConsumptionAverage co2Producer,
+              minTimesPerYear = get #commonYearlyConsumptionFrom co2Producer,
+              maxTimesPerYear = get #commonYearlyConsumptionTo co2Producer,
               gCo2      = agCo2,
               unit      = get #unit co2Producer
             }
 
-      renderYearlyConsumtion co2Producer = case averageCo2Value $ get #sources co2Producer of
-        Just agCo2 -> [hsx|
-            {commonConsumption co2Producer agCo2}
-          |]
-        Nothing -> [hsx|<p>-</p>|]
-        where
-          commonConsumption co2Producer agCo2 = componentFromState 
-            CommonConsumption { 
-              amount    = get #commonYearlyConsumptionAverage co2Producer, 
-              minAmount = get #commonYearlyConsumptionFrom co2Producer, 
-              maxAmount = get #commonYearlyConsumptionTo co2Producer,
-              gCo2      = agCo2,
-              unit      = get #unit co2Producer
-            }
 
