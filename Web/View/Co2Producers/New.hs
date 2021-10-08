@@ -37,16 +37,16 @@ renderForm co2Producer categories =
           {(textField #singleConsumptionTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
           {(textField #singleConsumptionAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
         </div>
-        <p><small>What is a common <b>single</b> unit to consume of this producer?</small></p>
+        <p><small>What is a common single unit that is consumed of this producer.</small></p>
       </fieldset>
       <fieldset>
-        <legend>Yearly common consumption</legend>
+        <legend>Times per year consumed</legend>
         <div style="display: flex; gap: 1em;">
           {(textField #timesPerYearFrom) { required = True, fieldLabel = "From", helpText = commonHelpText }}
           {(textField #timesPerYearTo) { required = True, fieldLabel = "To", helpText = commonHelpText }}
           {(textField #timesPerYearAverage) { required = True, fieldLabel = "Average", helpText = commonHelpText }}
         </div>
-        <p><small>What is a common <b>yearly</b> unit to consume of this producer?</small></p>
+        <p><small>How many times is a single unit consumed per year.</small></p>
       </fieldset>
       {(textField #image)}
       {submitButton { label = "Add CO2 Producer" } }
