@@ -10,6 +10,7 @@
 .producer.show .common-consumption h2 {
   font-size: 3em;
   margin: 0.1em 0 1em;
+  white-space: break-spaces;
 }
 
 .producer.show .common-consumption h3 {
