@@ -86,13 +86,15 @@ instance Component CommonConsumption CommonConsumptionController where
       onInputScript =
         [hsx|
           <script id="consumptionScript" data-gco2={tshow gCo2}>
-            const onInput = () => callServerAction('SetValues', 
+            function onInput () {
+              callServerAction('SetValues', 
                 { 
                   newAmount: parseFloat(amountInput.value), 
                   newTimesPerYear: parseFloat(timesPerYearInput.value), 
                   newGCo2: parseFloat(consumptionScript.dataset.gco2) 
                 }
               )
+            }
           </script>
         |]
 
