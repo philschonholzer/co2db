@@ -1,7 +1,5 @@
 module Web.Component.CommonConsumption where
 
-import qualified Data.Text as Text
-import qualified Database.PostgreSQL.Simple.ToField as PG
 import Generated.Types
 import IHP.QueryBuilder
 import IHP.ServerSideComponent.ControllerFunctions
@@ -11,7 +9,6 @@ import Numeric
 import Web.Controller.Prelude hiding (getState, render, setState)
 import Web.View.Prelude hiding (fetch, query)
 
--- The state object
 data CommonConsumption = CommonConsumption
   { amount :: !Double,
     minAmount :: !Double,
@@ -23,7 +20,6 @@ data CommonConsumption = CommonConsumption
     unit :: !Unit
   }
 
--- The set of actions
 data CommonConsumptionController = SetValues {newAmount :: !Double, newTimesPerYear :: !Double, newGCo2 :: !Double}
   deriving (Eq, Show, Data)
 
@@ -42,7 +38,6 @@ instance Component CommonConsumption CommonConsumptionController where
         unit = Gram
       }
 
-  -- The render function
   render CommonConsumption {amount, minAmount, maxAmount, timesPerYear, minTimesPerYear, maxTimesPerYear, gCo2, unit} =
     [hsx|
         <p style="font-size: 2em;">
@@ -60,10 +55,12 @@ instance Component CommonConsumption CommonConsumptionController where
           <span style="font-size: 1.5em">=&ensp;</span>
           <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
-        {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
 
+        {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
         {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput" "Times per year"}
-    |]
+
+        {onInputScript}
+      |]
     where
       renderInput :: Double -> Double -> Double -> String -> String -> Html
       renderInput value minValue maxValue inputId labelTitle = case (minValue, maxValue) of
@@ -73,29 +70,31 @@ instance Component CommonConsumption CommonConsumptionController where
             <label for={inputId}>{labelTitle}</label>
             <input 
               id={inputId}
-              data-gco2={tshow gCo2} 
               class="range" 
               type="range" 
               min={tshow minValue} 
               max={tshow maxValue} 
               step={steps} 
               value={inputValue value} 
-              oninput={onInput} 
+              oninput="onInput()" 
             />
           |]
           where
             steps :: String
             steps = showFFloat (Just 2) ((maxValue - minValue) / 50.0) ""
 
-            onInput :: String
-            onInput =
-              "callServerAction('SetValues', \
-              \ { \
-              \   newAmount: parseFloat(amountInput.value), \
-              \   newTimesPerYear: parseFloat(timesPerYearInput.value), \
-              \   newGCo2: parseFloat(this.dataset.gco2) \
-              \ }\
-              \)"
+      onInputScript =
+        [hsx|
+          <script id="consumptionScript" data-gco2={tshow gCo2}>
+            const onInput = () => callServerAction('SetValues', 
+                { 
+                  newAmount: parseFloat(amountInput.value), 
+                  newTimesPerYear: parseFloat(timesPerYearInput.value), 
+                  newGCo2: parseFloat(consumptionScript.dataset.gco2) 
+                }
+              )
+          </script>
+        |]
 
       svg =
         [hsx|
