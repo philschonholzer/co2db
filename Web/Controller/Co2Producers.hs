@@ -103,11 +103,11 @@ buildCo2Producer co2Producer =
     |> validateField #categoryId nonEmpty
     |> emptyValueToNothing #description
     |> validateField #singleConsumptionFrom (isGreaterEqualThan 0)
-    |> (validateField #singleConsumptionTo <$> (isGreaterEqualThan . get #singleConsumptionFrom) <*> C.id)
-    |> (validateField #singleConsumptionAverage <$> (isInRange . ofFields #singleConsumptionFrom #singleConsumptionTo) <*> C.id)
+    |> (validateField #singleConsumptionTo =<< (isGreaterEqualThan . get #singleConsumptionFrom)) -- same as (flip (validateField #singleConsumptionTo) <*> (isGreaterEqualThan . get #singleConsumptionFrom))
+    |> (validateField #singleConsumptionAverage =<< (isInRange . ofFields #singleConsumptionFrom #singleConsumptionTo))
     |> validateField #timesPerYearFrom (isGreaterEqualThan 0)
-    |> (validateField #timesPerYearTo <$> (isGreaterEqualThan . get #timesPerYearFrom) <*> C.id)
-    |> (validateField #timesPerYearAverage <$> (isInRange . ofFields #timesPerYearFrom #timesPerYearTo) <*> C.id)
+    |> (validateField #timesPerYearTo =<< (isGreaterEqualThan . get #timesPerYearFrom))
+    |> (validateField #timesPerYearAverage =<< (isInRange . ofFields #timesPerYearFrom #timesPerYearTo))
   where
     ofFields fieldFrom fieldTo = (,) <$> get fieldFrom <*> get fieldTo
 

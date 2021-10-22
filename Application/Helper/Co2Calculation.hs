@@ -12,3 +12,8 @@ calcCo2PerUnit = (/)
 
 calcCo2Factor :: Double -> Double -> Double -> Double
 calcCo2Factor gCo2e per consumption = gCo2e / per * consumption
+
+partsOfOnePersonFootPrintPerYear :: Double -> Double
+partsOfOnePersonFootPrintPerYear = flip (/) averageFootPrintPerYearPerPerson
+  where
+    averageFootPrintPerYearPerPerson = 6000.0
