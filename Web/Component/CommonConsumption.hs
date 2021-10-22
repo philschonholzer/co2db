@@ -60,8 +60,10 @@ instance Component CommonConsumption CommonConsumptionController where
           <style>
             .heavy { font: bold  20px sans-serif; }
           </style>
-          <text x="40" y="135" class="heavy"  >{((calcCo2Factor gCo2 1.0 amount) * timesPerYear)}</text>
-          <path fill="transparent" stroke="black" stroke-width="10" d={arc (SvgPoint 150 150) 50 0 $ ((calcCo2Factor gCo2 1.0 amount) * timesPerYear) / 20000}/>
+          {segmentMask (SvgPoint 150 150) 300 0 $ ((calcCo2Factor gCo2 1.0 amount) * timesPerYear) / 20000}
+          <text x="0" y="45" class="heavy"  >{((calcCo2Factor gCo2 1.0 amount) * timesPerYear)}</text>
+          <circle cx="150" cy="150" r="50" fill="lightgrey" />
+          <circle cx="150" cy="150" r="50" fill="red" mask="url(#segmentMask)"/>
         </svg>
 
         {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
