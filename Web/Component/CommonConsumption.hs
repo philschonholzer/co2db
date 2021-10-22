@@ -56,14 +56,14 @@ instance Component CommonConsumption CommonConsumptionController where
           <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
 
-        <svg style="width: 100%;" viewBox="0 0 300 300">
+        <svg style="width: 100%;" viewBox="0 0 300 200">
           <style>
             .heavy { font: bold  20px sans-serif; }
           </style>
-          {segmentMask (SvgPoint 150 150) 300 0 $ ((calcCo2Factor gCo2 1.0 amount) * timesPerYear) / 20000}
-          <text x="0" y="45" class="heavy"  >{((calcCo2Factor gCo2 1.0 amount) * timesPerYear)}</text>
-          <circle cx="150" cy="150" r="50" fill="lightgrey" />
-          <circle cx="150" cy="150" r="50" fill="red" mask="url(#segmentMask)"/>
+          {segmentMask (SvgPoint 150 100) 300 0 $ ((calcCo2Factor gCo2 1.0 amount) * timesPerYear) / 20000}
+          <circle cx="150" cy="100" r="75" fill="lightgrey" />
+          <circle cx="150" cy="100" r="75" fill="red" mask="url(#segmentMask)"/>
+          <text x="100" y="107" class="heavy"  >{((calcCo2Factor gCo2 1.0 amount) * timesPerYear)}</text>
         </svg>
 
         {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
