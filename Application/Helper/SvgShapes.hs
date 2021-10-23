@@ -1,4 +1,4 @@
-module Application.Helper.SvgShapes (segmentMask, SvgPoint (..)) where
+module Application.Helper.SvgShapes (segmentMask, partsToDeg, SvgPoint (..)) where
 
 import Application.Helper.Co2Calculation
 import Data.Fixed
@@ -17,10 +17,12 @@ instance Show SvgPoint where
 segmentMask :: SvgPoint -> Double -> Double -> Double -> Html
 segmentMask centerPoint size startAngle endAngle =
   [hsx|
+    <defs>
       <mask id="segmentMask">
         <polygon points={halfSqureMask} fill="white" transform={"rotate("<> tshow (startAngle) <>" "<>tshow centerPoint<>")"}/>
         <polygon points={halfSqureMask} fill={fillMask} transform={"rotate("<> tshow (endAngleMask) <>" "<>tshow centerPoint<>")"}/>
       </mask>
+    </defs>
   |]
   where
     halfSqureMask :: Text
@@ -65,3 +67,6 @@ segmentMask centerPoint size startAngle endAngle =
 
     tripleSize :: Text
     tripleSize = tshow $ size * 1.5
+
+partsToDeg :: Double -> Double
+partsToDeg parts = parts * 360

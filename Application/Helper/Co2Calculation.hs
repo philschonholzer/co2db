@@ -10,10 +10,13 @@ averageCo2Value sources = average $ perUnit <$> sources
 calcCo2PerUnit :: Double -> Double -> Double
 calcCo2PerUnit = (/)
 
-calcCo2Factor :: Double -> Double -> Double -> Double
-calcCo2Factor gCo2e per consumption = gCo2e / per * consumption
+calcCo2PerConsumption :: Double -> Double -> Double -> Double
+calcCo2PerConsumption gCo2e per consumption = gCo2e / per * consumption
+
+calcCo2PerYear :: Double -> Double -> Double
+calcCo2PerYear timesPerYear gCo2ePerConsumption = timesPerYear * gCo2ePerConsumption
 
 partsOfOnePersonFootPrintPerYear :: Double -> Double
 partsOfOnePersonFootPrintPerYear = flip (/) averageFootPrintPerYearPerPerson
   where
-    averageFootPrintPerYearPerPerson = 6000.0
+    averageFootPrintPerYearPerPerson = 6000000.0

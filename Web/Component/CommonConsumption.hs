@@ -1,5 +1,6 @@
 module Web.Component.CommonConsumption where
 
+import Data.Fixed
 import Generated.Types
 import IHP.QueryBuilder
 import IHP.ServerSideComponent.ControllerFunctions
@@ -44,7 +45,7 @@ instance Component CommonConsumption CommonConsumptionController where
           <span class="producer-amount">{amount |> twoDec}</span>
           <span class="producer-unit">&ensp;{unit}</span>
           {svg}
-          <span class="co2-amount amount">{calcCo2Factor gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
+          <span class="co2-amount amount">{calcCo2PerConsumption gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
         </p>
         
         <p style="font-size: 2em;">
@@ -53,22 +54,13 @@ instance Component CommonConsumption CommonConsumptionController where
         </p>
         <p style="font-size: 2em;">
           <span style="font-size: 1.5em">=&ensp;</span>
-          <span class="co2-amount timesPerYear">{((calcCo2Factor gCo2 1.0 amount) * timesPerYear) |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
+          <span class="co2-amount timesPerYear">{calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
 
-        <svg style="width: 100%;" viewBox="0 0 300 200">
-          <style>
-            .heavy { font: bold  20px sans-serif; }
-          </style>
-          {segmentMask (SvgPoint 150 100) 300 0 $ ((calcCo2Factor gCo2 1.0 amount) * timesPerYear) / 20000}
-          <circle cx="150" cy="100" r="75" fill="lightgrey" />
-          <circle cx="150" cy="100" r="75" fill="red" mask="url(#segmentMask)"/>
-          <text x="100" y="107" class="heavy"  >{((calcCo2Factor gCo2 1.0 amount) * timesPerYear)}</text>
-        </svg>
+        {renderCharts $ calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> partsOfOnePersonFootPrintPerYear}
 
         {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
         {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput" "Times per year"}
-
 
         {onInputScript}
       |]
@@ -115,6 +107,37 @@ instance Component CommonConsumption CommonConsumptionController where
             <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
           </svg>
         |]
+
+      renderCharts :: Double -> Html
+      renderCharts totalAmount =
+        [hsx|
+          <div style="display: flex; justify-content: space-around; padding: 0 4rem;">
+            <svg style="height: 0; position: absolute; width: 0;">
+              {segmentMask (SvgPoint 150 100) 300 0 $ (totalAmount |> (`mod'` 1) |> partsToDeg )}
+            </svg>
+            {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}      
+          </div>
+        |]
+        where
+          renderPieChart :: Double -> Html
+          renderPieChart amount =
+            [hsx|
+              <div style="margin-left: -140px; margin-right: -140px; transition: flex 1s;" >
+                <svg style="width: 100%;" viewBox="0 0 300 200">
+                  <style>
+                    .heavy { font: bold  20px sans-serif; }
+                    .shadow {filter: drop-shadow( 0px 0px 8px rgba(0, 0, 0, 0.2));}
+                  </style>
+                  <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
+                  <circle cx="150" cy="100" r="75" fill="red" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
+                  <text x="100" y="90" class="heavy"  >{amount}</text>
+                  <text x="100" y="120" class="heavy"  >{amount |> partsToDeg }</text>
+                </svg>
+              </div>
+            |]
+
+      fromPartsToListOfCharts :: Double -> [Double]
+      fromPartsToListOfCharts parts = replicate (floor parts) 1 <> [parts `mod'` 1]
 
   -- The action handlers
   action state SetValues {newAmount, newTimesPerYear, newGCo2} = do
