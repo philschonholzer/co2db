@@ -7,6 +7,7 @@ import IHP.ServerSideComponent.ControllerFunctions
 import IHP.ServerSideComponent.Types as SSC
 import IHP.ServerSideComponent.ViewFunctions
 import Numeric
+import Text.Printf (printf)
 import Web.Controller.Prelude hiding (getState, render, setState)
 import Web.View.Prelude hiding (fetch, query)
 
@@ -130,8 +131,7 @@ instance Component CommonConsumption CommonConsumptionController where
                   </style>
                   <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
                   <circle cx="150" cy="100" r="75" fill="red" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
-                  <text x="100" y="90" class="heavy"  >{amount}</text>
-                  <text x="100" y="120" class="heavy"  >{amount |> partsToDeg }</text>
+                  <text x="130" y="130" class="heavy"  >{amount |> (*100) |> twoDec |> (++ "%")}</text>
                 </svg>
               </div>
             |]
