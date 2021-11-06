@@ -45,7 +45,7 @@ instance Component CommonConsumption CommonConsumptionController where
         <p style="font-size: 2em;">
           <span class="producer-amount">{amount |> twoDec}</span>
           <span class="producer-unit">&ensp;{unit}</span>
-          {svg}
+          {arrow}
           <span class="co2-amount amount">{calcCo2PerConsumption gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
         </p>
         
@@ -102,7 +102,7 @@ instance Component CommonConsumption CommonConsumptionController where
           </script>
         |]
 
-      svg =
+      arrow =
         [hsx|
           <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
             <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
@@ -112,11 +112,14 @@ instance Component CommonConsumption CommonConsumptionController where
       renderCharts :: Double -> Html
       renderCharts totalAmount =
         [hsx|
-          <div style="display: flex; justify-content: space-around; padding: 0 4rem;">
-            <svg style="height: 0; position: absolute; width: 0;">
-              {segmentMask (SvgPoint 150 100) 300 0 $ (totalAmount |> (`mod'` 1) |> partsToDeg )}
-            </svg>
-            {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}      
+          <div>
+            <div style="display: flex; justify-content: space-around; padding-left: 100px; padding-right: 100px;">
+              <svg style="height: 0; position: absolute; width: 0;">
+                {segmentMask (SvgPoint 150 100) 300 0 $ (totalAmount |> (`mod'` 1) |> partsToDeg )}
+              </svg>
+              {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}
+            </div>
+            <div style="text-align: center; font-size: 2em;"><b>{totalAmount |> (*100) |> twoDec |> (++ "%")}</b><br/>of the complet ø CO<sub>2</sub>e Footprint of 1<svg viewBox="0 -5 20 60" style="height: 1em; width: 1em; transform: translateY(1px);">{personShape}</svg>per year</div>
           </div>
         |]
         where
@@ -131,9 +134,15 @@ instance Component CommonConsumption CommonConsumptionController where
                   </style>
                   <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
                   <circle cx="150" cy="100" r="75" fill="red" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
-                  <text x="130" y="130" class="heavy"  >{amount |> (*100) |> twoDec |> (++ "%")}</text>
+                  <g transform="translate(95,80) scale(0.8)">{personShape}</g>
                 </svg>
               </div>
+            |]
+
+          personShape :: Html
+          personShape =
+            [hsx|
+              <circle cx="9" cy="5" r="4"/><path d="M9,34.601l0.663,0l0,17.704l4.237,0l0,-36.252l0.893,-0l-0,13.846l2.886,0l-0,-18.048l-17.358,0l0,18.048l2.886,0l0,-13.846l0.893,-0l-0,36.252l4.237,0l-0,-17.704l0.663,0"/>
             |]
 
       fromPartsToListOfCharts :: Double -> [Double]
