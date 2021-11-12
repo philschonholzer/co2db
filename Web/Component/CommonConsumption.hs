@@ -142,10 +142,26 @@ instance Component CommonConsumption CommonConsumptionController where
               </div>
             |]
 
+          personIcon :: Html
+          personIcon =
+            [hsx|
+              <svg viewBox="0 -5 20 60" class="svg-icon">{personShape}</svg>
+            |]
+
           personShape :: Html
           personShape =
             [hsx|
-              <circle cx="9" cy="5" r="4"/><path d="M9,34.601l0.663,0l0,17.704l4.237,0l0,-36.252l0.893,-0l-0,13.846l2.886,0l-0,-18.048l-17.358,0l0,18.048l2.886,0l0,-13.846l0.893,-0l-0,36.252l4.237,0l-0,-17.704l0.663,0"/>
+              <circle cx="9" cy="5" r="4"/>
+              <path d="M9,32l0,20l4,0l0,-36l1,0l0,13l3,0l0,-18l-18,0l0,18l3,0l0,-13l1,0l-0,36l4,0l0,-20"/>
+            |]
+
+          totalFootprintInformationTooltip :: Html
+          totalFootprintInformationTooltip =
+            [hsx|
+              <div class="tooltip">
+                <p>The average {personIcon} has a <b>total</b>* CO<sub>2</sub>e footprint of 6000t per year.</p>
+                <p><small>* Not only this producer, but all CO<sub>2</sub>e combined of one person in one year.</small></p>
+              </div>
             |]
 
       fromPartsToListOfCharts :: Double -> [Double]
