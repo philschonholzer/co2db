@@ -45,7 +45,7 @@ instance View ShowView where
           <section class="co2-values">
             <div class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</div>
             <div class="common-consumption">
-              <h2>Common footprints per person</h2>
+              <h2>Possible footprints per person</h2>
               <div class="co2-value">
                 {renderSingleConsumtion co2Producer}
               </div>
