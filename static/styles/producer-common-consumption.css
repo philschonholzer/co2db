@@ -1,5 +1,4 @@
-.producer.show .common-consumption {
-  font-size: 0.5em;
+.common-consumption {
   flex: 1;
   max-width: 60em;
   padding: 2em;
@@ -7,26 +6,50 @@
   background: var(--background-highlight-color);
 }
 
-.producer.show .common-consumption h2 {
-  font-size: 3em;
+.common-consumption h2 {
   margin: 0.1em 0 1em;
-  white-space: break-spaces;
+  white-space: break-spaces !important;
 }
 
-.producer.show .common-consumption h3 {
-  font-size: 1.6em;
-}
-
-.producer.show .common-consumption p {
+.common-consumption p {
   margin: 0.2em;
 }
 
-.producer.show .common-consumption label {
+.common-consumption label {
   display: block;
-  font-size: 1.5em;
   margin-top: 2em;
 }
 
-.producer.show .common-consumption .co2-value + .co2-value {
+.common-consumption .co2-value + .co2-value {
   margin-top: 6em;
+}
+
+.common-consumption .operation-glyph {
+  font-size: 1.5em;
+}
+
+.common-consumption .arrow {
+  height: 1em;
+  width: 3em;
+}
+
+.common-consumption .charts-container {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.common-consumption .charts-description {
+  text-align: center;
+}
+
+.common-consumption .pie-chart-container {
+  margin-left: -140px;
+  margin-right: -140px;
+  transition: flex 1s;
+}
+
+.common-consumption .pie-chart {
+  width: 100%;
 }

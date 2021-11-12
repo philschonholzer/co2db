@@ -32,3 +32,9 @@ section {
 .label {
   font-size: 0.8em;
 }
+
+.svg-icon {
+  height: 1em;
+  width: 0.5em;
+  transform: translateY(1px);
+}

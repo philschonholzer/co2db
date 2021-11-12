@@ -1,6 +1,6 @@
 input.range {
-  --width: 4em;
-  --height: 4em;
+  --width: 3em;
+  --height: 3em;
   --thumb-size-ratio: 1.6;
   --track-height: calc(var(--height) / var(--thumb-size-ratio));
   --track-to-thumb: calc(

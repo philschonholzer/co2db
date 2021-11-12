@@ -42,19 +42,19 @@ instance Component CommonConsumption CommonConsumptionController where
 
   render CommonConsumption {amount, minAmount, maxAmount, timesPerYear, minTimesPerYear, maxTimesPerYear, gCo2, unit} =
     [hsx|
-        <p style="font-size: 2em;">
+        <p>
           <span class="producer-amount">{amount |> twoDec}</span>
           <span class="producer-unit">&ensp;{unit}</span>
           {arrow}
           <span class="co2-amount amount">{calcCo2PerConsumption gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
         </p>
         
-        <p style="font-size: 2em;">
-          <span style="font-size: 1.5em">×&ensp;</span>
+        <p>
+          <span class="operation-glyph">×&ensp;</span>
           <span class="producer-amount">{timesPerYear |> twoDec}</span> / year
         </p>
-        <p style="font-size: 2em;">
-          <span style="font-size: 1.5em">=&ensp;</span>
+        <p>
+          <span class="operation-glyph">=&ensp;</span>
           <span class="co2-amount timesPerYear">{calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
 
@@ -104,7 +104,7 @@ instance Component CommonConsumption CommonConsumptionController where
 
       arrow =
         [hsx|
-          <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
+          <svg class="arrow" viewBox="-20 0 140 100">
             <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
           </svg>
         |]
@@ -113,21 +113,24 @@ instance Component CommonConsumption CommonConsumptionController where
       renderCharts totalAmount =
         [hsx|
           <div>
-            <div style="display: flex; justify-content: space-around; padding-left: 100px; padding-right: 100px;">
+            <div class="charts-container">
               <svg style="height: 0; position: absolute; width: 0;">
                 {segmentMask (SvgPoint 150 100) 300 0 $ (totalAmount |> (`mod'` 1) |> partsToDeg )}
               </svg>
               {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}
             </div>
-            <div style="text-align: center; font-size: 2em;"><b>{totalAmount |> (*100) |> twoDec |> (++ "%")}</b><br/>of the complet ø CO<sub>2</sub>e Footprint of 1<svg viewBox="0 -5 20 60" style="height: 1em; width: 1em; transform: translateY(1px);">{personShape}</svg>per year</div>
+            <div class="charts-description tooltip-container"><b>{totalAmount |> (*100) |> twoDec |> (++ "%")}</b><br/>
+              of 1 {personIcon} total CO<sub>2</sub>e Footprint <a href="#" role="button" aria-lable="More information">&#9432;</a>
+              {totalFootprintInformationTooltip}
+            </div>
           </div>
         |]
         where
           renderPieChart :: Double -> Html
           renderPieChart amount =
             [hsx|
-              <div style="margin-left: -140px; margin-right: -140px; transition: flex 1s;" >
-                <svg style="width: 100%;" viewBox="0 0 300 200">
+              <div class="pie-chart-container" >
+                <svg class="pie-chart" viewBox="0 0 300 200">
                   <style>
                     .heavy { font: bold  20px sans-serif; }
                     .shadow {filter: drop-shadow( 0px 0px 8px rgba(0, 0, 0, 0.2));}
