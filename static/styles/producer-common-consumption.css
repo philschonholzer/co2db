@@ -36,8 +36,8 @@
 .common-consumption .charts-container {
   display: flex;
   justify-content: space-around;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 3em;
+  padding-right: 3em;
 }
 
 .common-consumption .charts-description {
@@ -45,8 +45,8 @@
 }
 
 .common-consumption .pie-chart-container {
-  margin-left: -140px;
-  margin-right: -140px;
+  margin-left: -9em;
+  margin-right: -9em;
   transition: flex 1s;
 }
 

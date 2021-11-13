@@ -7,6 +7,7 @@ import IHP.ServerSideComponent.ControllerFunctions
 import IHP.ServerSideComponent.Types as SSC
 import IHP.ServerSideComponent.ViewFunctions
 import Numeric
+import Protolude (identity)
 import Text.Printf (printf)
 import Web.Controller.Prelude hiding (getState, render, setState)
 import Web.View.Prelude hiding (fetch, query)
@@ -137,7 +138,7 @@ instance Component CommonConsumption CommonConsumptionController where
                   </style>
                   <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
                   <circle cx="150" cy="100" r="75" fill="red" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
-                  <g transform="translate(95,80) scale(0.8)">{personShape}</g>
+                  <g transform="translate(135,50) scale(1.8)">{personShape}</g>
                 </svg>
               </div>
             |]
