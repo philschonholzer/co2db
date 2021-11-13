@@ -15,22 +15,19 @@
   margin: 0.2em;
 }
 
+.common-consumption .input-grid {
+  display: grid;
+  grid: 'amountLable' 'amountInput' 'timesLable' 'timesInput';
+}
+
 .common-consumption label {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   margin-top: 2em;
 }
 
 .common-consumption .co2-value + .co2-value {
   margin-top: 6em;
-}
-
-.common-consumption .operation-glyph {
-  font-size: 1.5em;
-}
-
-.common-consumption .arrow {
-  height: 1em;
-  width: 3em;
 }
 
 .common-consumption .charts-container {

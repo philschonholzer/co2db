@@ -44,35 +44,35 @@ instance Component CommonConsumption CommonConsumptionController where
   render CommonConsumption {amount, minAmount, maxAmount, timesPerYear, minTimesPerYear, maxTimesPerYear, gCo2, unit} =
     [hsx|
         <p>
-          <span class="producer-amount">{amount |> twoDec}</span>
-          <span class="producer-unit">&ensp;{unit}</span>
-          {arrow}
           <span class="co2-amount amount">{calcCo2PerConsumption gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
         </p>
-        
         <p>
-          <span class="operation-glyph">×&ensp;</span>
-          <span class="producer-amount">{timesPerYear |> twoDec}</span> / year
-        </p>
-        <p>
-          <span class="operation-glyph">=&ensp;</span>
           <span class="co2-amount timesPerYear">{calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
 
         {renderCharts $ calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> partsOfOnePersonFootPrintPerYear}
 
-        {renderInput amount minAmount maxAmount "amountInput" "Single consumption"}
-        {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput" "Times per year"}
+        <div class="input-grid">
+          <label for="amountInput">
+            <div>Single consmuption</div>
+            <div><b>{amount |> twoDec}</b>&ensp;{unit}</div>
+          </label>
+          <label for="timesPerYearInput" style="grid-area: timesLable;">
+            <div>Times per year</div>
+            <div><b>{timesPerYear |> twoDec}</b></div>
+          </label>
+          {renderInput amount minAmount maxAmount "amountInput"}
+          {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput"}
+        </div>
 
         {onInputScript}
       |]
     where
-      renderInput :: Double -> Double -> Double -> String -> String -> Html
-      renderInput value minValue maxValue inputId labelTitle = case (minValue, maxValue) of
+      renderInput :: Double -> Double -> Double -> String -> Html
+      renderInput value minValue maxValue inputId = case (minValue, maxValue) of
         (min, max) | min == max -> [hsx||]
         _ ->
           [hsx|
-            <label for={inputId}>{labelTitle}</label>
             <input 
               id={inputId}
               class="range" 
@@ -103,13 +103,6 @@ instance Component CommonConsumption CommonConsumptionController where
           </script>
         |]
 
-      arrow =
-        [hsx|
-          <svg class="arrow" viewBox="-20 0 140 100">
-            <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
-          </svg>
-        |]
-
       renderCharts :: Double -> Html
       renderCharts totalAmount =
         [hsx|
@@ -121,7 +114,7 @@ instance Component CommonConsumption CommonConsumptionController where
               {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}
             </div>
             <div class="charts-description tooltip-container"><b>{totalAmount |> (*100) |> twoDec |> (++ "%")}</b><br/>
-              of 1 {personIcon} total CO<sub>2</sub>e Footprint <a href="#" role="button" aria-lable="More information">&#9432;</a>
+              of the <b>total</b> CO<sub>2</sub>e Footprint of 1 {personIcon}&ensp;<a href="#" role="button" aria-lable="More information">&#9432;</a>
               {totalFootprintInformationTooltip}
             </div>
           </div>
