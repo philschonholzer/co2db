@@ -137,7 +137,7 @@ instance Component CommonConsumption CommonConsumptionController where
                     .shadow {filter: drop-shadow( 0px 0px 8px rgba(0, 0, 0, 0.2));}
                   </style>
                   <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
-                  <circle cx="150" cy="100" r="75" fill="red" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
+                  <circle cx="150" cy="100" r="75" fill="var(--accent-color)" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
                   <g transform="translate(135,50) scale(1.8)">{personShape}</g>
                 </svg>
               </div>
