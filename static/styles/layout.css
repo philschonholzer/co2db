@@ -7,6 +7,7 @@ body {
 
 main {
   margin-bottom: 4rem;
+  overflow: hidden;
 }
 
 header.page-header {

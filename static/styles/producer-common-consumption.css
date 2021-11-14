@@ -1,9 +1,15 @@
 .common-consumption {
   flex: 1;
   max-width: 60em;
-  padding: 2em;
+  padding: 1em 1em 2em;
   border-radius: 1em;
   background: var(--background-highlight-color);
+}
+
+@media (min-width: 760px) {
+  .common-consumption {
+    padding: 2em;
+  }
 }
 
 .common-consumption h2 {
