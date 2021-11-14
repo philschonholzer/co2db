@@ -131,7 +131,7 @@ instance Component CommonConsumption CommonConsumptionController where
                   </style>
                   <circle cx="150" cy="100" r="75" fill="lightgrey" class="shadow" />
                   <circle cx="150" cy="100" r="75" fill="var(--accent-color)" mask={if amount /= 1.0 then "url(#segmentMask)" else tshow ""}/>
-                  <g transform="translate(135,50) scale(1.8)">{personShape}</g>
+                  <g transform="translate(135,50) scale(1.8)" style="fill: white; stroke: #333; stroke-width: 0.5; stroke-linejoin: round;">{personShape}</g>
                 </svg>
               </div>
             |]
@@ -139,14 +139,14 @@ instance Component CommonConsumption CommonConsumptionController where
           personIcon :: Html
           personIcon =
             [hsx|
-              <svg viewBox="0 -5 20 60" class="svg-icon">{personShape}</svg>
+              <svg viewBox="0 -2 20 55" class="svg-icon">{personShape}</svg>
             |]
 
           personShape :: Html
           personShape =
             [hsx|
-              <circle cx="9" cy="5" r="4"/>
-              <path d="M9,32l0,20l4,0l0,-36l1,0l0,13l3,0l0,-18l-18,0l0,18l3,0l0,-13l1,0l-0,36l4,0l0,-20"/>
+              <circle cx="9" cy="9" r="4"/>
+              <path d="M9,32l0,19l4,0l0,-30l1,0l0,13l3,0l0,-18l-18,0l0,18l3,0l0,-13l1,0l-0,30l4,0l0,-19"/>
             |]
 
           totalFootprintInformationTooltip :: Html
@@ -161,7 +161,6 @@ instance Component CommonConsumption CommonConsumptionController where
       fromPartsToListOfCharts :: Double -> [Double]
       fromPartsToListOfCharts parts = replicate (floor parts) 1 <> [parts `mod'` 1]
 
-  -- The action handlers
   action state SetValues {newAmount, newTimesPerYear, newGCo2} = do
     state
       |> set #amount newAmount
