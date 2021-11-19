@@ -43,14 +43,14 @@ instance Component CommonConsumption CommonConsumptionController where
 
   render CommonConsumption {amount, minAmount, maxAmount, timesPerYear, minTimesPerYear, maxTimesPerYear, gCo2, unit} =
     [hsx|
+        {renderCharts $ calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> partsOfOnePersonFootPrintPerYear}
+
         <p>
           <span class="co2-amount amount">{calcCo2PerConsumption gCo2 1.0 amount |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / consumption
         </p>
         <p>
           <span class="co2-amount timesPerYear">{calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> renderWeight}</span>&nbsp;CO<sub>2</sub>e / year
         </p>
-
-        {renderCharts $ calcCo2PerConsumption gCo2 1.0 amount |> calcCo2PerYear timesPerYear |> partsOfOnePersonFootPrintPerYear}
 
         <div class="input-grid">
           <label for="amountInput">
@@ -106,7 +106,7 @@ instance Component CommonConsumption CommonConsumptionController where
       renderCharts :: Double -> Html
       renderCharts totalAmount =
         [hsx|
-          <div>
+          <div class="percentage-of-total-co2">
             <div class="charts-container">
               <svg style="height: 0; position: absolute; width: 0;">
                 {segmentMask (SvgPoint 150 100) 300 0 $ (totalAmount |> (`mod'` 1) |> partsToDeg )}

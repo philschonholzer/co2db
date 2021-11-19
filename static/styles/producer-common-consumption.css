@@ -29,11 +29,20 @@
 .common-consumption label {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   margin-top: 2em;
+}
+
+.common-consumption label b {
+  font-size: 1.5em;
 }
 
 .common-consumption .co2-value + .co2-value {
   margin-top: 6em;
+}
+
+.common-consumption .percentage-of-total-co2 {
+  margin-bottom: 2em;
 }
 
 .common-consumption .charts-container {
