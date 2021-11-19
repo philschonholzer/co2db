@@ -55,11 +55,11 @@ instance Component CommonConsumption CommonConsumptionController where
         <div class="input-grid">
           <label for="amountInput">
             <div>Single consmuption</div>
-            <div><b>{amount |> twoDec}</b>&ensp;{unit}</div>
+            <div><b>{amount |> formatDecimal}</b>&ensp;{unit}</div>
           </label>
           <label for="timesPerYearInput" style="grid-area: timesLable;">
             <div>Times per year</div>
-            <div><b>{timesPerYear |> twoDec}</b></div>
+            <div><b>{timesPerYear |> formatDecimal}</b></div>
           </label>
           {renderInput amount minAmount maxAmount "amountInput"}
           {renderInput timesPerYear minTimesPerYear maxTimesPerYear "timesPerYearInput"}
@@ -113,7 +113,7 @@ instance Component CommonConsumption CommonConsumptionController where
               </svg>
               {forEach (totalAmount |> fromPartsToListOfCharts) renderPieChart}
             </div>
-            <div class="charts-description tooltip-container"><b>{totalAmount |> (*100) |> twoDec |> (++ "%")}</b><br/>
+            <div class="charts-description tooltip-container"><b>{totalAmount |> (*100) |> formatDecimal |> (++ "%")}</b><br/>
               of the <b>total</b> CO<sub>2</sub>e Footprint of 1 {personIcon}&ensp;<a href="#" role="button" aria-lable="More information">&#9432;</a>
               {totalFootprintInformationTooltip}
             </div>

@@ -14,6 +14,7 @@ let
             p.ihp
             url
             mmark
+            hspec
         ];
         otherDeps = p: with p; [
             ormolu

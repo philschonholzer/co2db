@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+nix-shell -p "ghcid" --run "ghcid '--command=ghci Test/Main.hs' --test=main"

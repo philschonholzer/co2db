@@ -1,4 +1,4 @@
-module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase, renderPer, twoDec) where
+module Web.View.Layout (defaultLayout, Html, renderWeight, calcAmountFromBase, renderPer) where
 
 import Data.Fixed
 import Generated.Types
@@ -149,18 +149,17 @@ instance CanSelect Category where
 
 instance CanSelect Unit where
   type SelectValue Unit = Unit
+  
   selectValue value = value
 
   selectLabel = tshow
 
 renderWeight :: Double -> Html
-renderWeight weight = [hsx|<span class="weight-integer-part">{weight `div'` 1000 |> show}</span><span class="weight-fractional-part">,{mod' weight 1000 |> threeDec}</span>kg|]
-
-threeDec :: Double -> String
-threeDec dec = dec |> printf "%03.0F"
-
-twoDec :: Double -> String
-twoDec dec = dec |> printf "%02.1F"
+renderWeight weight = 
+  [hsx|
+    <span class="weight-integer-part">{weight `div'` 1000 |> show}</span>
+    <span class="weight-fractional-part">,{mod' weight 1000 |> (printf "%03.0F" :: Double -> String)}</span>kg
+  |]
 
 calcAmountFromBase :: (?context :: ControllerContext) => Source' co2ProducerId userId -> (Source' co2ProducerId userId -> Double) -> H.Html
 calcAmountFromBase source consumption =
