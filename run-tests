@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ghci Test/Main.hs -v0 <<< 'main'
