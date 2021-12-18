@@ -10,7 +10,6 @@ import Data.Fixed
 import Application.Helper.Average
 
 
-
 data IndexView = IndexView {co2Producers :: [Include "sources" Co2Producer], searchTerm :: Maybe Text}
 
 instance View IndexView where
@@ -42,26 +41,28 @@ renderCo2Producer co2Producer =
           </a>
         </div>
         <div class="fields">
-          <div class="field co2-value">
-            {renderCo2Value co2Producer $ get #sources co2Producer}
-          </div>
+          {renderCo2Value co2Producer $ get #sources co2Producer}
           {editAndDeleteButtons} 
         </div>
       </div>
 |]
   where
-    renderCo2Value co2Producer sources = case average $ calcCo2PerUnit <$> sources of
-        Just a -> [hsx|
-            <p class="label">1{get #unit co2Producer}</p>
+    renderCo2Value co2Producer sources = case calcAverageCo2Value sources of
+      Just a -> [hsx|
+          <div class="field">
+            <p class="label">Possible CO<sub>2</sub>e per person-year</p>
             <div class="amount-per-unit">
               <p style="font-size: 1.5em;">
-                <span class="co2-amount">{a |> renderWeight}</span>&nbsp;CO<sub>2</sub>e
+                <span class="co2-amount">{calcPossibleCo2PerYear co2Producer a |> renderWeight}</span>
               </p>
             </div>
-          |]
-        Nothing -> [hsx|<p>-</p>|]
-        where
-          calcCo2PerUnit = (/) <$> get #gCo2e <*> get #per
+          </div>
+          <div class="field" style="display: flex; justify-content: space-between; align-items: baseline;">
+            <p class="label">1 {get #unit co2Producer}</p>
+            <p>{a |> (/1000) |> formatDecimal}&nbsp;kg&nbsp;CO<sub>2</sub>e</p>
+          </div>
+        |]
+      Nothing -> [hsx|<p>-</p>|]
 
     editAndDeleteButtons :: Html
     editAndDeleteButtons =
@@ -77,30 +78,3 @@ renderCo2Producer co2Producer =
                 </div>
               |]
         _ -> [hsx|  |]
-
-
-
---         <div class="field">
---           <p class="label">CO<sub>2</sub>e emissions</p>
---           <div class="amount-per-unit">
---             <span class="amount">{get #gCo2e co2Producer |> renderWeight}</span>
---             <span class="per fit">per <b>{get #per co2Producer |> renderPer}</b></span>
---             <span class="unit">{get #unit co2Producer}</span>
---           </div>
---         </div>
---         <div class="field">
---           <p class="label">Common CO<sub>2</sub>e consumption</p>
---           <div class="amount-per-unit">
---             <span class="amount">{calcAmountFromBase co2Producer commonConsumption}</span>
---             <span class="per fit">per <b>{get #commonConsumption co2Producer |> renderPer}</b></span>
---             <span class="unit">{get #unit co2Producer}</span>
---           </div>
---         </div>
---         <div class="field">
---           <p class="label">ø Yearly CO<sub>2</sub>e consumption</p>
---           <div class="amount-per-unit">
---             <span class="amount">{calcAmountFromBase co2Producer averageYearlyConsumption}</span>
---             <span class="per fit">per <b>{get #averageYearlyConsumption co2Producer |> renderPer}</b></span>
---             <span class="unit">{get #unit co2Producer}</span>
---           </div>
---         </div>

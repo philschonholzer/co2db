@@ -158,7 +158,7 @@ renderWeight :: Double -> Html
 renderWeight weight = 
   [hsx|
     <span class="weight-integer-part">{weight `div'` 1000 |> show}</span>
-    <span class="weight-fractional-part">.{mod' weight 1000 |> (printf "%03.0F" :: Double -> String)}</span>kg
+    <span class="weight-fractional-part">.{weight `mod'` 1000 |> (printf "%03.0F" :: Double -> String)}</span>kg
   |]
 
 calcAmountFromBase :: (?context :: ControllerContext) => Source' co2ProducerId userId -> (Source' co2ProducerId userId -> Double) -> H.Html

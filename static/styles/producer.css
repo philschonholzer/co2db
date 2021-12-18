@@ -80,16 +80,16 @@
   background-color: white;
 }
 
-.co2-value .co2-amount .weight-integer-part {
+.co2-amount .weight-integer-part {
   font-size: 2em;
   font-weight: bold;
 }
 
-.co2-value .co2-amount .weight-fractional-part {
+.co2-amount .weight-fractional-part {
   font-weight: bold;
   margin-right: 0.2em;
 }
 
-.co2-value .producer-amount {
+.producer-amount {
   font-size: 2em;
 }

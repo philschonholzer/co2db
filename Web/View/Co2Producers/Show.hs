@@ -59,7 +59,7 @@ instance View ShowView where
         </article>
     |]
     where
-      renderCo2Value co2Producer sources = case averageCo2Value sources of
+      renderCo2Value co2Producer sources = case calcAverageCo2Value sources of
         Just a -> [hsx|
             <p style="font-size: 2em; margin: 0;">
               <span class="producer-amount">1</span>
@@ -143,7 +143,7 @@ instance View ShowView where
                 |]
           _ -> [hsx|  |]
 
-      renderSingleConsumtion co2Producer = case averageCo2Value $ get #sources co2Producer of
+      renderSingleConsumtion co2Producer = case calcAverageCo2Value $ get #sources co2Producer of
         Just agCo2 -> [hsx|
             {commonConsumption co2Producer agCo2}
           |]
