@@ -90,7 +90,7 @@ stylesheets :: Html
 stylesheets =
   [hsx|
         <link rel="stylesheet" href="/vendor/flatpickr.min.css"/>
-        <link rel="stylesheet" href="/app.css"/>
+        <link rel="stylesheet" href={assetPath "/app.css"}/>
     |]
 
 scripts :: Html
