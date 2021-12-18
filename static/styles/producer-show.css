@@ -18,6 +18,11 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2em 4em;
+  margin-top: 4em;
+}
+
+.producer.show .description {
+  margin-top: 4em;
 }
 
 .producer.show .details {
@@ -47,15 +52,12 @@
   text-align: right;
 }
 
-.producer.show .description {
-  grid-area: description;
+.producer.show .source_heading {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
 }
 
 .producer.show .source {
   font-size: 0.8em;
-}
-
-@media (min-width: 768px) {
-  .producer.show .section-layout {
-  }
 }

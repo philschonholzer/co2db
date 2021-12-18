@@ -43,7 +43,10 @@ instance View ShowView where
             </div>
           </header>
           <section class="co2-values">
-            <div class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</div>
+            <div>
+              <div class="co2-value">{renderCo2Value co2Producer $ get #sources co2Producer}</div>
+              {renderDescription}
+            </div>
             <div class="common-consumption">
               <h2>Possible footprints per person</h2>
               <div class="co2-value">
@@ -51,11 +54,15 @@ instance View ShowView where
               </div>
             </div>
           </section>
-          <section class="description"><h2>Description</h2>{renderDescription}</section>
-          <a href={NewSourceAction (get #id co2Producer)}>Add Source</a>
-          <div class="details">
-            {forEach (get #sources co2Producer) renderDetail}
-          </div>
+          <section>
+            <div class="source_heading">
+              <h2>Sources</h2>
+              <a href={NewSourceAction (get #id co2Producer)}>Add Source</a>
+            </div>
+            <div class="details">
+              {forEach (get #sources co2Producer) renderDetail}
+            </div>
+          </section>
         </article>
     |]
     where
@@ -78,8 +85,13 @@ instance View ShowView where
             |]
 
       renderDescription = case get #description co2Producer of
-        Just a -> [hsx|<p>{a}</p>|]
-        Nothing -> [hsx|<p class="muted">No description</p>|]
+        Just a -> [hsx|
+            <div class="description">
+              <h2>Description</h2>
+              <p>{a}</p>
+            </div>
+          |]
+        Nothing -> [hsx||]
 
       renderMarkdown text =
         case text |> MMark.parse "" of
