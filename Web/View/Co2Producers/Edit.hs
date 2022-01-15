@@ -11,7 +11,7 @@ instance View EditView where
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
-              <li class="breadcrumb-item"><a href={ShowCo2ProducerAction (get #id co2Producer)}>{get #title co2Producer}</a> </li>
+              <li class="breadcrumb-item"><a href={getLink}>{get #title co2Producer}</a> </li>
               <li class="breadcrumb-item active">Edit {get #title co2Producer}</li>
             </ol>
           </nav>
@@ -20,13 +20,17 @@ instance View EditView where
         </header>
         <section>{renderForm co2Producer categories}</section>
     |]
+    where
+      getLink = ShowCo2ProducerAction Nothing (Just $ get #slug co2Producer)
 
 renderForm :: Co2Producer -> [Category] -> Html
 renderForm co2Producer categories =
-  formFor
+  formFor'
     co2Producer
+    (pathTo UpdateCo2ProducerAction {co2ProducerId = Just (get #id co2Producer), slug = Nothing})
     [hsx|
       {(textField #title) { required = True }}
+      {(textField #slug)  { disabled = True }}
       {(textField #description)}
       {(selectField #categoryId categories) { required = True }}
       {(selectField #unit $ allEnumValues @Unit ) { required = True }}

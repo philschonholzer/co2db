@@ -1,0 +1,1 @@
+ALTER TABLE co2_producers ALTER COLUMN slug SET NOT NULL;

@@ -44,7 +44,7 @@ instance Controller SourcesController where
                 Right source -> do
                     source <- source |> updateRecord
                     setSuccessMessage "Source updated"
-                    redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId source }
+                    redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
 
     action CreateSourceAction = do
         ensureIsUser
@@ -59,7 +59,7 @@ instance Controller SourcesController where
                 Right source -> do
                     source <- source |> createRecord
                     setSuccessMessage "Source created"
-                    redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId source }
+                    redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
 
     action DeleteSourceAction { sourceId } = do
         ensureIsUser
@@ -67,7 +67,7 @@ instance Controller SourcesController where
         accessDeniedUnless $ get #userId source == currentUserId
         deleteRecord source
         setSuccessMessage "Source deleted"
-        redirectTo ShowCo2ProducerAction { co2ProducerId = get #co2ProducerId source }
+        redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
 
 buildSource source = 
   source

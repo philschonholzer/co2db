@@ -34,7 +34,7 @@ renderCo2Producer co2Producer =
   [hsx|
       <div class="producer index">
         <div class="title">
-          <a href={ShowCo2ProducerAction (get #id co2Producer)}>
+          <a href={getLink}>
             <h2>
               {get #title co2Producer}
             </h2>
@@ -47,6 +47,7 @@ renderCo2Producer co2Producer =
       </div>
 |]
   where
+    getLink = ShowCo2ProducerAction { co2ProducerId = Nothing, slug = Just $ get #slug co2Producer  }
     renderCo2Value co2Producer sources = case calcAverageCo2Value sources of
       Just a -> [hsx|
           <div class="field">
@@ -72,8 +73,8 @@ renderCo2Producer co2Producer =
             [hsx|
                 <div class="field">
                   <div class="edit-delete">
-                    <a href={EditCo2ProducerAction (get #id co2Producer)}>Edit</a>&nbsp;
-                    <a href={DeleteCo2ProducerAction (get #id co2Producer)} class="js-delete">Delete</a>
+                    <a href={EditCo2ProducerAction (Just $ get #id co2Producer) Nothing}>Edit</a>&nbsp;
+                    <a href={DeleteCo2ProducerAction (Just $ get #id co2Producer) Nothing} class="js-delete">Delete</a>
                   </div>
                 </div>
               |]

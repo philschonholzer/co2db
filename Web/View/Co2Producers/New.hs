@@ -26,6 +26,7 @@ renderForm co2Producer categories =
     co2Producer
     [hsx|
       {(textField #title) { required = True }}
+      {(textField #slug)  { disabled = True }}
       {(textField #description)}
       {(selectField #categoryId categories) { required = True }}
       {(selectField #unit $ allEnumValues @Unit ) { required = True }}

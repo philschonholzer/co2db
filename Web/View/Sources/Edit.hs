@@ -11,7 +11,7 @@ instance View EditView where
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
-              <li class="breadcrumb-item"><a href={ShowCo2ProducerAction $ get #id co2Producer}>CO<sub>2</sub>{get #title co2Producer}</a> </li>
+              <li class="breadcrumb-item"><a href={ShowCo2ProducerAction Nothing (Just $ get #slug co2Producer)}>CO<sub>2</sub>{get #title co2Producer}</a> </li>
               <li class="breadcrumb-item active">Edit Source</li>
             </ol>
           </nav>

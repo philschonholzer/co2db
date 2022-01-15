@@ -18,7 +18,7 @@ data ShowView = ShowView {co2Producer :: Include "sources" Co2Producer}
 instance View ShowView where
   beforeRender ShowView { co2Producer } = do
     setOGTitle (get #title co2Producer)
-    setOGUrl (urlTo (ShowCo2ProducerAction (get #id co2Producer)) )
+    setOGUrl (urlTo (ShowCo2ProducerAction Nothing $ Just $ get #slug co2Producer ) )
     case get #description co2Producer of 
       Just desc -> do 
         setOGDescription desc
@@ -104,10 +104,13 @@ instance View ShowView where
           Just user
             | get #id user == get #userId co2Producer ->
               [hsx|
-                  <div class="edit-delete"><a href={EditCo2ProducerAction (get #id co2Producer)}>Edit</a>&nbsp;&nbsp;
-                  <a href={DeleteCo2ProducerAction (get #id co2Producer)} class="js-delete">Delete</a></div>
+                  <div class="edit-delete"><a href={editLink}>Edit</a>&nbsp;&nbsp;
+                  <a href={deleteLink} class="js-delete">Delete</a></div>
                 |]
           _ -> [hsx|  |]
+          where 
+            editLink = EditCo2ProducerAction (Just $ get #id co2Producer) Nothing
+            deleteLink = DeleteCo2ProducerAction (Just $ get #id co2Producer) Nothing
 
       showFromString :: String -> Text
       showFromString = tshow

@@ -14,7 +14,7 @@ CREATE TABLE co2_producers (
     times_per_year_from DOUBLE PRECISION NOT NULL,
     times_per_year_to DOUBLE PRECISION NOT NULL,
     times_per_year_average DOUBLE PRECISION NOT NULL,
-    slug TEXT DEFAULT NULL UNIQUE
+    slug TEXT NOT NULL UNIQUE
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
