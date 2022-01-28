@@ -10,6 +10,7 @@ instance HasPath StaticController where
 
 instance HasPath Co2ProducersController where
   pathTo (ShowCo2ProducerAction _ (Just slug)) = "/producers/" <> slug
+  pathTo (ShowCo2ProducerAction (Just id) _) = "/producers/" <> tshow id
   pathTo (EditCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/edit"
   pathTo (UpdateCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/update"
   pathTo (DeleteCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/delete"

@@ -74,7 +74,7 @@ instance Controller Co2ProducersController where
           render NewView {..}
         Right co2Producer -> do
           co2Producer <- co2Producer |> createRecord
-          redirectTo Co2ProducersAction
+          redirectTo NewSourceAction { co2ProducerId = get #id co2Producer}
 
   action DeleteCo2ProducerAction {co2ProducerId, slug} = do
     ensureIsUser

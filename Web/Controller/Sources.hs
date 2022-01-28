@@ -42,9 +42,9 @@ instance Controller SourcesController where
                   co2Producer <- fetch $ get #co2ProducerId source
                   render EditView { .. }
                 Right source -> do
-                    source <- source |> updateRecord
-                    setSuccessMessage "Source updated"
-                    redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
+                  source <- source |> updateRecord
+                  setSuccessMessage "Source updated"
+                  redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
 
     action CreateSourceAction = do
         ensureIsUser
@@ -57,9 +57,9 @@ instance Controller SourcesController where
                   co2Producer <- fetch $ get #co2ProducerId source
                   render NewView { .. } 
                 Right source -> do
-                    source <- source |> createRecord
-                    setSuccessMessage "Source created"
-                    redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
+                  source <- source |> createRecord
+                  setSuccessMessage "Source created"
+                  redirectTo ShowCo2ProducerAction { co2ProducerId = Just $ get #co2ProducerId source, slug = Nothing }
 
     action DeleteSourceAction { sourceId } = do
         ensureIsUser

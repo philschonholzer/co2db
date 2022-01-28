@@ -20,8 +20,10 @@ tests =
         pathTo NewCo2ProducerAction `shouldBe` "/producers/new"
       it "generates correct path for create" do
         pathTo CreateCo2ProducerAction `shouldBe` "/producers/CreateCo2Producer"
-      it "generates correct path for show" do
+      it "generates correct path for show (slug)" do
         pathTo (ShowCo2ProducerAction Nothing (Just "beef")) `shouldBe` "/producers/beef"
+      it "generates correct path for show (id)" do
+        pathTo (ShowCo2ProducerAction (Just "0bca60db-571e-4cdd-b02a-8d5b9e7e6295") Nothing) `shouldBe` "/producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295"
       it "generates correct path for edit" do
         pathTo (EditCo2ProducerAction (Just (Id "eb61267e-17db-4709-b7ee-bb55252c3c22")) Nothing) `shouldBe` "/producers/eb61267e-17db-4709-b7ee-bb55252c3c22/edit"
       it "generates correct path for update" do

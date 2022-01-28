@@ -11,6 +11,7 @@ import Web.Types
 import Network.Wai (responseHeaders)
 import BasicPrelude (encodeUtf8)
 import Debug.Trace
+import Data.ByteString
 
 tests :: Spec
 tests = aroundAll (withIHPApp WebApplication config) do
@@ -41,7 +42,7 @@ tests = aroundAll (withIHPApp WebApplication config) do
         callActionWithParams CreateCo2ProducerAction [("title", "Beef"), ("description", "Description of co2 producer"), ("categoryId", encodeUtf8 $ tshow $ get #id category), ("userId", encodeUtf8 $ tshow $ get #id user)]
 
       let (Just location) = lookup "Location" (responseHeaders response)
-      location `shouldBe` "http://localhost:8000/producers/"
+      location `shouldSatisfy` Data.ByteString.isInfixOf "http://localhost:8000/NewSource?co2ProducerId="
 
       -- Only one co2 producer should exist.
       count <- query @Co2Producer |> fetchCount
