@@ -35,7 +35,8 @@ CREATE TABLE sources (
     g_co2e DOUBLE PRECISION NOT NULL,
     per DOUBLE PRECISION NOT NULL,
     description TEXT NOT NULL,
-    user_id UUID NOT NULL
+    user_id UUID NOT NULL,
+    name TEXT DEFAULT '' NOT NULL
 );
 CREATE INDEX sources_co2_producer_id_index ON sources (co2_producer_id);
 CREATE INDEX sources_user_id_index ON sources (user_id);

@@ -50,7 +50,7 @@ renderForm co2Producer categories =
         <p><small>How many times is a single unit consumed per year.</small></p>
       </fieldset>
       {(textField #image)}
-      {submitButton { label = "Add CO2 Producer" } }
+      {submitButton { label = "Next" } }
     |]
   where
     commonHelpText = "in Units"

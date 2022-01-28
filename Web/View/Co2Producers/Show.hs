@@ -19,8 +19,8 @@ instance View ShowView where
   beforeRender ShowView { co2Producer } = do
     setOGTitle (get #title co2Producer)
     setOGUrl (urlTo (ShowCo2ProducerAction Nothing $ Just $ get #slug co2Producer ) )
-    case get #description co2Producer of 
-      Just desc -> do 
+    case get #description co2Producer of
+      Just desc -> do
         setOGDescription desc
         setDescription desc
       Nothing -> pure ()
@@ -77,7 +77,7 @@ instance View ShowView where
           |]
         Nothing -> [hsx|<p>-</p>|]
         where
-          svg = 
+          svg =
             [hsx|
               <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
                 <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
@@ -108,7 +108,7 @@ instance View ShowView where
                   <a href={deleteLink} class="js-delete">Delete</a></div>
                 |]
           _ -> [hsx|  |]
-          where 
+          where
             editLink = EditCo2ProducerAction (Just $ get #id co2Producer) Nothing
             deleteLink = DeleteCo2ProducerAction (Just $ get #id co2Producer) Nothing
 
@@ -118,7 +118,7 @@ instance View ShowView where
       renderDetail source = [hsx|
         <div class="detail">
           <div class="information">
-            {renderInformation source}
+            {get #name source}{renderInformation source}
           </div>
           <div class="fields data">
             <div class="field">
@@ -138,12 +138,10 @@ instance View ShowView where
         </div>
         |]
 
-      renderInformation source = if isJust (get #year source) || isJust (get #region source)
-                                            then [hsx|{fromMaybe "" $ get #region source}{renderYear $ get #year source}|]
-                                            else [hsx|<span class="muted">Not specified</span>|]
+      renderInformation source = [hsx|{renderField (get #region source)}{renderField (get #year source)}|]
         where
-          renderYear (Just year) = ", " <> show year
-          renderYear Nothing = ""
+          renderField (Just field) = ", " <> show field
+          renderField Nothing = ""
 
       editAndDeleteDetailButtons :: Source -> Html
       editAndDeleteDetailButtons source =
@@ -164,10 +162,10 @@ instance View ShowView where
           |]
         Nothing -> [hsx|<p>-</p>|]
         where
-          commonConsumption co2Producer agCo2 = componentFromState 
-            CommonConsumption { 
-              amount    = get #singleConsumptionAverage co2Producer, 
-              minAmount = get #singleConsumptionFrom co2Producer, 
+          commonConsumption co2Producer agCo2 = componentFromState
+            CommonConsumption {
+              amount    = get #singleConsumptionAverage co2Producer,
+              minAmount = get #singleConsumptionFrom co2Producer,
               maxAmount = get #singleConsumptionTo co2Producer,
               timesPerYear = get #timesPerYearAverage co2Producer,
               minTimesPerYear = get #timesPerYearFrom co2Producer,

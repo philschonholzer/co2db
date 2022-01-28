@@ -26,6 +26,7 @@ renderForm source co2Producer =
     source
     [hsx|
     {(hiddenField #co2ProducerId)}
+    {(textField #name)}
     {(textField #region)}
     {(textField #year)}
     {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e" }}

@@ -71,7 +71,8 @@ instance Controller SourcesController where
 
 buildSource source = 
   source
-    |> fill @["co2ProducerId","region","year","gCo2e","per","description","userId"]
+    |> fill @["co2ProducerId","name","region","year","gCo2e","per","description","userId"]
+    |> validateField #name nonEmpty
     |> emptyValueToNothing #region
     |> validateField #gCo2e (isInRange (1, 2000000))
     |> validateField #per (isInRange (1, 2000000))
