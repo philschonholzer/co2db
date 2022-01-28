@@ -1,25 +1,37 @@
 module Test.Web.RoutesSpec where
 
-import IHP.Prelude
-import IHP.RouterPrelude
+import qualified Data.Attoparsec.ByteString as Attoparsec
+import IHP.ControllerPrelude
+import IHP.Test.Mocking
 import Test.Hspec
+import Web.FrontController
 import Web.Types
-import Web.View.Prelude
 
-tests :: Spec
-tests = describe "Routes" $ do
-  describe "CO2 Producers" do
-    it "generates correct path for root" do
-      pathTo Co2ProducersAction `shouldBe` "/producers/"
-    it "generates correct path for new" do
-      pathTo NewCo2ProducerAction `shouldBe` "/producers/new"
-    it "generates correct path for create" do
-      pathTo CreateCo2ProducerAction `shouldBe` "/producers/CreateCo2Producer"
-    it "generates correct path for show" do
-      pathTo (ShowCo2ProducerAction Nothing (Just "beef")) `shouldBe` "/producers/beef"
-    it "generates correct path for edit" do
-      pathTo (EditCo2ProducerAction (Just (Id "eb61267e-17db-4709-b7ee-bb55252c3c22")) Nothing) `shouldBe` "/producers/eb61267e-17db-4709-b7ee-bb55252c3c22/edit"
-    it "generates correct path for update" do
-      pathTo (UpdateCo2ProducerAction (Just (Id "eb61267e-17db-4709-b7ee-bb55252c3c22")) Nothing) `shouldBe` "/producers/eb61267e-17db-4709-b7ee-bb55252c3c22/update"
-    it "generates correct path for delete" do
-      pathTo (DeleteCo2ProducerAction (Just (Id "eb61267e-17db-4709-b7ee-bb55252c3c22")) Nothing) `shouldBe` "/producers/eb61267e-17db-4709-b7ee-bb55252c3c22/delete"
+tests = beforeAll (mockContextNoDatabase WebApplication (pure ())) do
+  describe "Web.Routes" do
+    describe "Co2ProducerController" do
+      it "should be available at /producers" $ withContext do
+        "/producers/" `shouldRouteTo` Co2ProducersAction
+
+      it "should be available at /producers/new" $ withContext do
+        "/producers/new" `shouldRouteTo` NewCo2ProducerAction
+
+      it "should be available at /producers" $ withContext do
+        "/producers/CreateCo2Producer" `shouldRouteTo` CreateCo2ProducerAction
+
+      it "should be available at /producers/beef" $ withContext do
+        "/producers/beef" `shouldRouteTo` ShowCo2ProducerAction {co2ProducerId = Nothing, slug = Just "beef"}
+
+      it "should be available at /producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295" $ withContext do
+        "/producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295" `shouldRouteTo` ShowCo2ProducerAction {co2ProducerId = Just "0bca60db-571e-4cdd-b02a-8d5b9e7e6295", slug = Nothing}
+
+      it "should be available at /producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/edit" $ withContext do
+        "/producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/edit" `shouldRouteTo` EditCo2ProducerAction {co2ProducerId = Just "0bca60db-571e-4cdd-b02a-8d5b9e7e6295", slug = Nothing}
+
+      it "should be available at /producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/update" $ withContext do
+        "/producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/update" `shouldRouteTo` UpdateCo2ProducerAction {co2ProducerId = Just "0bca60db-571e-4cdd-b02a-8d5b9e7e6295", slug = Nothing}
+
+      it "should be available at /producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/delete" $ withContext do
+        "/producers/0bca60db-571e-4cdd-b02a-8d5b9e7e6295/delete" `shouldRouteTo` DeleteCo2ProducerAction {co2ProducerId = Just "0bca60db-571e-4cdd-b02a-8d5b9e7e6295", slug = Nothing}
+
+shouldRouteTo path action = Attoparsec.parseOnly parseRoute' path `shouldBe` Right action

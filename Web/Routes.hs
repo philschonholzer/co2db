@@ -64,7 +64,7 @@ instance CanRoute Co2ProducersController where
           string "CreateCo2Producer"
           pure CreateCo2ProducerAction
 
-    co2ProducerRoot <|> co2ProducerUpdate <|> co2ProducerEdit <|> co2ProducerDelete <|> co2ProducerNew <|> co2ProducerCreate <|> co2ProducerBySlug <|> co2ProducerById
+    co2ProducerRoot <|> co2ProducerUpdate <|> co2ProducerEdit <|> co2ProducerDelete <|> co2ProducerNew <|> co2ProducerCreate <|> co2ProducerById <|> co2ProducerBySlug
 
 -- Generator Marker
 instance AutoRoute SourcesController
