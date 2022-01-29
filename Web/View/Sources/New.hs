@@ -33,7 +33,7 @@ renderForm source co2Producer =
     {(textField #year)}
     {(textField #gCo2e) { required = True, fieldLabel = "Grams (g) CO₂e"}}
     {(textField #per) { required = True, helpText = perHelpText }}
-    {(textareaField #description) { required = True }}
+    {(textareaField #description) { required = True, additionalAttributes = [ ("rows", "10") ] }}
     <p>Please provide the precise text from the source link. Best is to add 
       the text to the end of the link like this: 
       https://sourcedomain.org/somelink<b>#:~:text=This%20is%20the%20text%20I%20want%20to%20quote.</b></p>
