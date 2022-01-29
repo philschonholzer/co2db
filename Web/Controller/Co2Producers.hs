@@ -12,7 +12,7 @@ import Data.Char (isSpace)
 instance Controller Co2ProducersController where
   action Co2ProducersAction = do
     let searchTerm = paramOrNothing @Text "search"
-    setTitle "CO₂ Footprints"
+    setTitle "CO₂ emissions"
     case searchTerm of
       Nothing -> do
         co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #sources
@@ -34,7 +34,7 @@ instance Controller Co2ProducersController where
 
   action ShowCo2ProducerAction {co2ProducerId, slug} = do
     co2Producer <- fetchCo2Producer co2ProducerId slug >>= fetchRelated #sources
-    setTitle $ get #title co2Producer <> " CO₂ Footprint"
+    setTitle $ get #title co2Producer <> " CO₂ emission"
     render ShowView {..}
 
   action EditCo2ProducerAction {co2ProducerId, slug} = do
@@ -42,7 +42,7 @@ instance Controller Co2ProducersController where
     co2Producer <- fetchCo2Producer co2ProducerId slug
     categories <- query @Category |> fetch
     accessDeniedUnless $ get #userId co2Producer == currentUserId
-    setTitle $ "Edit " <> get #title co2Producer <> " CO₂ Footprint"
+    setTitle $ "Edit " <> get #title co2Producer <> " CO₂ emission"
     render EditView {..}
 
   action UpdateCo2ProducerAction {co2ProducerId, slug} = do
