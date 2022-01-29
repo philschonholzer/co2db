@@ -79,7 +79,7 @@ instance View ShowView where
         where
           svg =
             [hsx|
-              <svg style="height: 1em; width: 3em;" viewBox="-20 0 140 100">
+              <svg style="height: 1em; width: 2em;" viewBox="-20 0 140 100">
                 <path fill="transparent" stroke="black" stroke-width="10" d="M -10,50 L 90,50 M 50,10 L 90,50 L 50,90"/>
               </svg>
             |]

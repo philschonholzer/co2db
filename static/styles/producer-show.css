@@ -3,10 +3,17 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 2rem;
+  margin-top: 2em;
 }
 
 .producer.show header h1 {
   margin: 0;
+  line-height: 1em;
+}
+
+.producer.show header h1 small {
+  font-size: 0.5em;
+  font-weight: 400;
 }
 
 .producer.show .edit-delete {
@@ -17,6 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: baseline;
   gap: 2em 4em;
   margin-top: 4em;
 }
@@ -29,7 +37,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1rem;
-  margin: 2em 0 4em 0;
+  margin: 1em 0 4em 0;
 }
 
 .producer.show .detail {
