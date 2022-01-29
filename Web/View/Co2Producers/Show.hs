@@ -33,12 +33,12 @@ instance View ShowView where
           <header>
             <nav>
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+                <li class="breadcrumb-item"><a href={Co2ProducersAction}>Contributors</a></li>
                 <li class="breadcrumb-item active">{get #title co2Producer}</li>
               </ol>
             </nav>
             <div class="title">
-              <h1>CO<sub>2</sub> Footprint of {get #title co2Producer}</h1>
+              <h1>{get #title co2Producer}<br><small>CO<sub>2</sub> emissions</small> </h1>
               {editAndDeleteButtons}
             </div>
           </header>

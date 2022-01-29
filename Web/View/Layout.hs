@@ -32,7 +32,7 @@ defaultLayout inner =
                 </a>
                 <ul class="collapse-items" id="navbarSupportedContent">
                     <li class="nav-item">
-                      <a class="nav-link" href={Co2ProducersAction}>CO<sub>2</sub> Producers</a>
+                      <a class="nav-link" href={Co2ProducersAction}>CO<sub>2</sub> Contributors</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href={AboutAction} tabindex="-1">About</a>

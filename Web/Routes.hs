@@ -9,14 +9,14 @@ instance HasPath StaticController where
   pathTo HowToContributeAction = "/how-to-contribute"
 
 instance HasPath Co2ProducersController where
-  pathTo (ShowCo2ProducerAction _ (Just slug)) = "/producers/" <> slug
-  pathTo (ShowCo2ProducerAction (Just id) _) = "/producers/" <> tshow id
-  pathTo (EditCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/edit"
-  pathTo (UpdateCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/update"
-  pathTo (DeleteCo2ProducerAction (Just id) _) = "/producers/" <> tshow id <> "/delete"
-  pathTo NewCo2ProducerAction = "/producers/new"
-  pathTo CreateCo2ProducerAction = "/producers/CreateCo2Producer"
-  pathTo _ = "/producers/"
+  pathTo (ShowCo2ProducerAction _ (Just slug)) = "/c/" <> slug
+  pathTo (ShowCo2ProducerAction (Just id) _) = "/c/" <> tshow id
+  pathTo (EditCo2ProducerAction (Just id) _) = "/c/" <> tshow id <> "/edit"
+  pathTo (UpdateCo2ProducerAction (Just id) _) = "/c/" <> tshow id <> "/update"
+  pathTo (DeleteCo2ProducerAction (Just id) _) = "/c/" <> tshow id <> "/delete"
+  pathTo NewCo2ProducerAction = "/c/new"
+  pathTo CreateCo2ProducerAction = "/c/CreateCo2Producer"
+  pathTo _ = "/c/"
 
 instance CanRoute StaticController where
   parseRoute' =
@@ -25,7 +25,7 @@ instance CanRoute StaticController where
 
 instance CanRoute Co2ProducersController where
   parseRoute' = do
-    string "/producers/"
+    string "/c/"
     let co2ProducerById = do
           id <- parseId
           endOfInput

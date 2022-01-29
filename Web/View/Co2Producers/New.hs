@@ -10,12 +10,12 @@ instance View NewView where
         <header>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Contributors</a></li>
               <li class="breadcrumb-item active">New {get #title co2Producer}</li>
             </ol>
           </nav>
 
-          <h1>New CO<sub>2</sub> Producer</h1>
+          <h1>New CO<sub>2</sub> Contributor</h1>
         </header>
         <section>{renderForm co2Producer categories}</section>
     |]

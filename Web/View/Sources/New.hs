@@ -10,7 +10,7 @@ instance View NewView where
       <header>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+                <li class="breadcrumb-item"><a href={Co2ProducersAction}>Contributors</a></li>
                 <li class="breadcrumb-item"><a href={ShowCo2ProducerAction Nothing (Just $ get #slug co2Producer)}>{get #title co2Producer}</a></li>
                 <li class="breadcrumb-item active">Add Source</li>
             </ol>

@@ -10,13 +10,13 @@ instance View EditView where
         <header>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Producers</a></li>
+              <li class="breadcrumb-item"><a href={Co2ProducersAction}>Contributors</a></li>
               <li class="breadcrumb-item"><a href={getLink}>{get #title co2Producer}</a> </li>
               <li class="breadcrumb-item active">Edit {get #title co2Producer}</li>
             </ol>
           </nav>
 
-          <h1>Edit Producer</h1>
+          <h1>Edit Contributor</h1>
         </header>
         <section>{renderForm co2Producer categories}</section>
     |]
@@ -54,7 +54,7 @@ renderForm co2Producer categories =
         <p><small>How many times is a single unit consumed per year.</small></p>
       </fieldset>
       {(textField #image)}
-      {submitButton { label = "Update CO2 Producer" } }
+      {submitButton { label = "Update CO2 Contributor" } }
     |]
   where
     commonHelpText = "in Units"
