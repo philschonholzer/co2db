@@ -26,7 +26,7 @@ defaultLayout inner =
         <header class="page-header">
           <div class="container">
             <nav>
-                <a class="navbar-brand" href="/">CO<sub>2</sub> Database</a>
+                <a class="navbar-brand" href="/">CO<sub>2</sub> Data</a>
                 <a tabindex="0" class="menu-button" role="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   Menu
                 </a>
@@ -50,7 +50,7 @@ defaultLayout inner =
         </main>
         <footer class="page-footer">
           <div class="container">
-            <p>2021 CO<sub>2</sub> Database</p>
+            <p>2022&ensp;•&ensp;co2data.org</p>
           </div>
         </footer>
       </body>

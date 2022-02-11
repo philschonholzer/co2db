@@ -1,6 +1,6 @@
 :root {
   --blue: #007bff;
-  --gray: #6c757d;
+  --gray: #f5f5f5;
   --light-gray: #f8f9fa;
   --medium-gray: #ddd;
   --darken: #0000000a;
@@ -10,7 +10,7 @@
   --accent-color: hsl(var(--accent-hue), 100%, 40%);
 
   --background-color: white;
-  --background-highlight-color: var(--darken);
+  --background-highlight-color: var(--gray);
 
   --background-1: hsl(var(--accent-hue), 100%, 99.5%);
   --background-2: hsl(var(--accent-hue), 100%, 98%);
@@ -21,7 +21,7 @@
   --boarder-color: var(--accent-color);
 
   --text-color: #222;
-  --muted-color: var(--gray);
+  --text-color-navigation: hsl(0, 0%, 26%);
 
   --line-color: var(--medium-gray);
 

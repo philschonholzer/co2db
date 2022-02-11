@@ -15,3 +15,7 @@
 .producer.index .title a {
   color: white;
 }
+
+h2.contributer-title {
+  margin: 2em 0 1em;
+}

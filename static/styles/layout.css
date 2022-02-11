@@ -11,12 +11,21 @@ main {
 }
 
 header.page-header {
-  background-color: var(--darken);
+  position: sticky;
+  top: 0;
+  background-color: var(--gray);
+  z-index: 100;
 }
 
 main header {
-  margin-top: clamp(1rem, 4vw, 3rem);
-  margin-bottom: 2rem;
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  color: var(--accent-color);
+}
+
+main header h1 {
+  margin-bottom: 0;
 }
 
 footer.page-footer {

@@ -9,13 +9,12 @@
 }
 
 .page-header nav a {
-  color: var(--text-color);
-  opacity: var(--muted);
+  color: var(--text-color-navigation);
 }
 
 .page-header nav a:hover {
   text-decoration: none;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 nav .navbar-brand {

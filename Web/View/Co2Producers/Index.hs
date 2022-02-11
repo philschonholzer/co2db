@@ -16,7 +16,7 @@ instance View IndexView where
   html IndexView {..} =
     [hsx|
         <header>
-          <h1>CO<sub>2</sub> Contributors <a href={pathTo NewCo2ProducerAction} class="btn btn-primary ml-4">+ New</a></h1>
+          <h1>CO<sub>2</sub> Data</h1>
         </header>
         <form method="get" action="/">
           <div class="search-group">
@@ -24,6 +24,7 @@ instance View IndexView where
             <button type="submit">Search</button>
           </div>
         </form>
+        <h2 class="contributer-title">Contributers <a href={pathTo NewCo2ProducerAction} class="btn btn-primary ml-4">+ New</a></h2>
         <div class="producers">
             {forEach co2Producers renderCo2Producer}
         </div>
