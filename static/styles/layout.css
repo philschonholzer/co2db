@@ -18,9 +18,12 @@ header.page-header {
 }
 
 main header {
-  font-size: 2em;
   margin-top: 2em;
   margin-bottom: 1em;
+}
+
+main header.root-page {
+  font-size: 2em;
   color: var(--accent-color);
 }
 

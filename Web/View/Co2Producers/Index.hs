@@ -15,7 +15,7 @@ data IndexView = IndexView {co2Producers :: [Include "sources" Co2Producer], sea
 instance View IndexView where
   html IndexView {..} =
     [hsx|
-        <header>
+        <header class="root-page">
           <h1>CO<sub>2</sub> Data</h1>
         </header>
         <form method="get" action="/">
