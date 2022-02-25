@@ -128,7 +128,7 @@ instance View ShowView where
               </div>
             </div>
             <div class="field stretch">
-              <p class="label">Source</p>
+              <p class="label"><b>Source</b></p>
               <div class="source">
                 <p class="">{renderMarkdown $ get #description source}</p>
               </div>
