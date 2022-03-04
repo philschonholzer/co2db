@@ -40,6 +40,7 @@ instance Controller SourcesController where
             |> ifValid \case
                 Left source -> do 
                   co2Producer <- fetch $ get #co2ProducerId source
+                  setErrorMessage "Could not create source. See if all fields have valid values."
                   render EditView { .. }
                 Right source -> do
                   source <- source |> updateRecord
@@ -55,6 +56,7 @@ instance Controller SourcesController where
             |> ifValid \case
                 Left source -> do
                   co2Producer <- fetch $ get #co2ProducerId source
+                  setErrorMessage "Could not create source. See if all fields have valid values."
                   render NewView { .. } 
                 Right source -> do
                   source <- source |> createRecord

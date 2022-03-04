@@ -55,6 +55,7 @@ instance Controller Co2ProducersController where
       >>= ifValid \case
         Left co2Producer -> do
           categories <- query @Category |> fetch
+          setErrorMessage "Could not create CO₂ producer. See if all fields have valid values."
           render EditView {..}
         Right co2Producer -> do
           co2Producer <- co2Producer |> updateRecord
@@ -71,6 +72,7 @@ instance Controller Co2ProducersController where
       >>= ifValid \case
         Left co2Producer -> do
           categories <- query @Category |> fetch
+          setErrorMessage "Could not create CO₂ producer. See if all fields have valid values."
           render NewView {..}
         Right co2Producer -> do
           co2Producer <- co2Producer |> createRecord

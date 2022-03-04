@@ -5,6 +5,7 @@
   --medium-gray: #ddd;
   --darken: #0000000a;
   --red: #aa0000;
+  --green: #12b378;
   --accent-hue: 211;
 
   --accent-color: hsl(var(--accent-hue), 100%, 40%);

@@ -42,9 +42,9 @@ defaultLayout inner =
             </nav>
           </div>
         </header>
+        {renderFlashMessages}
         <main>
           <div class="container mt-4">
-                {renderFlashMessages}
                 {inner}
           </div>
         </main>
