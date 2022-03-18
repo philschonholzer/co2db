@@ -1,15 +1,51 @@
+.transportation {
+  --category-color: var(--color-2);
+  --category-lum-9: var(--color-2-lum-9);
+  --category-lum-8: var(--color-2-lum-8);
+  --category-lum-7: var(--color-2-lum-7);
+  --category-lum-6: var(--color-2-lum-6);
+}
+.buildings {
+  --category-color: var(--color-3);
+  --category-lum-9: var(--color-3-lum-9);
+  --category-lum-8: var(--color-3-lum-8);
+  --category-lum-7: var(--color-3-lum-7);
+  --category-lum-6: var(--color-3-lum-6);
+}
+.agriculture {
+  --category-color: var(--color-4);
+  --category-lum-9: var(--color-4-lum-9);
+  --category-lum-8: var(--color-4-lum-8);
+  --category-lum-7: var(--color-4-lum-7);
+  --category-lum-6: var(--color-4-lum-6);
+}
+.electricity {
+  --category-color: var(--color-1);
+  --category-lum-9: var(--color-1-lum-9);
+  --category-lum-8: var(--color-1-lum-8);
+  --category-lum-7: var(--color-1-lum-7);
+  --category-lum-6: var(--color-1-lum-6);
+}
+.industry {
+  --category-color: var(--color-5);
+  --category-lum-9: var(--color-5-lum-9);
+  --category-lum-8: var(--color-5-lum-8);
+  --category-lum-7: var(--color-5-lum-7);
+  --category-lum-6: var(--color-5-lum-6);
+}
+
 .producer.index {
   display: flex;
   flex-direction: column;
   max-width: 24rem;
-  border: 4px solid var(--boarder-color);
+  border: 4px solid var(--category-color);
   border-radius: 0.4em;
   overflow: hidden;
 }
 
 .producer.index .title {
   padding: 1em;
-  background-color: var(--accent-color);
+  background-color: var(--category-color);
 }
 
 .producer.index .title a {

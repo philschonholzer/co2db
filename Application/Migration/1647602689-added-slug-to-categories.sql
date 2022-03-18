@@ -1,0 +1,1 @@
+ALTER TABLE categories ADD COLUMN slug TEXT DEFAULT '' NOT NULL;

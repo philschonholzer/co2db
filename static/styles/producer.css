@@ -28,18 +28,19 @@
 
 .producer .field {
   padding: 1em;
+  background-color: var(--accent-color);
 }
 .producer .field:nth-child(1) {
-  background-color: var(--background-2);
+  background-color: var(--category-lum-9);
 }
 .producer .field:nth-child(2) {
-  background-color: var(--background-3);
+  background-color: var(--category-lum-8);
 }
 .producer .field:nth-child(3) {
-  background-color: var(--background-4);
+  background-color: var(--category-lum-7);
 }
 .producer .field:nth-child(4) {
-  background-color: var(--background-1);
+  background-color: var(--category-lum-6);
 }
 
 .producer .field p {

@@ -15,15 +15,15 @@ instance Controller Co2ProducersController where
     setTitle "CO₂ emissions"
     case searchTerm of
       Nothing -> do
-        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #sources
+        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #categoryId >>= collectionFetchRelated #sources
         render IndexView {..}
       Just "" -> do
-        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #sources
+        co2Producers <- query @Co2Producer |> fetch >>= collectionFetchRelated #categoryId >>= collectionFetchRelated #sources
         render IndexView {..}
       Just justSearchTerm -> do
         co2Producers <- query @Co2Producer
           |> filterWhereIMatches (#title, ".*(" <> matchTerm justSearchTerm <> ").*")
-          |> fetch >>= collectionFetchRelated #sources
+          |> fetch >>= collectionFetchRelated #categoryId >>= collectionFetchRelated #sources
         render IndexView {..}
 
   action NewCo2ProducerAction = do
@@ -108,11 +108,11 @@ buildCo2Producer co2Producer =
     |> emptyValueToNothing #description
     |> (slugifyField #slug =<< get #title)
     |> validateField #singleConsumptionFrom (isGreaterEqualThan 0)
-    |> (validateField #singleConsumptionTo =<< (isGreaterEqualThan . get #singleConsumptionFrom)) -- same as (flip (validateField #singleConsumptionTo) <*> (isGreaterEqualThan . get #singleConsumptionFrom))
-    |> (validateField #singleConsumptionAverage =<< (isInRange . ofFields #singleConsumptionFrom #singleConsumptionTo))
+    |> (validateField #singleConsumptionTo =<< isGreaterEqualThan . get #singleConsumptionFrom) -- same as (flip (validateField #singleConsumptionTo) <*> (isGreaterEqualThan . get #singleConsumptionFrom))
+    |> (validateField #singleConsumptionAverage =<< isInRange . ofFields #singleConsumptionFrom #singleConsumptionTo)
     |> validateField #timesPerYearFrom (isGreaterEqualThan 0)
-    |> (validateField #timesPerYearTo =<< (isGreaterEqualThan . get #timesPerYearFrom))
-    |> (validateField #timesPerYearAverage =<< (isInRange . ofFields #timesPerYearFrom #timesPerYearTo))
+    |> (validateField #timesPerYearTo =<< isGreaterEqualThan . get #timesPerYearFrom)
+    |> (validateField #timesPerYearAverage =<< isInRange . ofFields #timesPerYearFrom #timesPerYearTo)
   where
     ofFields fieldFrom fieldTo = (,) <$> get fieldFrom <*> get fieldTo
 

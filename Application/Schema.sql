@@ -18,7 +18,8 @@ CREATE TABLE co2_producers (
 );
 CREATE TABLE categories (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
-    title TEXT NOT NULL
+    title TEXT NOT NULL,
+    slug TEXT DEFAULT '' NOT NULL
 );
 CREATE TABLE users (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,

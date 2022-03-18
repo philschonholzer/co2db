@@ -10,7 +10,7 @@ import Data.Fixed
 import Application.Helper.Average
 
 
-data IndexView = IndexView {co2Producers :: [Include "sources" Co2Producer], searchTerm :: Maybe Text}
+data IndexView = IndexView {co2Producers :: [Include' ["sources", "categoryId"] Co2Producer], searchTerm :: Maybe Text}
 
 instance View IndexView where
   html IndexView {..} =
@@ -33,7 +33,7 @@ instance View IndexView where
 
 renderCo2Producer co2Producer =
   [hsx|
-      <div class="producer index">
+      <div class={"producer index " <> get #slug category }>
         <div class="title">
           <a href={getLink}>
             <h2>
@@ -48,6 +48,7 @@ renderCo2Producer co2Producer =
       </div>
 |]
   where
+    category = get #categoryId co2Producer
     getLink = ShowCo2ProducerAction { co2ProducerId = Nothing, slug = Just $ get #slug co2Producer  }
     renderCo2Value co2Producer sources = case calcAverageCo2Value sources of
       Just a -> [hsx|
